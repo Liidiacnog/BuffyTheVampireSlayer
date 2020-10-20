@@ -13,7 +13,7 @@ Resistance: 5 lives.
 Damage: Each bite effects 1 point of damage on its target (removes one of its lives).
 Frequency: At most one bite per cycle.
 Speed: 1 tile every 2 cycles.
-Graphics: Represented on the board by the ASCII text “VˆV”
+Graphics: Represented on the board by the ASCII text “VˆV”;
 */
 
 
