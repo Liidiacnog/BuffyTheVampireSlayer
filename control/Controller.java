@@ -1,5 +1,15 @@
 package control;
 
+/*
+ * Controller: Clase para controlar la ejecución del juego, preguntando al usuario qué quiere hacer y actualizando la partida de acuerdo a lo que éste indique. La clase Controller necesita al menos dos atributos privados:
+
+private Game game; private Scanner in;
+
+El objeto in sirve para leer de la consola las órdenes del usuario. La clase Controller implementa el método público public void run() que controla el bucle principal del juego. Concretamente, mientras la partida no esté finalizada, solicita órdenes al usuario y las ejecuta.
+
+Durante la ejecución de la aplicación solo se creará un objeto de la clase Controller
+ */
+
 import java.util.Scanner;
 
 import logic.Game;

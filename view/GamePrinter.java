@@ -1,5 +1,9 @@
 package view;
 
+/*
+ * Recibe el game y tiene un método toString que sirve para pintar el juego como veíamos anteriormente.
+ */
+
 import logic.Game;
 import utils.MyStringUtils;
 
@@ -44,7 +48,7 @@ public class GamePrinter {
 		StringBuilder str = new StringBuilder();
 
 		str.append(lineEdge);
-		for(int i=0; i<numRows; i++) {
+		for(int i = 0; i < numRows; i++) {
 		        str.append(margin).append(vDelimiter);
 		        for (int j=0; j<numCols; j++)
 		            str.append( MyStringUtils.centre(board[i][j], cellSize)).append(vDelimiter);

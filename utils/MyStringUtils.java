@@ -1,8 +1,5 @@
 package utils;
 
-/*  
- * Author: Simon Pickin, 28/09/17
- */
 
 public class MyStringUtils {
 	public static String repeat(String elmnt, int length) {
