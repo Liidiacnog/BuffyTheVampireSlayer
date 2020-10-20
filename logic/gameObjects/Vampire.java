@@ -29,7 +29,7 @@ public class Vampire {
 	private static int resistance = 5, 
 			frequency = 1, //in Level.java, it is a double type
 			damage = 1;
-	private static vampLeftBoard, vampToPlace, vampMadeIt;
+	private static int vampLeftBoard, vampToPlace, vampMadeIt;
 	
 	private int life = 5;
 	
