@@ -23,11 +23,12 @@ public class Game {
 
 	//fields
 	private static Level lvl;
-	
+	private Long seed;
 	
 	//constructor
 	public Game(Long seed, Level lvl) {
-		//TODO 
+		this.lvl = lvl;
+		this.seed = seed;
 	}
 	
 	
