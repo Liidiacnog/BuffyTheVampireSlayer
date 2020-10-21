@@ -17,8 +17,6 @@ Graphics: Represented on the board by the ASCII text “VˆV”;
 */
 
 
-
-
 /*La gestión de  cuántos  vampiros  quedan  por  salir,  cuántos  vampiros  están  en el tablero o si los vampiros  han llegado
  *   al final  se realizará desde la propia  clase Vampire utilizando variables y métodos estáticos. El Game accederá a esos métodos
  *    para mostrar la información o para terminar el juego cuando sea necesario
