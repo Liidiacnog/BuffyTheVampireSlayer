@@ -49,8 +49,12 @@ public class Vampire {
 	
 	//methods
 	
-	void bite() {
+	void bite(Game currentGame) {
 		
+	}
+	
+	void beenHit() {
+		life--;
 	}
 }
 
