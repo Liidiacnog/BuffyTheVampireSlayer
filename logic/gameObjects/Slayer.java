@@ -49,4 +49,8 @@ public class Slayer {
 	void fire() {
 		
 	}
+	
+	void beenBitten() {
+		life--;
+	}
 }
