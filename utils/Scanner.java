@@ -1,6 +1,6 @@
 package utils;
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 import control.Controller;
 import logic.Game;
