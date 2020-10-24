@@ -22,10 +22,7 @@ Graphics: Represented on the board by the ASCII text “<->”.
 
 public class Slayer {
 
-	private static int cost = 50, 
-			resistance = 3, 
-			frequency = 1, //in Level.java, it is a double type
-			damage = 1;
+	private static int cost = 50, resistance = 3, frequency = 1, damage = 1;
 	
 	private int life;
 	
@@ -42,6 +39,7 @@ public class Slayer {
 	public Slayer(int x, int y) {
 		this.x = x;
 		this.y = y;
+		life = resistance;
 	}
 	
 	//methods
@@ -52,5 +50,17 @@ public class Slayer {
 	
 	void beenBitten() {
 		life--;
+	}
+	
+	public void draw() {
+		System.out.print(" " + representation + "[" + life + "] ");
+	}
+
+	public boolean isHere(int i, int j) {
+		boolean found = false;
+		if (x == i && y == j) {
+			found = true;
+		}
+		return found;
 	}
 }

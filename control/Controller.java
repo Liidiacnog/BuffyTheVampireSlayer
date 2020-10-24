@@ -41,7 +41,9 @@ public class Controller {
     
     public void  printGame() {
    	 System.out.println(game);
-   }
+    }
+    
+    
     
     /*On each cycle of the game, the following actions are carried out in sequence:
 
@@ -55,7 +57,18 @@ public class Controller {
 
     */
     public void run() {
-		// TODO fill your code
+    	String str;
+    	int ok = 0;
+    	while (ok == 0) {
+    		game.draw();
+    		
+    		
+    		
+    		str = scanner.nextLine();
+        	ok = Integer.parseInt(str);
+    	}
+    	
+    	
     }
 
 }

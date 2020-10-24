@@ -10,4 +10,8 @@ public class Player {
 	private int coins = 50; //The player starts the game with 50 coins and on each turn has a probability of 50% of receiving 10 coins.
 	
 	
+	public int getCoins() {
+    	return coins;
+    }
+	
 }
