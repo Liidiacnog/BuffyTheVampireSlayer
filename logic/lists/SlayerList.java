@@ -35,4 +35,9 @@ public class SlayerList {
 	public void draw(int i) {
 		slayers[i].draw();
 	}
+
+	public void addSlayer(int x, int y) {
+		slayers[size] = new Slayer(x, y);
+		size++;
+	}
 }

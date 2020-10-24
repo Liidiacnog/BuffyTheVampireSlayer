@@ -45,6 +45,41 @@ public class Game {
 		System.out.print("Command > ");
 		
 	}
+
+
+	public char command(String str) {
+		char output = '0';
+		str = str.toLowerCase();
+		if (str.equals("h") || str.equals("help")) {
+			output = 'h';
+		} else if (str.equals("r") || str.equals("reset")) {
+			output = 'c'; // c de correct
+		} else if (str.equals("e") || str.equals("exit")) {
+			output = 'e';
+		}  else if (str.equals("n") || str.equals("none") || str.equals("")) {
+			output = 'c'; // c de correct
+		} else if (str.startsWith("a ") || str.startsWith("add ")) {
+			String[] parts = str.split(" ");
+			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
+			//System.out.println(x + " " + y);
+			if (board.validCords(x, y)) { // The arguent of enaughtCoins should be a variable
+				if (player.enaughCoins(50)) {
+					board.addSlayer(x, y);
+					player.payCoins(50);
+				} else {
+					System.out.println("Not enaught coins");
+				}
+				output = 'c';	
+			} else {
+				output = 'p'; // p of (invalid) position
+			}
+		} else {
+			output = 'i'; // i of invalid
+		}
+		
+		
+		return output;
+	}
 	
 	
 	

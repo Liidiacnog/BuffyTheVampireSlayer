@@ -33,6 +33,7 @@ public class Vampire {
 	
 	private int x, y; //position coordinates on the board
 	private boolean placed;
+	private boolean moveBefore;
 	
 	private static String representation = "VˆV";
 	
@@ -45,6 +46,7 @@ public class Vampire {
 		this.x = x;
 		this.y = y;
 		placed = false;
+		moveBefore = true;
 	}
 	
 	//methods

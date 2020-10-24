@@ -26,17 +26,23 @@ public class GameObjectBoard {
 	}
 	
 	public void draw() {
+		int pos;
 		for (int i = 0; i < rows; i++) {
 			System.out.println(rowSeparation);
 			for (int j = 0; j < columns; j++) {
 				System.out.print("|");
-				if (vamps.isHere(i + 1,  Math.abs(rows - j)) != -1) {
-					vamps.draw(i);
-				} else if (slayers.isHere(i + 1,  Math.abs(rows - j)) != -1){
-					slayers.draw(i);
-				} else {
-					System.out.print("        ");
+				pos = vamps.isHere(j + 1,  Math.abs(rows - i));
+				if (pos != -1) {
+					vamps.draw(pos);
+				} else { 
+					pos = slayers.isHere(j + 1,  Math.abs(rows - i));
+					if (pos != -1){
+						slayers.draw(pos);
+					} else {
+						System.out.print("        ");
+					}
 				}
+				// System.out.print("  " + (j + 1) + "  " + Math.abs(rows - i) + "  ");
 			}
 			System.out.println("|");
 		}
@@ -49,6 +55,21 @@ public class GameObjectBoard {
 
 	public int vampsOn() {
 		return vamps.onBoard();
+	}
+
+	public boolean validCords(int x, int y) {
+		boolean valid = false;
+		if (x > 0 && y > 0 && y <= rows && x <= columns) {
+			if (slayers.isHere(x, y) == -1 && vamps.isHere(x, y) == -1) {
+				valid = true;
+			}
+		}
+		
+		return valid;
+	}
+
+	public void addSlayer(int x, int y) {
+		slayers.addSlayer(x, y);
 	}
 	
 }

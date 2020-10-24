@@ -42,9 +42,7 @@ public class Controller {
     public void  printGame() {
    	 System.out.println(game);
     }
-    
-    
-    
+   
     /*On each cycle of the game, the following actions are carried out in sequence:
 
     1.	Draw. Sends the current state of the board and other game information to the standard output.
@@ -56,16 +54,34 @@ public class Controller {
     7.	Check end. Check whether the game has ended.
 
     */
+    
     public void run() {
     	String str;
-    	int ok = 0;
-    	while (ok == 0) {
+    	char ok = 0;
+    	while (ok != 'e') {
     		game.draw();
-    		
-    		
-    		
     		str = scanner.nextLine();
-        	ok = Integer.parseInt(str);
+    		ok = game.command(str);
+    		while (ok != 'c' && ok != 'e') {
+    			if (ok == 'i') {
+    				System.out.println();
+        			System.out.println(invalidCommandMsg);
+        		} else if (ok == 'p') {
+        			System.out.println(invalidPositionMsg);
+        		}
+    			System.out.println(helpMsg);
+    			System.out.print(prompt);
+    			str = scanner.nextLine();
+        		ok = game.command(str);
+    		}
+    		if (ok == 'e') {
+    			System.out.println("Game Over!");
+    		} else {
+    			
+    			
+    			
+    			
+    		}
     	}
     	
     	

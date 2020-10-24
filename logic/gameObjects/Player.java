@@ -13,5 +13,15 @@ public class Player {
 	public int getCoins() {
     	return coins;
     }
+
+
+	public boolean enaughCoins(int i) {
+		return (coins >= i);
+	}
+
+
+	public void payCoins(int i) {
+		coins = coins - i;
+	}
 	
 }
