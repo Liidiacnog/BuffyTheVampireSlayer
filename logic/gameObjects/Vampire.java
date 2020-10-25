@@ -17,15 +17,20 @@ Graphics: Represented on the board by the ASCII text “VˆV”;
 */
 
 
-/*La gestión de  cuántos  vampiros  quedan  por  salir,  cuántos  vampiros  están  en el tablero o si los vampiros  han llegado
- *   al final  se realizará desde la propia  clase Vampire utilizando variables y métodos estáticos. El Game accederá a esos métodos
- *    para mostrar la información o para terminar el juego cuando sea necesario
+/*The class Vampire itself is responsible for managing
+◦	the total number of vampires that can appear in the game,
+◦	how many vampires are on the board,
+◦	whether or not the vampires have reached the l.h.s. of the board,
+using static attributes or methods. 
+
+The ame object will access these attributes/methods to display information or to terminate the game when necessary.
  */
 
 public class Vampire {
 
 	private static int frequency = 1, damage = 1;
-	//private static int vampLeftBoard, vampToPlace, vampMadeIt;
+	//how many vampires are on the board, total number of vampires that can appear in the game
+	private static int vampLeftBoard, vampThisLevel; 
 	
 	private int life = 5;
 	
@@ -33,7 +38,7 @@ public class Vampire {
 	
 	private int x, y; //position coordinates on the board
 	private boolean placed;
-	private boolean moveBefore;
+	private boolean moveBefore; //check whether it is its turn to move or not(they move each 2 cycles)
 	
 	private static String representation = "VˆV";
 	
@@ -42,17 +47,29 @@ public class Vampire {
 	 * los métodos de la clase Game para consultar si pueden hacer o no una determinada acción.*/
 	private Game currentGame;
 	
-	public Vampire (int x, int y) {
+	//constructor 
+	
+	public Vampire (int x, int y, int lvlVamps) {
 		this.x = x;
 		this.y = y;
 		placed = false;
 		moveBefore = true;
+		vampLeftBoard = 0;
+		vampThisLevel = lvlVamps;
 	}
 	
 	//methods
 	
+		//affect others
+	
+	public void bite(Game currentGame) {
+		//game has to ask board, who has to tell lists, who have to tell slayers to say if there is one close enough to be bitten
+	}
+	
+		//own state
+	
 	public void draw() {
-		System.out.print(" " + representation + "[" + life + "] ");
+		System.out.print(" " + representation + "[" + life + "]");
 	}
 	
 	public boolean isHere(int i, int j) {
@@ -63,14 +80,17 @@ public class Vampire {
 		return found;
 	}
 	
-	void bite(Game currentGame) {
-		
-	}
-	
-	void beenHit() {
-		life--;
+	public void beenHit() {
+		life -= Slayer.getDamage();
 	}
 
+			//getters
+
+	
+	public static int getDamage() {
+		return damage;
+	}
+	
 	public boolean getPlaced() {
 		return placed;
 	}

@@ -1,9 +1,8 @@
 package logic.gameObjects;
 
 /*
- * Esta clase sirve para llevar el control de los atributos propios del jugador, que de momento son sólo las monedas que tiene disponibles. 
- * Puedes también tener una referencia al generador de números aleatorios (instancia de Random) y así poder recurrir a él cuando toque 
- * calcular si se reciben o no monedas. PERO SIMON HA DICHO QUE PREFIERE QUE A LA CLASE RANDOM SOLO SE LA HAGA REFERENCIA EN GAME
+ * This class encapsulates the state and behaviour of the player. For the moment, the state comprises only the number of coins in the player’s
+ *  possession. Note that there will only ever be one instance of the Player class in the program, which we will refer to as the player object.
  */
 
 public class Player {

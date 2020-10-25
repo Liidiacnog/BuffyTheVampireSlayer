@@ -23,12 +23,12 @@ Graphics: Represented on the board by the ASCII text “<->”.
 public class Slayer {
 
 	private static int cost = 50, resistance = 3, frequency = 1, damage = 1;
+	private static String representation =  "<->";
 	
 	private int life;
 	
 	private int x, y; //position coordinates on the board
 	
-	private static String representation =  "<->";
 	
 	
 	/*Slayer y Vampire tienen un atributo en el que almacenan una referencia al juego, eso es, una instancia de la clase Game 
@@ -39,21 +39,15 @@ public class Slayer {
 	public Slayer(int x, int y) {
 		this.x = x;
 		this.y = y;
-		life = resistance;
+		life = resistance; //just initially
 	}
 	
 	//methods
 	
-	void fire() {
-		
-	}
-	
-	void beenBitten() {
-		life--;
-	}
+			//affect others
 	
 	public void draw() {
-		System.out.print(" " + representation + "[" + life + "] ");
+		System.out.print(" " + representation + "[" + life + "]");
 	}
 
 	public boolean isHere(int i, int j) {
@@ -63,4 +57,26 @@ public class Slayer {
 		}
 		return found;
 	}
+
+	public void fire() {
+		//TODO game has to ask board, who has to tell lists, who have to tell vampires to say if there is one close enough to get hit
+	}	
+		
+			//own state
+		
+	public void beenBitten() {
+		life -= Vampire.getDamage();
+	}
+	
+	
+
+				//getters
+	
+	public static int getDamage() {
+		return damage;
+	}
+	
+	
 }
+	
+	

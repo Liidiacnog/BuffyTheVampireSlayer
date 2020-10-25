@@ -9,6 +9,8 @@ Esta clase debe ser quien lleve la puntuación y también guardar una referencia
  representa la partida en curso. Durante la ejecución de la aplicación solo se creará un objeto de la clase Game
  */
 
+//SIMON HA DICHO QUE PREFIERE QUE A LA CLASE RANDOM SOLO SE LA HAGA REFERENCIA EN GAME
+
 public class Game {
 
 	//fields
