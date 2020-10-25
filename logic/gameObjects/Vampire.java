@@ -24,30 +24,44 @@ Graphics: Represented on the board by the ASCII text “VˆV”;
 
 public class Vampire {
 
-	private static int resistance = 5, 
-			frequency = 1, //in Level.java, it is a double type
-			damage = 1;
-	private static int vampLeftBoard, vampToPlace, vampMadeIt;
+	private static int frequency = 1, damage = 1;
+	//private static int vampLeftBoard, vampToPlace, vampMadeIt;
 	
 	private int life = 5;
 	
 	//speed= 0.5; //1 tile every 2 cycles
 	
 	private int x, y; //position coordinates on the board
+	private boolean placed;
+	private boolean moveBefore;
 	
-	private static String representation =  "VˆV";
+	private static String representation = "VˆV";
 	
-	/*Slayer y Vampire tienen un atributo en el que almacenan una referencia al juego, eso es, una instancia de la clase Game 
+	/* Slayer y Vampire tienen un atributo en el que almacenan una referencia al juego, eso es, una instancia de la clase Game 
 	 * (que será la única en el programa) que como veremos contiene la lógica del juego. De este modo, estas clases podrán usar
-	 *  los métodos de la clase Game para consultar si pueden hacer o no una determinada acción.*/
+	 * los métodos de la clase Game para consultar si pueden hacer o no una determinada acción.*/
 	private Game currentGame;
 	
 	public Vampire (int x, int y) {
 		this.x = x;
 		this.y = y;
+		placed = false;
+		moveBefore = true;
 	}
 	
 	//methods
+	
+	public void draw() {
+		System.out.print(" " + representation + "[" + life + "] ");
+	}
+	
+	public boolean isHere(int i, int j) {
+		boolean found = false;
+		if (x == i && y == j && placed) {
+			found = true;
+		}
+		return found;
+	}
 	
 	void bite(Game currentGame) {
 		
@@ -55,6 +69,10 @@ public class Vampire {
 	
 	void beenHit() {
 		life--;
+	}
+
+	public boolean getPlaced() {
+		return placed;
 	}
 }
 

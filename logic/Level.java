@@ -37,4 +37,16 @@ public enum Level {
         return allLevels.substring(0, allLevels.length() - separator.length());
     }
 
+	public int getVampNumber() {
+		return numberOfVampires;
+	}
+
+	public int getRows() {
+		return dim_y;
+	}
+
+	public int getColums() {
+		return dim_x;
+	}
+
 }
