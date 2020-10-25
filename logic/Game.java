@@ -5,18 +5,22 @@ Esta clase debe ser quien lleve la puntuación y también guardar una referencia
  representa la partida en curso. Durante la ejecución de la aplicación solo se creará un objeto de la clase Game
  */
 
-
 public class Game {
 
 	//fields
 	private static Level lvl;
+
 	private Long seed;
+
 	private GameObjectBoard board;
 	
 	//constructor
 	public Game(Long seed, Level lvl) {
+
 		this.lvl = lvl;
 		this.seed = seed;
+		//TODO what seed?
+
 	}
 	
 	
