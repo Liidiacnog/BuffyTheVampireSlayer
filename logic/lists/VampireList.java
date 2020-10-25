@@ -1,6 +1,7 @@
 package logic.lists;
 
 import logic.Game;
+
 import logic.gameObjects.Vampire;
 
 /*
@@ -29,7 +30,7 @@ public class VampireList {
 		}
 	}
 	
-	public int isHere(int x, int y) {
+	public int isHere(int x, int y) { //if not found, returns -1, if found, return position in array
 		boolean found = false;
 		int i = 0;
 		while (!found && i < size) {
@@ -71,4 +72,28 @@ public class VampireList {
 		return sum;
 	}
 	
+	public void moveVamps(int i) {
+			vamp[i].move();
+	}
+	
+	public int getSize() {
+		return size;
+	}
+	
+	public int getX(int position) {
+		return vamp[position].getX();
+	}
+	
+	public int getY(int position) {
+		return vamp[position].getY();
+	}
+	
+	public void getHit(int pos, int harm) {
+		vamp[pos].beenHit(harm);
+	}
+	
+	
+	public int getDamage(int pos) {
+		return vamp[pos].getDamage();
+	}
 }

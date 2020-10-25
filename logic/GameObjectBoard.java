@@ -1,7 +1,6 @@
 package logic;
 
-import logic.lists.SlayerList;
-import logic.lists.VampireList;
+import logic.lists.*;
 
 //tablero
 //DOESNT KNOW WHERE THINGS ARE, IT HAS TO ASK THE LISTS
@@ -71,5 +70,77 @@ public class GameObjectBoard {
 	public void addSlayer(int x, int y) {
 		slayers.addSlayer(x, y);
 	}
+	
+	public boolean isOccupied(int x, int y) {
+		boolean occupied = false;
+		
+		return occupied;
+	}
+	
+	
+	public boolean canMove(int x, int y) {
+		boolean can = false; 
+		if(validCords(--x, y) && (vamps.isHere(--x, y) == -1) && (slayers.isHere(--x,  y) == -1))
+				can = true;
+		return can;
+	}
+	
+	public int existsTargetVamp(int x, int y) { //returns pos = -1 if doesn't exist, and pos = position of hit vamp if found
+		boolean exists = false;
+		int i = 1, pos = -1;
+		while(!exists && i < (columns - x + 1)) { //columns - x + 1 are positions on x axis that could be free at end of board
+			if(vamps.isHere(x + i, y) != -1)
+				exists = true;
+			else 
+				++i;
+		}
+		if(exists)
+			pos = vamps.isHere(x + i, y));
+		
+		return pos;
+	}
+	
+	public int existsTargetSlayer(int x, int y) { //returns pos = -1 if doesn't exist, and pos = position of hit vamp if found
+		boolean exists = false;
+		int i = 1, pos = -1;
+		while(!exists && i < (columns - x + 1)) { //columns - x + 1 are positions on x axis that could be free at end of board
+			if(vamps.isHere(x + i, y) != -1)
+				exists = true;
+			else 
+				++i;
+		}
+		if(exists)
+			pos = vamps.isHere(x + i, y));
+		
+		return pos;
+	}
+	
+	
+	public void moveVamps() {
+		for(int i = 0; i < vamps.getSize(); ++i) {
+			if(canMove(vamps.getX(i), vamps.getY(i)))
+				vamps.moveVamps(i);
+		}
+	}
+	
+	public void slayersHit() {
+		for(int position = 0; position < slayers.getSize(); ++position) {
+			if(existsTargetVamp(slayers.getX(position), slayers.getY(position)) != -1) {
+				vamps.getHit(existsTargetVamp(slayers.getX(position), slayers.getY(position)), slayers.getDamage(position));
+			}
+		}
+	}
+	
+	
+	public void vampsBite() {
+		for(int i = 0; i < vamps.getSize(); ++i) {
+			int newX = vamps.getX(i) - 1;
+			if(validCords(newX, vamps.getY(i)) && slayers.isHere(newX, vamps.getY(i)) != -1) {
+				slayers.getBitten(slayers.isHere(newX, vamps.getY(i)), vamps.getDamage(i));
+			}
+		}
+	}
+	
+	
 	
 }

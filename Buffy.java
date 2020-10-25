@@ -15,6 +15,9 @@ public class Buffy {
 		public static final String seedIsNumberMsg = "the seed must be a number";
 		public static final String seedInfoMsg = "Random generator initialized with seed: ";
 
+		
+		//main
+		
 	public static void main(String[] args) {
 		if (args.length < 1 || args.length > 2)
 			System.out.print(usageMsg);

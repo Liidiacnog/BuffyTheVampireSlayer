@@ -40,4 +40,26 @@ public class SlayerList {
 		slayers[size] = new Slayer(x, y);
 		size++;
 	}
+	
+	public int getSize() {
+		return size;
+	}
+	
+	public int getX(int pos) {
+		return slayers[pos].getX();
+	}
+	
+	public int getY(int pos) {
+		return slayers[pos].getY();
+	}
+	
+	public int getDamage(int pos) {
+		return slayers[pos].getDamage();
+	}
+	
+	
+	public void getBitten(int pos, int harm) {
+		slayers[pos].beenBitten(harm);
+	}
+	
 }

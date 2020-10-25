@@ -28,9 +28,9 @@ The ame object will access these attributes/methods to display information or to
 
 public class Vampire {
 
-	private static int frequency = 1, damage = 1;
+	private int frequency = 1, damage = 1;
 	//how many vampires are on the board, total number of vampires that can appear in the game
-	private static int vampLeftBoard, vampThisLevel; 
+	private static int vampRemaining, vampThisLevel; 
 	
 	private int life = 5;
 	
@@ -54,7 +54,7 @@ public class Vampire {
 		this.y = y;
 		placed = false;
 		moveBefore = true;
-		vampLeftBoard = 0;
+		vampRemaining = 0;
 		vampThisLevel = lvlVamps;
 	}
 	
@@ -68,6 +68,10 @@ public class Vampire {
 	
 		//own state
 	
+	public void move() {
+		--x;//vamp move to the left only
+	}
+	
 	public void draw() {
 		System.out.print(" " + representation + "[" + life + "]");
 	}
@@ -80,19 +84,32 @@ public class Vampire {
 		return found;
 	}
 	
-	public void beenHit() {
-		life -= Slayer.getDamage();
+	public void beenHit(int harm) {
+		life -= harm;
+	}
+	
+	public void beenKilled() {
+		vampRemaining--;
+		placed = false;
 	}
 
-			//getters
-
 	
-	public static int getDamage() {
+			//getters
+	
+	public int getDamage() {
 		return damage;
 	}
 	
 	public boolean getPlaced() {
 		return placed;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
 	}
 }
 

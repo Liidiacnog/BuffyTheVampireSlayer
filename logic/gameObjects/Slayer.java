@@ -22,7 +22,7 @@ Graphics: Represented on the board by the ASCII text “<->”.
 
 public class Slayer {
 
-	private static int cost = 50, resistance = 3, frequency = 1, damage = 1;
+	private int cost = 50, resistance = 3, frequency = 1, damage = 1;
 	private static String representation =  "<->";
 	
 	private int life;
@@ -56,27 +56,29 @@ public class Slayer {
 			found = true;
 		}
 		return found;
-	}
-
-	public void fire() {
-		//TODO game has to ask board, who has to tell lists, who have to tell vampires to say if there is one close enough to get hit
 	}	
 		
+	
 			//own state
 		
-	public void beenBitten() {
-		life -= Vampire.getDamage();
+	public void beenBitten(int harm) {
+		life -= harm;
 	}
-	
 	
 
 				//getters
 	
-	public static int getDamage() {
+	public int getDamage() {
 		return damage;
 	}
 	
+	public int getX() {
+		return x;
+	}
 	
+	public int getY() {
+		return y;
+	}
 }
 	
 	
