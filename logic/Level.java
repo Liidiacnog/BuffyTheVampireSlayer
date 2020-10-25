@@ -21,7 +21,17 @@ public enum Level {
 		this.dim_y = dim_y;
 	}
 
-	// TODO fill your code
+	public static int getValue(Level lvl) {
+		int value = 0;
+		if(lvl == EASY)
+			value = 1;
+		else if (lvl == HARD)
+			value = 2;
+		else if(lvl == INSANE)
+			value = 3;
+		
+		return value;	
+	}
 
     public static Level parse(String inputString) {
         for (Level level : Level.values())

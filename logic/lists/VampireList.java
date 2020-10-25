@@ -1,5 +1,6 @@
 package logic.lists;
 
+import logic.Game;
 import logic.gameObjects.Vampire;
 
 /*
@@ -15,11 +16,13 @@ public class VampireList {
 	private int size; //total number of vampires that are currently in the game
 	private Vampire[] vamp;
 	
+	Game currentGame;
+	
 	public VampireList(int n) {
 		size = n;
 		vamp = new Vampire[size];
 		for (int i = 0; i < vamp.length; i++) {
-			vamp[i] = new Vampire(0, 0); //TODO why on x = 0, and y = 0?
+			vamp[i] = new Vampire(0, 0, currentGame.level); //TODO why on x = 0, and y = 0?
 			/*Appears in a randomly-chosen row of the rightmost column of the board. Moves one tile to the left every two turns,
 			 *  as long as the destination tile of the move is free. On each turn, it bites the slayer in the next tile to the left, 
 			 *  if there is a slayer on that tile. The effect of a vampire bite on a slayer is to descrease its lives by one*/

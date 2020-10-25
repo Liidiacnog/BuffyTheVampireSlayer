@@ -14,9 +14,9 @@ Esta clase debe ser quien lleve la puntuación y también guardar una referencia
 public class Game {
 
 	//fields
-	private static Level lvl;
+	private static Level level;
 
-	private Long seed;
+	private Long seed; //TODO for random class?
 
 	private GameObjectBoard board;
 	private int cycles = 0;
@@ -25,7 +25,7 @@ public class Game {
 	//constructor
 	public Game(Long seed, Level lvl) {
 
-		this.lvl = lvl;
+		this.level = lvl;
 		this.seed = seed;
 
 		//TODO what seed?
@@ -39,6 +39,10 @@ public class Game {
 	
 	public void update() {//actualiza el estado de todos los elementos del juego
 		
+	}
+	
+	public int getLevel() {
+		return Level.getValue(level);
 	}
 	
 	public void draw() {
@@ -75,7 +79,7 @@ public class Game {
 					board.addSlayer(x, y);
 					player.payCoins(50);
 				} else {
-					System.out.println("Not enaught coins");
+					System.out.println("Not enough coins");
 				}
 				output = 'c';	
 			} else {
