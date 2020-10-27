@@ -1,7 +1,9 @@
 package logic;
 
 /*
- * Es una clase tipo Enum que contiene los valores correspondientes a cada nivel de juego.
+ * This is an Enum class that contains the values which correspond to each level of the game. Any level-dependent code of
+ * the program should be in this class (so that if, at a later time, we decided to add a new level or remove an existing
+ * level, we would only need to change the code of the Level class itself in order to do so).
  */
 
 

@@ -1,6 +1,7 @@
 package logic.lists;
 
 import logic.gameObjects.Slayer;
+import logic.gameObjects.Vampire;
 
 /*
  * VampireList, SlayerList: Contienen arrays de los respectivos elementos del juego, así como métodos auxiliares para su gestión. 
@@ -11,9 +12,9 @@ public class SlayerList {
 	private int size; //Number of slayers
 	private Slayer[] slayers;
 	
-	public SlayerList(int n) {
-		slayers = new Slayer[n]; // n is the maximum number of possible slayers given a board
+	public SlayerList() {
 		size = 0;
+		slayers = new Slayer[size];
 	}
 	
 	public int isHere(int x, int y) {
@@ -32,11 +33,16 @@ public class SlayerList {
 		return i;
 	}
 	
-	public void draw(int i) {
-		slayers[i].draw();
+	public String toString(int i) {
+		return slayers[i].toString();
 	}
 
 	public void addSlayer(int x, int y) {
+		slayers[size] = new Slayer(x, y);
+		size++;
+		int newNrOfVamps = Vampire.getVampRemaining() + 1;
+		Vampire.setVampsRemaining(newNrOfVamps);
+		
 		slayers[size] = new Slayer(x, y);
 		size++;
 	}

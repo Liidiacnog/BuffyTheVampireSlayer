@@ -1,9 +1,10 @@
 package logic;
 
 import logic.lists.*;
+//import logic.Game;
 
-//tablero
-//DOESNT KNOW WHERE THINGS ARE, IT HAS TO ASK THE LISTS
+//board
+//Doesn't know where things are, it has to ask the lists
 
 public class GameObjectBoard {
 	
@@ -11,6 +12,9 @@ public class GameObjectBoard {
 	private String rowSeparation = " ";
 	private VampireList vamps;
 	private SlayerList slayers;
+	
+	private Game currentGame;
+	
 	
 	public GameObjectBoard(Level lvl) {
 		rows = lvl.getRows();
@@ -32,11 +36,11 @@ public class GameObjectBoard {
 				System.out.print("|");
 				pos = vamps.isHere(j + 1,  Math.abs(rows - i));
 				if (pos != -1) {
-					vamps.draw(pos);
+					System.out.print(vamps.toString(pos));
 				} else { 
 					pos = slayers.isHere(j + 1,  Math.abs(rows - i));
 					if (pos != -1){
-						slayers.draw(pos);
+						System.out.print(slayers.toString(pos));
 					} else {
 						System.out.print("        ");
 					}
@@ -67,13 +71,23 @@ public class GameObjectBoard {
 		return valid;
 	}
 
-	public void addSlayer(int x, int y) {
-		slayers.addSlayer(x, y);
+	public void addVampire() { //we suppose it's only called when we haven't reached max number of vampires yet
+		int x = columns; //vamps appear on last column always
+		int y = currentGame.getRandomClassNextInt(rows);
+		if(vamps.isHere(x,  y) == -1) //no vampire in that position
+			vamps.addVamp(x, y);
+	}
+	
+	public void addSlayer() {//we suppose it's only called when Player can afford it
+		int x = currentGame.getRandomClassNextInt(columns);
+		int y = currentGame.getRandomClassNextInt(rows);
+		if(slayers.isHere(x, y) == -1)//no slayer in that position
+			slayers.addSlayer(x, y);
 	}
 	
 	public boolean isOccupied(int x, int y) {
 		boolean occupied = false;
-		
+		//TODO WTF, don't use yet
 		return occupied;
 	}
 	
@@ -95,7 +109,7 @@ public class GameObjectBoard {
 				++i;
 		}
 		if(exists)
-			pos = vamps.isHere(x + i, y));
+			pos = vamps.isHere(x + i, y);
 		
 		return pos;
 	}
@@ -110,7 +124,7 @@ public class GameObjectBoard {
 				++i;
 		}
 		if(exists)
-			pos = vamps.isHere(x + i, y));
+			pos = vamps.isHere(x + i, y);
 		
 		return pos;
 	}

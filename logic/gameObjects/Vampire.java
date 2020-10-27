@@ -23,14 +23,14 @@ Graphics: Represented on the board by the ASCII text “VˆV”;
 ◦	whether or not the vampires have reached the l.h.s. of the board,
 using static attributes or methods. 
 
-The ame object will access these attributes/methods to display information or to terminate the game when necessary.
+The Game object will access these attributes/methods to display information or to terminate the game when necessary.
  */
 
 public class Vampire {
 
-	private int frequency = 1, damage = 1;
-	//how many vampires are on the board, total number of vampires that can appear in the game
-	private static int vampRemaining, vampThisLevel; 
+	private static int frequency = 1, damage = 1;
+	//how many vampires are on the board, total number of vampires that can appear in the game:
+	private static int vampsRemaining = 0, vampsThisLevel; 
 	
 	private int life = 5;
 	
@@ -38,7 +38,7 @@ public class Vampire {
 	
 	private int x, y; //position coordinates on the board
 	private boolean placed;
-	private boolean moveBefore; //check whether it is its turn to move or not(they move each 2 cycles)
+	private boolean movedBefore; //check whether it is its turn to move or not(they move each 2 cycles)
 	
 	private static String representation = "VˆV";
 	
@@ -49,31 +49,27 @@ public class Vampire {
 	
 	//constructor 
 	
-	public Vampire (int x, int y, int lvlVamps) {
+	public Vampire (int x, int y) {
 		this.x = x;
 		this.y = y;
-		placed = false;
-		moveBefore = true;
-		vampRemaining = 0;
-		vampThisLevel = lvlVamps;
+		placed = true;
+		movedBefore = true;
+		vampsRemaining++;
 	}
 	
 	//methods
 	
 		//affect others
 	
-	public void bite(Game currentGame) {
-		//game has to ask board, who has to tell lists, who have to tell slayers to say if there is one close enough to be bitten
-	}
-	
+
 		//own state
 	
 	public void move() {
 		--x;//vamp move to the left only
 	}
 	
-	public void draw() {
-		System.out.print(" " + representation + "[" + life + "]");
+	public String toString() {
+		return (" " + representation + "[" + life + "]");
 	}
 	
 	public boolean isHere(int i, int j) {
@@ -89,14 +85,24 @@ public class Vampire {
 	}
 	
 	public void beenKilled() {
-		vampRemaining--;
+		vampsRemaining--;
 		placed = false;
 	}
 
 	
+	//setters
+	
+	public static void setVampsThisLevel(int nr) {
+		vampsThisLevel = nr;
+	}
+	
+	public static void setVampsRemaining(int nr) {
+		vampsRemaining = nr;
+	}
+	
 			//getters
 	
-	public int getDamage() {
+	public static int getDamage() {
 		return damage;
 	}
 	
@@ -111,6 +117,11 @@ public class Vampire {
 	public int getY() {
 		return y;
 	}
+	
+	public static int getVampRemaining() {
+		return vampsRemaining;
+	}
+	
 }
 
 

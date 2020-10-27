@@ -1,8 +1,9 @@
 package logic.gameObjects;
 
 /*
- * This class encapsulates the state and behaviour of the player. For the moment, the state comprises only the number of coins in the player’s
- *  possession. Note that there will only ever be one instance of the Player class in the program, which we will refer to as the player object.
+ * This class encapsulates the state and behaviour of the player. For the moment, the state comprises only the number of 
+ * coins in the player’s possession. Note that there will only ever be one instance of the Player class in the program, 
+ * which we will refer to as the player object.
  */
 
 

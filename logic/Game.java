@@ -2,8 +2,6 @@ package logic;
 
 import logic.lists.VampireList;
 import logic.gameObjects.Player;
-
-
 import java.util.Random;
 /* métodos a usar de la clase Random:
  * nextDouble() para saber si hay que añadir o no un vampiro
@@ -18,7 +16,7 @@ Esta clase debe ser quien lleve la puntuación y también guardar una referencia
  representa la partida en curso. Durante la ejecución de la aplicación solo se creará un objeto de la clase Game
  */
 
-//SIMON HA DICHO QUE PREFIERE QUE A LA CLASE RANDOM SOLO SE LA HAGA REFERENCIA EN GAME
+//Random Class should only be instantiated in Game
 
 public class Game {
 
@@ -27,14 +25,16 @@ public class Game {
 
 	private Long seed; //TODO for random class?
 
-	private GameObjectBoard board;
-	private int cycles = 0;
+	private static Random r;
+	
+	private static GameObjectBoard board;
+	private static int cycles = 0;
 	private Player player;
 	
 	//constructor
 	public Game(Long seed, Level lvl) {
 
-		this.level = lvl;
+		level = lvl;
 		this.seed = seed;
 
 		//TODO what seed?
@@ -48,8 +48,16 @@ public class Game {
 	
 	//getters
 	
-	public int getLevel() {
+	public static int getVampsOfLevel() {
+		return level.getVampNumber();
+	}
+	
+	public static int getLevel() {
 		return Level.getValue(level);
+	}
+	
+	public int getRandomClassNextInt(int upperBound) {
+		return r.nextInt(upperBound);
 	}
 	
 	//Actions in game loop:
@@ -68,7 +76,8 @@ public class Game {
 	}
 
 	public void update() {
-		//include random method before, and if favourable, then player.receiveCoins(); //50% probability of receiving 10 coins
+		if(r.nextInt(1) == 0) //TODO okay or should we define .equals()?  //50% probability of receiving 10 coins
+			player.receiveCoins(); 
 		board.moveVamps();				
 	}
 	
@@ -96,9 +105,11 @@ The dimensions of the board; at the easiest level the board dimensions are 8 × 
 */
 	}
 	
-	public void userCommand() {
+	public void userCommand() {//TODO
 		
 	}
+	
+	
 	
 	public char command(String str) {
 		char output = '0';
@@ -115,9 +126,9 @@ The dimensions of the board; at the easiest level the board dimensions are 8 × 
 			String[] parts = str.split(" ");
 			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
 			//System.out.println(x + " " + y);
-			if (board.validCords(x, y)) { // The arguent of enaughtCoins should be a variable
-				if (player.enaughCoins(50)) {
-					board.addSlayer(x, y);
+			if (board.validCords(x, y)) { // The argument of enoughCoins should be a variable
+				if (player.enoughCoins(50)) {
+					board.addSlayer(x, y); //TODO
 					player.payCoins(50);
 				} else {
 					System.out.println("Not enough coins");

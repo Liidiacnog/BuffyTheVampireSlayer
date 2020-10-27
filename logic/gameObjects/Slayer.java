@@ -22,19 +22,12 @@ Graphics: Represented on the board by the ASCII text “<->”.
 
 public class Slayer {
 
-	private int cost = 50, resistance = 3, frequency = 1, damage = 1;
+	private static int cost = 50, resistance = 3, frequency = 1, damage = 1;
 	private static String representation =  "<->";
-	
 	private int life;
-	
 	private int x, y; //position coordinates on the board
 	
-	
-	
-	/*Slayer y Vampire tienen un atributo en el que almacenan una referencia al juego, eso es, una instancia de la clase Game 
-	 * (que será la única en el programa) que como veremos contiene la lógica del juego. De este modo, estas clases podrán usar
-	 *  los métodos de la clase Game para consultar si pueden hacer o no una determinada acción.*/
-	private Game currentGame;
+	private Game currentGame; //instance of Class Game in order to be able to use its methods
 	
 	public Slayer(int x, int y) {
 		this.x = x;
@@ -46,8 +39,8 @@ public class Slayer {
 	
 			//affect others
 	
-	public void draw() {
-		System.out.print(" " + representation + "[" + life + "]");
+	public String toString() {
+		return (" " + representation + "[" + life + "]");
 	}
 
 	public boolean isHere(int i, int j) {
@@ -68,7 +61,7 @@ public class Slayer {
 
 				//getters
 	
-	public int getDamage() {
+	public static int getDamage() {
 		return damage;
 	}
 	

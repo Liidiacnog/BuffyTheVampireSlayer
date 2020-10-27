@@ -14,21 +14,21 @@ import logic.gameObjects.Vampire;
 
 
 public class VampireList {
-	private int size; //total number of vampires that are currently in the game
+	private int size = Vampire.getVampRemaining(); //total number of vampires that are currently in the game
 	private Vampire[] vamp;
 	
 	Game currentGame;
 	
-	public VampireList(int n) {
-		size = n;
+	public VampireList() { //created empty, at first (vampRemaining will be 0)
 		vamp = new Vampire[size];
-		for (int i = 0; i < vamp.length; i++) {
-			vamp[i] = new Vampire(0, 0, currentGame.level); //TODO why on x = 0, and y = 0?
-			/*Appears in a randomly-chosen row of the rightmost column of the board. Moves one tile to the left every two turns,
-			 *  as long as the destination tile of the move is free. On each turn, it bites the slayer in the next tile to the left, 
-			 *  if there is a slayer on that tile. The effect of a vampire bite on a slayer is to descrease its lives by one*/
-		}
 	}
+	
+	public void addVamp(int x, int y) {
+		vamp[Vampire.getVampRemaining()] = new Vampire(x, y);
+		int newNrOfVamps = Vampire.getVampRemaining() + 1;
+		Vampire.setVampsRemaining(newNrOfVamps);
+	}
+	
 	
 	public int isHere(int x, int y) { //if not found, returns -1, if found, return position in array
 		boolean found = false;
@@ -46,8 +46,8 @@ public class VampireList {
 		return i;
 	}
 	
-	public void draw(int i) {
-		vamp[i].draw();
+	public String toString(int i) {
+		return vamp[i].toString();
 	}
 	
 	public int left() {
