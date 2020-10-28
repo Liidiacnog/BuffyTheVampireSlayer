@@ -12,9 +12,9 @@ public class SlayerList {
 	private int size; //Number of slayers
 	private Slayer[] slayers;
 	
-	public SlayerList() {
+	public SlayerList(int n) {
 		size = 0;
-		slayers = new Slayer[size];
+		slayers = new Slayer[n];
 	}
 	
 	public int isHere(int x, int y) {

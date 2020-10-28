@@ -19,8 +19,9 @@ public class VampireList {
 	
 	Game currentGame;
 	
-	public VampireList() { //created empty, at first (vampRemaining will be 0)
-		vamp = new Vampire[size];
+	public VampireList(int n) { //created empty, at first (vampRemaining will be 0)
+		vamp = new Vampire[n];
+		size = 0;
 	}
 	
 	public void addVamp(int x, int y) {

@@ -78,9 +78,9 @@ public class GameObjectBoard {
 			vamps.addVamp(x, y);
 	}
 	
-	public void addSlayer() {//we suppose it's only called when Player can afford it
-		int x = currentGame.getRandomClassNextInt(columns);
-		int y = currentGame.getRandomClassNextInt(rows);
+	public void addSlayer(int i, int j) {//we suppose it's only called when Player can afford it
+		int x = i;
+		int y = j;
 		if(slayers.isHere(x, y) == -1)//no slayer in that position
 			slayers.addSlayer(x, y);
 	}
