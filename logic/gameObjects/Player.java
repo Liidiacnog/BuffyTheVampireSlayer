@@ -13,14 +13,13 @@ public class Player {
 	private int coins = 50; //The player starts the game with 50 coins and on each turn has a probability of 50% of receiving 10 coins.
 	private static String notEnoughCoinsErrorMsg = "Not enough coins left!";
 	
-	public void notEnoughCoins(){
-		System.out.println(notEnoughCoinsErrorMsg);
+	public String toStringNotEnoughCoins(){
+		return (notEnoughCoinsErrorMsg);
 	}
 	
 	public int getCoins() {
     	return coins;
     }
-
 
 	public boolean enoughCoins(int i) {
 		return (coins >= i);

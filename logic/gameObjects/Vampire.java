@@ -28,31 +28,27 @@ The Game object will access these attributes/methods to display information or t
 
 public class Vampire {
 
+	
+	private int life = 5;
+	private boolean placed;
 	private static int frequency = 1, damage = 1;
 	//how many vampires are on the board, total number of vampires that can appear in the game:
 	private static int  vampsOnBoard = 0, vampsThisLevel;  
-	
-	private int life = 5;
-	
-	//speed= 0.5; //1 tile every 2 cycles
-	
 	private int x, y; //position coordinates on the board
 	private boolean movedBefore; //check whether it is its turn to move or not(they move each 2 cycles)
-	
 	private static String representation = "VˆV";
 	
-	/* Slayer y Vampire tienen un atributo en el que almacenan una referencia al juego, eso es, una instancia de la clase Game 
-	 * (que será la única en el programa) que como veremos contiene la lógica del juego. De este modo, estas clases podrán usar
-	 * los métodos de la clase Game para consultar si pueden hacer o no una determinada acción.*/
-	private Game currentGame ;
+	
+	private Game currentGame; //Game game needs to be passed via a parameter whenever needed
 	
 	//constructor 
 	
-	public Vampire (int x, int y, int nrOfVamps) {
+	public Vampire (int x, int y) {  
+		//TODO Pablo, voy a quitar vampsThisLevel = nrOfVamps, y ponerlo en setvampsThisLevel, porque si no hay que dar el valor de nrOfVamps cada vez que creemos un vampiro
 		this.x = x;
 		this.y = y;
+		placed = true;
 		movedBefore = true;
-		vampsThisLevel = nrOfVamps;
 	}
 	
 	//methods
@@ -83,22 +79,22 @@ public class Vampire {
 	}
 	
 	public void beenKilled() {
-<<<<<<< HEAD
 		vampsOnBoard--;
 		placed = false;
-=======
-		vampsRemaining--;
->>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 	}
-
+	
 	
 	//setters
 	
+	public void setvampsThisLevel(int nrOfVamps) {
+		vampsThisLevel = nrOfVamps;
+	}
+
 	public static void setVampsThisLevel(int nr) {
 		vampsThisLevel = nr;
 	}
 	
-	public static void setVampsRemaining(int nr) {
+	public static void setVampsOnBoard(int nr) {
 		vampsOnBoard = nr;
 	}
 	
