@@ -42,6 +42,7 @@ public class Game { //TODO pass itself using "this"
 
 		player = new Player();
 		board = new GameObjectBoard(lvl);
+		r = new Random(seed);
 
 	}
 	
@@ -108,8 +109,21 @@ The dimensions of the board; at the easiest level the board dimensions are 8 × 
 */
 	}
 	
-	public void userCommand() {//TODO
+	public void userCommand() { //TODO
 		
+	}
+	
+	public boolean checkEnd() {
+		boolean end = false;
+			if (board.vampsLeft() == 0) {
+				end = true;
+				
+			} else if (board.vampsWin()) {
+				end = true;
+			}
+		
+		
+		return end;
 	}
 	
 	
@@ -127,9 +141,15 @@ The dimensions of the board; at the easiest level the board dimensions are 8 × 
 			output = 'c'; // c de correct
 		} else if (str.startsWith("a ") || str.startsWith("add ")) {
 			String[] parts = str.split(" ");
+<<<<<<< HEAD
 			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]); //TODO prever errores al meter datos para que el prgrama no pete  
 			if (board.validCords(x, y) & x != level.getColums()) { // The argument of enoughCoins should be a variable
 				if (player.enoughCoins(GameObjectBoard.getCostSlayers())) {//TODO change coordinates according to tests
+=======
+			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
+			if (board.validCords(x, y)) { // The argument of enoughCoins should be a variable
+				if (player.enoughCoins(50)) {
+>>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 					board.addSlayer(x, y); //TODO
 					player.payCoins(GameObjectBoard.getCostSlayers());
 				} else {

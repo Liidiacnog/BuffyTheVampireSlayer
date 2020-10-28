@@ -37,7 +37,6 @@ public class Vampire {
 	//speed= 0.5; //1 tile every 2 cycles
 	
 	private int x, y; //position coordinates on the board
-	private boolean placed;
 	private boolean movedBefore; //check whether it is its turn to move or not(they move each 2 cycles)
 	
 	private static String representation = "VˆV";
@@ -52,7 +51,6 @@ public class Vampire {
 	public Vampire (int x, int y, int nrOfVamps) {
 		this.x = x;
 		this.y = y;
-		placed = true;
 		movedBefore = true;
 		vampsThisLevel = nrOfVamps;
 	}
@@ -74,7 +72,7 @@ public class Vampire {
 	
 	public boolean isHere(int i, int j) {
 		boolean found = false;
-		if (x == i && y == j && placed) {
+		if (x == i && y == j) {
 			found = true;
 		}
 		return found;
@@ -85,8 +83,12 @@ public class Vampire {
 	}
 	
 	public void beenKilled() {
+<<<<<<< HEAD
 		vampsOnBoard--;
 		placed = false;
+=======
+		vampsRemaining--;
+>>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 	}
 
 	
@@ -106,10 +108,6 @@ public class Vampire {
 		return damage;
 	}
 	
-	public boolean getPlaced() {
-		return placed;
-	}
-	
 	public int getX() {
 		return x;
 	}
@@ -120,6 +118,14 @@ public class Vampire {
 	
 	public static int getVampsOnBoard() {
 		return vampsOnBoard;
+	}
+
+	public int life() {
+		return life;
+	}
+
+	public boolean reachEnd() {
+		return x == 1;
 	}
 	
 }
