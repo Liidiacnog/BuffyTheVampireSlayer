@@ -42,6 +42,7 @@ public class Game {
 
 		player = new Player();
 		board = new GameObjectBoard(lvl);
+		r = new Random(seed);
 
 	}
 	
@@ -76,7 +77,7 @@ public class Game {
 	}
 
 	public void update() {
-		if(r.nextInt(1) == 0) //TODO okay or should we define .equals()?  //50% probability of receiving 10 coins
+		if(r.nextInt(2) == 0) //TODO okay or should we define .equals()?  //50% probability of receiving 10 coins
 			player.receiveCoins(); 
 		board.moveVamps();				
 	}
@@ -105,8 +106,21 @@ The dimensions of the board; at the easiest level the board dimensions are 8 × 
 */
 	}
 	
-	public void userCommand() {//TODO
+	public void userCommand() { //TODO
 		
+	}
+	
+	public boolean checkEnd() {
+		boolean end = false;
+			if (board.vampsLeft() == 0) {
+				end = true;
+				
+			} else if (board.vampsWin()) {
+				end = true;
+			}
+		
+		
+		return end;
 	}
 	
 	
@@ -125,7 +139,6 @@ The dimensions of the board; at the easiest level the board dimensions are 8 × 
 		} else if (str.startsWith("a ") || str.startsWith("add ")) {
 			String[] parts = str.split(" ");
 			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
-			//System.out.println(x + " " + y);
 			if (board.validCords(x, y)) { // The argument of enoughCoins should be a variable
 				if (player.enoughCoins(50)) {
 					board.addSlayer(x, y); //TODO

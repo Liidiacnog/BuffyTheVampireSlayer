@@ -52,20 +52,13 @@ public class VampireList {
 	}
 	
 	public int left() {
-		int sum = 0;
-		for (int i = 0; i < vamp.length; i++) {
-			if (!vamp[i].getPlaced()) {
-				sum++;
-			}
-		}
-		
-		return sum;
+		return vamp.length - size;
 	}
 	
 	public int onBoard() {
 		int sum = 0;
-		for (int i = 0; i < vamp.length; i++) {
-			if (vamp[i].getPlaced()) {
+		for (int i = 0; i < size; i++) {
+			if (vamp[i].life() > 0) {
 				sum++;
 			}
 		}
@@ -97,4 +90,19 @@ public class VampireList {
 	public int getDamage(int pos) {
 		return vamp[pos].getDamage();
 	}
+
+	public boolean wins() {
+		boolean end = false;
+		int i = 0;
+		while (!end && i < size) {
+			if (vamp[i].reachEnd()) {
+				end = true;
+			}
+			i++;
+		}
+		
+		return end;
+	}
 }
+
+

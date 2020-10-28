@@ -45,7 +45,7 @@ public class GameObjectBoard {
 						System.out.print("        ");
 					}
 				}
-				// System.out.print("  " + (j + 1) + "  " + Math.abs(rows - i) + "  ");
+				// System.out.print("  " + (j + 1) + "  " + Math.abs(rows - i) + "  "); Coordenadas de cada casilla
 			}
 			System.out.println("|");
 		}
@@ -63,6 +63,15 @@ public class GameObjectBoard {
 	public boolean validCords(int x, int y) {
 		boolean valid = false;
 		if (x > 0 && y > 0 && y <= rows && x <= columns) {
+			valid = true;
+		}
+		
+		return valid;
+	}
+	
+	public boolean isFree (int x, int y) {
+		boolean valid = false;
+		if (validCords(x, y)) {
 			if (slayers.isHere(x, y) == -1 && vamps.isHere(x, y) == -1) {
 				valid = true;
 			}
@@ -85,18 +94,9 @@ public class GameObjectBoard {
 			slayers.addSlayer(x, y);
 	}
 	
-	public boolean isOccupied(int x, int y) {
-		boolean occupied = false;
-		//TODO WTF, don't use yet
-		return occupied;
-	}
-	
 	
 	public boolean canMove(int x, int y) {
-		boolean can = false; 
-		if(validCords(--x, y) && (vamps.isHere(--x, y) == -1) && (slayers.isHere(--x,  y) == -1))
-				can = true;
-		return can;
+		return isFree(x, y);
 	}
 	
 	public int existsTargetVamp(int x, int y) { //returns pos = -1 if doesn't exist, and pos = position of hit vamp if found
@@ -153,6 +153,10 @@ public class GameObjectBoard {
 				slayers.getBitten(slayers.isHere(newX, vamps.getY(i)), vamps.getDamage(i));
 			}
 		}
+	}
+
+	public boolean vampsWin() {
+		return vamps.wins();
 	}
 	
 	
