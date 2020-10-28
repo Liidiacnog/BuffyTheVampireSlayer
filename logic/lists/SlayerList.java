@@ -63,8 +63,11 @@ public class SlayerList {
 		return slayers[pos].getDamage();
 	}
 	
+	public static int getCost() {
+		return Slayer.getCost();
+	}
 	
-	public void getBitten(int pos, int harm) {
+	public void getBitten(int pos, int harm) { //TODO change name to sth that doesn't require "get"
 		slayers[pos].beenBitten(harm);
 	}
 	

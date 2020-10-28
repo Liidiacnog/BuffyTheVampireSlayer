@@ -1,5 +1,6 @@
-/* Es la clase que contiene el método main de la aplicación. En este caso el método main lee los valores de los parámetros de la aplicación (nivel y semilla), 
-crea una nueva partida (objeto de la clase Game), crea un controlador (objeto de la clase Controller) con dicha partida, e invoca al método run del controlador.
+/* Es la clase que contiene el método main de la aplicación. En este caso el método main lee los valores de los parámetros 
+de la aplicación (nivel y semilla), crea una nueva partida (objeto de la clase Game), crea un controlador (objeto de la 
+clase Controller) con dicha partida, e invoca al método run del controlador.
  */
 
 import java.util.Scanner;

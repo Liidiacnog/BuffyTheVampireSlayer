@@ -19,7 +19,7 @@ public class VampireList {
 	
 	Game currentGame;
 	
-	public VampireList(int n) { //created empty, at first (vampRemaining will be 0)
+	public VampireList(int n) { //created with lenth = numberOfVamps of that Level, at first (vampRemaining will be 0)
 		vamp = new Vampire[n];
 		size = 0;
 	}

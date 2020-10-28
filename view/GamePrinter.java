@@ -22,7 +22,7 @@ public class GamePrinter {
 	}
 	
 	private void encodeGame(Game game) {
-		// TODO fill your code
+		// TODO 
 	}
 	
 	 public String toString() {

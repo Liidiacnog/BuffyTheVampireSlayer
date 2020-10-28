@@ -30,7 +30,7 @@ public class Vampire {
 
 	private static int frequency = 1, damage = 1;
 	//how many vampires are on the board, total number of vampires that can appear in the game:
-	private static int vampsRemaining = 0, vampsThisLevel; 
+	private static int  vampsOnBoard = 0, vampsThisLevel;  
 	
 	private int life = 5;
 	
@@ -45,16 +45,16 @@ public class Vampire {
 	/* Slayer y Vampire tienen un atributo en el que almacenan una referencia al juego, eso es, una instancia de la clase Game 
 	 * (que será la única en el programa) que como veremos contiene la lógica del juego. De este modo, estas clases podrán usar
 	 * los métodos de la clase Game para consultar si pueden hacer o no una determinada acción.*/
-	private Game currentGame;
+	private Game currentGame ;
 	
 	//constructor 
 	
-	public Vampire (int x, int y) {
+	public Vampire (int x, int y, int nrOfVamps) {
 		this.x = x;
 		this.y = y;
 		placed = true;
 		movedBefore = true;
-		vampsRemaining++;
+		vampsThisLevel = nrOfVamps;
 	}
 	
 	//methods
@@ -85,7 +85,7 @@ public class Vampire {
 	}
 	
 	public void beenKilled() {
-		vampsRemaining--;
+		vampsOnBoard--;
 		placed = false;
 	}
 
@@ -97,7 +97,7 @@ public class Vampire {
 	}
 	
 	public static void setVampsRemaining(int nr) {
-		vampsRemaining = nr;
+		vampsOnBoard = nr;
 	}
 	
 			//getters
@@ -118,8 +118,8 @@ public class Vampire {
 		return y;
 	}
 	
-	public static int getVampRemaining() {
-		return vampsRemaining;
+	public static int getVampsOnBoard() {
+		return vampsOnBoard;
 	}
 	
 }

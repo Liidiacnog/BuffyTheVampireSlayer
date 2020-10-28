@@ -155,6 +155,8 @@ public class GameObjectBoard {
 		}
 	}
 	
-	
+	public static int getCostSlayers() {
+		return SlayerList.getCost();
+	}
 	
 }
