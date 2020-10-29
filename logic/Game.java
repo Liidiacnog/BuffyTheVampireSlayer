@@ -88,7 +88,7 @@ public class Game { //TODO pass itself using "this"
 	}
 
 	public void addVampire() {
-		if(vamps. < level.getVampNumber())//TODO
+		//if(vamps. < level.getVampNumber())//TODO
 		
 		
 		/*The game can be played at three levels, EASY, HARD and INSANE, where the level determines various configuration options (see Table 1.1),
@@ -141,15 +141,9 @@ The dimensions of the board; at the easiest level the board dimensions are 8 × 
 			output = 'c'; // c de correct
 		} else if (str.startsWith("a ") || str.startsWith("add ")) {
 			String[] parts = str.split(" ");
-<<<<<<< HEAD
 			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]); //TODO prever errores al meter datos para que el prgrama no pete  
 			if (board.validCords(x, y) & x != level.getColums()) { // The argument of enoughCoins should be a variable
 				if (player.enoughCoins(GameObjectBoard.getCostSlayers())) {//TODO change coordinates according to tests
-=======
-			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
-			if (board.validCords(x, y)) { // The argument of enoughCoins should be a variable
-				if (player.enoughCoins(50)) {
->>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 					board.addSlayer(x, y); //TODO
 					player.payCoins(GameObjectBoard.getCostSlayers());
 				} else {

@@ -63,6 +63,11 @@ public class SlayerList {
 	public static int getCost() {
 		return Slayer.getCost();
 	}
+
+	public void getBitten(int here, int damage) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
