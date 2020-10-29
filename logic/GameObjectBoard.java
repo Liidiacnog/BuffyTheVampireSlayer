@@ -159,6 +159,8 @@ public class GameObjectBoard {
 		return vamps.wins();
 	}
 	
-	
+	public static int getCostSlayers() {
+		return SlayerList.getCost();
+	}
 	
 }

@@ -18,14 +18,14 @@ Esta clase debe ser quien lleve la puntuación y también guardar una referencia
 
 //Random Class should only be instantiated in Game
 
-public class Game {
+public class Game { //TODO pass itself using "this"
 
 	//fields
 	private static Level level;
 
-	private Long seed; //TODO for random class?
+	private static Long seed; //TODO for random class?
 
-	private static Random r;
+	private static Random r = new Random(seed);
 	
 	private static GameObjectBoard board;
 	private static int cycles = 0;
@@ -88,6 +88,9 @@ public class Game {
 	}
 
 	public void addVampire() {
+		if(vamps. < level.getVampNumber())//TODO
+		
+		
 		/*The game can be played at three levels, EASY, HARD and INSANE, where the level determines various configuration options (see Table 1.1),
 		 *  in particular, the probability on each cycle that a new vampire is added to the game. If a vampire is to be added, the row in which it 
 		 *  appears is chosen at random. If there is already a vampire in the chosen row then the new vampire is not placed on the board3.
@@ -138,11 +141,17 @@ The dimensions of the board; at the easiest level the board dimensions are 8 × 
 			output = 'c'; // c de correct
 		} else if (str.startsWith("a ") || str.startsWith("add ")) {
 			String[] parts = str.split(" ");
+<<<<<<< HEAD
+			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]); //TODO prever errores al meter datos para que el prgrama no pete  
+			if (board.validCords(x, y) & x != level.getColums()) { // The argument of enoughCoins should be a variable
+				if (player.enoughCoins(GameObjectBoard.getCostSlayers())) {//TODO change coordinates according to tests
+=======
 			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
 			if (board.validCords(x, y)) { // The argument of enoughCoins should be a variable
 				if (player.enoughCoins(50)) {
+>>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 					board.addSlayer(x, y); //TODO
-					player.payCoins(50);
+					player.payCoins(GameObjectBoard.getCostSlayers());
 				} else {
 					System.out.println("Not enough coins");
 				}

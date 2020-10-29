@@ -1,7 +1,8 @@
 package view;
 
 /*
- * Recibe el game y tiene un método toString que sirve para pintar el juego como veíamos anteriormente.
+ * This class is passed the game object in its constructor and has a toString method that produces a string which, when when sent to the standard output, 
+ * displays the board on the console.
  */
 
 import logic.Game;
@@ -22,7 +23,7 @@ public class GamePrinter {
 	}
 	
 	private void encodeGame(Game game) {
-		// TODO fill your code
+		// TODO 
 	}
 	
 	 public String toString() {

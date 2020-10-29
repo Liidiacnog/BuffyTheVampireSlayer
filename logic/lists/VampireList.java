@@ -1,33 +1,20 @@
 package logic.lists;
 
-import logic.Game;
-
 import logic.gameObjects.Vampire;
 
-/*
- * VampireList, SlayerList: : These classes encapsulate the state and the behaviour of the game elements. Their state — position on the board, 
- * lives left, etc. — is contained in private attributes. They also have an attribute in which they store (a reference to) the game, i.e. 
- * an instance of the class Game, in order to be able to invoke the methods of this instance to consult as to whether or not they can perform a
- *  given action. Note that there will only ever be one instance of the Game class in the program, i.e. the one created in the main method, which 
- *  we will refer to as the game object.
- */
-
-
 public class VampireList {
-	private int size = Vampire.getVampRemaining(); //total number of vampires that are currently in the game
+	private int size = Vampire.getVampsOnBoard(); //total number of vampires that are currently in the game
 	private Vampire[] vamp;
-	
-	Game currentGame;
-	
-	public VampireList(int n) { //created empty, at first (vampRemaining will be 0)
+		
+	public VampireList(int n) { //created with length = numberOfVamps of that Level
 		vamp = new Vampire[n];
-		size = 0;
+		size = 0; //at first vampsOnBoard will be 0
 	}
 	
 	public void addVamp(int x, int y) {
-		vamp[Vampire.getVampRemaining()] = new Vampire(x, y);
-		int newNrOfVamps = Vampire.getVampRemaining() + 1;
-		Vampire.setVampsRemaining(newNrOfVamps);
+		vamp[Vampire.getVampsOnBoard()] = new Vampire(x, y);
+		int newNrOfVamps = Vampire.getVampsOnBoard() + 1;
+		Vampire.setVampsOnBoard(newNrOfVamps);
 	}
 	
 	
@@ -100,7 +87,6 @@ public class VampireList {
 			}
 			i++;
 		}
-		
 		return end;
 	}
 }
