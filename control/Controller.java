@@ -77,8 +77,14 @@ public class Controller {
     		if (ok == 'e') {
     			System.out.println("Game Over!");
     		} else {
+<<<<<<< HEAD
+    			//TODO 
+    			
+    			
+=======
     			game.update();
     			game.attack();
+>>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
     			
     		}
     	}
