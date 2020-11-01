@@ -3,7 +3,7 @@ package logic;
 import logic.lists.VampireList;
 import logic.gameObjects.Player;
 import java.util.Random;
-
+import view.GamePrinter;
 
 /*This class encapsulates the logic of the game and is responsible for updating the state of all the game elements. 
  * It maintains the current cycle number. It contains (a reference to) the board object, to which the game object 
@@ -24,6 +24,7 @@ public class Game { //TODO pass itself using "this"
 	private GameObjectBoard board;
 	private int cycles = 0;
 	private Player player;
+	private GamePrinter gamePrinter;
 	
 	//constructor
 	public Game(Long seed, Level lvl) {
@@ -39,7 +40,7 @@ public class Game { //TODO pass itself using "this"
 	}
 	
 	public String toString() {
-		return "" + board;
+		return "" + gamePrinter;
 	}
 	
 	
@@ -70,7 +71,7 @@ public class Game { //TODO pass itself using "this"
 	}
 	
 	
-	public void draw() {
+	public void drawInfo() {
 		System.out.println("");
 		System.out.println("Cycle number: " + cycles);
 		System.out.println("Coins: " + player.getCoins());
@@ -117,7 +118,7 @@ public class Game { //TODO pass itself using "this"
 			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]); //TODO prever errores al meter datos para que el prgrama no pete  
 			if (board.validCords(x, y) & x != level.getColums()) { 
 				if (player.enoughCoins(GameObjectBoard.getCostSlayers())) {//TODO change coordinates according to tests
-					board.addSlayer(x, y); //TODO
+					board.addSlayer(x, y); //TODO coords changes
 					player.payCoins(GameObjectBoard.getCostSlayers());
 				} else {
 					System.out.println("Not enough coins");

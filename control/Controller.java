@@ -49,7 +49,7 @@ public class Controller {
 
     */
 
-    public void  printGame() {
+    public void printGame() {
    	 	System.out.println(game);
    }
 
@@ -59,7 +59,8 @@ public class Controller {
     	String str;
     	char ok = 0;
     	while (ok != 'e') {
-    		game.draw();
+    		game.drawInfo();
+    		printGame();
     		str = in.nextLine();
     		ok = game.userCommand(str);
     		while (ok != 'c' && ok != 'e') {
