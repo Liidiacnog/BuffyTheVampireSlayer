@@ -44,7 +44,6 @@ public class Vampire {
 	//constructor 
 	
 	public Vampire (int x, int y) {  
-		//TODO Pablo, voy a quitar vampsThisLevel = nrOfVamps, y ponerlo en setvampsThisLevel, porque si no hay que dar el valor de nrOfVamps cada vez que creemos un vampiro
 		this.x = x;
 		this.y = y;
 		placed = true;
@@ -78,9 +77,9 @@ public class Vampire {
 		life -= harm;
 	}
 	
-	public void beenKilled() {
+	public void beenKilled() { 
 		vampsOnBoard--;
-		placed = false;
+		life = 0;
 	}
 	
 	
@@ -99,6 +98,10 @@ public class Vampire {
 	}
 	
 			//getters
+	
+	public int getLife() {
+		return life;
+	}
 	
 	public static int getDamage() {
 		return damage;

@@ -1,17 +1,15 @@
 package control;
 
 /*
- * Controller: Clase para controlar la ejecución del juego, preguntando al usuario qué quiere hacer y actualizando la partida de acuerdo a lo que éste
- indique. La clase Controller necesita al menos dos atributos privados:
-
+This class controls the execution of the game, printing the prompt on the console and then reading the command provided 
+by the user, parsing it and updating the game accordingly. This class needs, at least, the following two attributes:
 private Game game; private Scanner in;
-
-El objeto in sirve para leer de la consola las órdenes del usuario. La clase Controller implementa el método público public void run() que controla 
-el bucle principal del juego. Concretamente, mientras la partida no esté finalizada, solicita órdenes al usuario y las ejecuta.
-
-Durante la ejecución de la aplicación solo se creará un objeto de la clase Controller
- */
-
+The object contained in the "in" attribute is used to read the commands on the standard input, 
+i.e. entered by the user via the keyboard. This class has a method public void run() which contains the main loop of 
+the program in which, while the game is not finished, the state of the game is printed on the console, the user
+ is prompted for a command and the command is executed. Note that there will only ever be one instance of the Controller
+  class in the program, which we will refer to as the controller object.
+*/
 import java.util.Scanner;
 
 import logic.Game;
@@ -32,15 +30,11 @@ public class Controller {
 	public static final String invalidPositionMsg = String.format("Invalid position");
 
     private Game game;
-    private Scanner scanner;
+    private Scanner in;
     
-    public Controller(Game game, Scanner scanner) {
+    public Controller(Game game, Scanner in) {
 	    this.game = game;
-	    this.scanner = scanner;
-    }
-    
-    public void  printGame() {
-   	 System.out.println(game);
+	    this.in = in;
     }
    
     /*On each cycle of the game, the following actions are carried out in sequence:
@@ -54,14 +48,20 @@ public class Controller {
     7.	Check end. Check whether the game has ended.
 
     */
+
+    public void  printGame() {
+   	 	System.out.println(game);
+   }
+
+    
     
     public void run() {
     	String str;
     	char ok = 0;
     	while (ok != 'e') {
     		game.draw();
-    		str = scanner.nextLine();
-    		ok = game.command(str);
+    		str = in.nextLine();
+    		ok = game.userCommand(str);
     		while (ok != 'c' && ok != 'e') {
     			if (ok == 'i') {
     				System.out.println();
@@ -71,22 +71,23 @@ public class Controller {
         		}
     			System.out.println(helpMsg);
     			System.out.print(prompt);
-    			str = scanner.nextLine();
-        		ok = game.command(str);
+    			str = in.nextLine();
+        		ok = game.userCommand(str);
     		}
     		if (ok == 'e') {
     			System.out.println("Game Over!");
-    		} else {
-    			//TODO 
-    	
+    		}else {
     			game.update();
     			game.attack();
-    			
+    			game.addVampire();
+    			//TODO remove dead objects needs to be done separately or not?
+    			game.checkEnd();
+    			game.receiveCoins();
+    			game.incrementCycles();
     		}
     	}
-    	
-    	
     }
+    
 
 }
 

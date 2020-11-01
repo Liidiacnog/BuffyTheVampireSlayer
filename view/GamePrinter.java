@@ -1,9 +1,7 @@
 package view;
 
-/*
- * This class is passed the game object in its constructor and has a toString method that produces a string which, when when sent to the standard output, 
- * displays the board on the console.
- */
+/* This class is passed the game object in its constructor and has a toString method that produces a string which, when 
+sent to the standard output, displays the board on the console. */
 
 import logic.Game;
 import utils.MyStringUtils;
@@ -23,7 +21,7 @@ public class GamePrinter {
 	}
 	
 	private void encodeGame(Game game) {
-		// TODO 
+		board = new String[numRows][numCols];
 	}
 	
 	 public String toString() {

@@ -6,6 +6,24 @@ package logic;
  * level, we would only need to change the code of the Level class itself in order to do so).
  */
 
+/*The game can be played at three levels, EASY, HARD and INSANE, where the level determines various configuration options 
+ * (see Table 1.1), in particular, the probability on each cycle that a new vampire is added to the game. If a vampire is
+ *  to be added, the row in which it appears is chosen at random. If there is already a vampire in the chosen row then 
+ *  the new vampire is not placed on the board.
+
+Level	Number of vampires	Frecuency	board width	board height
+EASY	3						0.1				8		4
+HARD	5						0.2				7		3
+INSANE	10						0.3				5		6
+Table 1.1: Configuration for each level of difficulty
+
+Table 1.1 shows the different values for the configuration options that depend on the level. These are:
+The total number of vampires that appear in a game.
+The frequency of appearance of vampires, which determines the probability that a vampire appears on a given cycle. Thus,if the frequency is 0.2, 
+a vampire appears randomly on each cycle with a probability of one in five.
+The dimensions of the board; at the easiest level the board dimensions are 8 × 4 and at the hardest level 5 × 6.
+*/
+
 
 public enum Level {
 	EASY("easy", 3, 0.1, 8, 4), HARD("hard", 5, 0.2, 7, 3), INSANE("insane", 10, 0.3, 5, 6);
@@ -23,7 +41,7 @@ public enum Level {
 		this.dim_y = dim_y;
 	}
 
-	public static int getValue(Level lvl) {
+	/*public static int getValue(Level lvl) {
 		int value = 0;
 		if(lvl == EASY)
 			value = 1;
@@ -33,7 +51,7 @@ public enum Level {
 			value = 3;
 		
 		return value;	
-	}
+	}*/ //never used
 
     public static Level parse(String inputString) {
         for (Level level : Level.values())
@@ -51,6 +69,10 @@ public enum Level {
 
 	public int getVampNumber() {
 		return numberOfVampires;
+	}
+	
+	public double getvampireFrequency() {
+		return vampireFrequency;
 	}
 
 	public int getRows() {

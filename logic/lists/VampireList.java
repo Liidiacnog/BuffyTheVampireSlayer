@@ -22,7 +22,7 @@ public class VampireList {
 		boolean found = false;
 		int i = 0;
 		while (!found && i < size) {
-			if (vamp[i].isHere(x, y))
+			if (vamp[i].isHere(x, y) && vamp[i].getLife() > 0)
 				found = true;
 			else
 				i++;
@@ -54,7 +54,11 @@ public class VampireList {
 	}
 	
 	public void moveVamps(int i) {
-			vamp[i].move();
+		vamp[i].move();
+	}
+	
+	public int getLife(int i) {
+		return vamp[i].getLife();
 	}
 	
 	public int getSize() {
@@ -69,7 +73,7 @@ public class VampireList {
 		return vamp[position].getY();
 	}
 	
-	public void getHit(int pos, int harm) {
+	public void beenHit(int pos, int harm) {
 		vamp[pos].beenHit(harm);
 	}
 	

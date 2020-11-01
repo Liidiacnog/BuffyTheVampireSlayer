@@ -1,12 +1,14 @@
-/* Es la clase que contiene el método main de la aplicación. En este caso el método main lee los valores de los parámetros 
-de la aplicación (nivel y semilla), crea una nueva partida (objeto de la clase Game), crea un controlador (objeto de la 
-clase Controller) con dicha partida, e invoca al método run del controlador.
- */
-
 import java.util.Scanner;
 import logic.Level;
 import control.Controller;
 import logic.Game;
+
+/* This class contains the main method of the application. The JVM passes the values of the command-line parameters — 
+ * in this program, the level and, optionally, the seed — to the main method, which creates the game object 
+ * (instance of the Game class), the controller object (instance of the Controller class), passing the game object
+ *  to its constructor, and finally invokes the run method of the controller object.
+ */
+
 
 public class Buffy {
 		public static final String version = "1.0";
@@ -48,4 +50,6 @@ public class Buffy {
 			}
 		}
 	}
+	
+	
 }
