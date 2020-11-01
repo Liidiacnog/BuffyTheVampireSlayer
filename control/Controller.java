@@ -59,8 +59,10 @@ public class Controller {
     	String str;
     	char ok = 0;
     	while (ok != 'e') {
-    		game.drawInfo();
+    		System.out.println(game.stringInfo()); //shows coins, vamps, ...
     		printGame();
+    		System.out.println("");
+    		System.out.print("Command > ");
     		str = in.nextLine();
     		ok = game.userCommand(str);
     		while (ok != 'c' && ok != 'e') {

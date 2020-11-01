@@ -56,6 +56,14 @@ public class VampireList {
 	public void moveVamps(int i) {
 		vamp[i].move();
 	}
+	public boolean getMoved(int pos) {
+		return vamp[pos].getMoved();
+	}
+	
+	public String representation(int pos) {
+		return  vamp[pos].toString();
+	}
+	
 	
 	public int getLife(int i) {
 		return vamp[i].getLife();

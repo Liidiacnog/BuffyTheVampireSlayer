@@ -98,6 +98,10 @@ public class Vampire {
 	}
 	
 			//getters
+	public boolean getMoved() {
+		return movedBefore;
+	}
+	
 	
 	public int getLife() {
 		return life;

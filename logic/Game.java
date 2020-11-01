@@ -30,9 +30,10 @@ public class Game { //TODO pass itself using "this"
 	public Game(Long seed, Level lvl) {
 		level = lvl;
 		this.seed = seed;
-		player = new Player();
-		board = new GameObjectBoard(lvl);
 		r = new Random(seed);
+		board = new GameObjectBoard(lvl);
+		player = new Player();
+		gamePrinter = new GamePrinter(this, level.getColums(), level.getRows());
 	}
 	
 	public void incrementCycles() {
@@ -54,6 +55,14 @@ public class Game { //TODO pass itself using "this"
 		return Level.getValue(level);
 	}*/ // not used
 	
+	public String boardObject(int x, int y) {
+		String object = "";
+		if(!board.isFree(x, y))
+			object = board.objectOn(x, y); //returns toString() of vamp or slayer who is on (x, y)
+				
+		return object;
+	}
+	
 	public int getRandomClassNextInt(int upperBound) {
 		return r.nextInt(upperBound);
 	}
@@ -71,16 +80,11 @@ public class Game { //TODO pass itself using "this"
 	}
 	
 	
-	public void drawInfo() {
-		System.out.println("");
-		System.out.println("Cycle number: " + cycles);
-		System.out.println("Coins: " + player.getCoins());
-		System.out.println("Remainig vampires: " + board.vampsLeft());
-		System.out.println("Vampires on the board: " + board.vampsOnBoard());
-		System.out.println("");
-		System.out.println(board);
-		System.out.println("");
-		System.out.print("Command > ");
+	public String stringInfo() {
+		String info = "\n" + "Cycle number: " + cycles + "\n" + "Coins: " + player.getCoins() +
+						"\n" + "Remainig vampires: " + board.vampsLeft() + "\n" +
+						"Vampires on the board: " + board.vampsOnBoard() + "\n";
+		return info;
 	}
 
 	//in charge of moving vamps

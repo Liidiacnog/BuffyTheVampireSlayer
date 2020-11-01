@@ -31,7 +31,7 @@ public class GameObjectBoard {
 		slayers = new SlayerList(rows * columns);
 	}
 	
-		
+		//TODO no lo vamos a usar, por gamePrinter
 	public String toString() {
 		int pos;
 		String boardString = "";
@@ -59,6 +59,15 @@ public class GameObjectBoard {
 	}
 
 	
+	public String objectOn(int x, int y) {
+		String object = "";
+		if(slayers.isHere(x, y) != -1)
+			object = slayers.representation(slayers.isHere(x, y));
+		else 
+			object = vamps.representation(vamps.isHere(x, y));
+		return object;
+	}
+	
 	
 	public int vampsLeft() {
 		return vamps.left();
@@ -79,11 +88,9 @@ public class GameObjectBoard {
 	
 	public boolean isFree (int x, int y) {
 		boolean valid = false;
-		if (validCords(x, y)) {
-			if (slayers.isHere(x, y) == -1 && vamps.isHere(x, y) == -1) {
+		if (validCords(x, y) && slayers.isHere(x, y) == -1 && vamps.isHere(x, y) == -1)
 				valid = true;
-			}
-		}
+
 		return valid;
 	}
 
@@ -102,7 +109,7 @@ public class GameObjectBoard {
 	}
 	
 	
-	public boolean vampCanMove(int x, int y) {
+	public boolean vampCanMove(int x, int y) {//true if new position of vamp is free
 		return isFree(x--, y);
 	}
 	
@@ -140,7 +147,7 @@ public class GameObjectBoard {
 	
 	public void moveVamps() {
 		for(int i = 0; i < vamps.getSize(); ++i) {
-			if(vampCanMove(vamps.getX(i), vamps.getY(i)))
+			if(vampCanMove(vamps.getX(i), vamps.getY(i)) && vamps.getMoved(i))
 				vamps.moveVamps(i);
 		}
 	}

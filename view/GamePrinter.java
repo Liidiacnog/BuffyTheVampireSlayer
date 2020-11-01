@@ -20,14 +20,17 @@ public class GamePrinter {
 		this.numCols = cols;
 	}
 	
-	private void encodeGame(Game game) {
+	private void encodeGame(Game game) { //builds matrix with String corresponding to object in that position 
 		board = new String[numRows][numCols];
+		for(int i = 0; i < numRows; ++i) 
+			for(int j = 0; j < numCols; ++j)
+				board[i][j] = game.boardObject(i, j);
 	}
 	
 	 public String toString() {
 		 //TODO the toString method of the GamePrinter class should call (via encodeGame and some other methods) 
 		 //the toString methods of the Vampire and Slayer classes. As I said in class, it is very common to have a 
-		 // of implicit calls to toString methods.
+		 // cascade of implicit calls to toString methods.
 		encodeGame(game);
 		int cellSize = 7;
 		int marginSize = 2;

@@ -41,6 +41,10 @@ public class SlayerList {
 		slayers[pos].beenBitten(harm);
 	}
 	
+	public String representation(int pos) {
+		return slayers[pos].toString(); //only called when there is always 1 slayer or more
+	}
+	
 	
 	//getters
 	
