@@ -12,7 +12,6 @@ Note that there will only ever be one instance of the Board class in the program
 public class GameObjectBoard {
 	
 	private int rows, columns;
-	private String rowSeparation = " ";
 	
 	private VampireList vamps;
 	private SlayerList slayers;
@@ -22,43 +21,9 @@ public class GameObjectBoard {
 	public GameObjectBoard(Level lvl) {
 		rows = lvl.getRows();
 		columns = lvl.getColums();
-		for (int i = 0; i < columns; i++) {
-			rowSeparation = rowSeparation + "--------";
-			if (i != 0)
-				rowSeparation = rowSeparation + "-";
-		}
 		vamps = new VampireList(lvl.getVampNumber());
 		slayers = new SlayerList(rows * columns);
 	}
-	
-		
-	public String toString() {
-		int pos;
-		String boardString = "";
-		for (int i = 0; i < rows; i++) {
-			boardString = rowSeparation;
-			for (int j = 0; j < columns; j++) {
-				boardString += "|";
-				pos = vamps.isHere(j + 1,  Math.abs(rows - i));
-				if (pos != -1) {
-					boardString += vamps.toString(pos);
-				} else { 
-					pos = slayers.isHere(j + 1,  Math.abs(rows - i));
-					if (pos != -1){
-						boardString += slayers.toString(pos);
-					} else {
-						boardString += "        ";
-					}
-				}
-				// System.out.print("  " + (j + 1) + "  " + Math.abs(rows - i) + "  "); Coordenadas de cada casilla
-			}
-			boardString += "|";
-		}
-		boardString += rowSeparation;
-		return boardString;
-	}
-
-	
 	
 	public int vampsLeft() {
 		return vamps.left();
@@ -169,6 +134,18 @@ public class GameObjectBoard {
 	
 	public static int getCostSlayers() {
 		return SlayerList.getCost();
+	}
+
+
+	public String objectOn(int x, int y) {
+		String object = "";
+		if (vamps.isHere(x, y) != -1) {
+			object += vamps.toString(vamps.isHere(x, y));
+		} else if (slayers.isHere(x, y) != -1){
+			object += slayers.toString(slayers.isHere(x, y));
+		}
+		
+		return object;
 	}
 	
 }

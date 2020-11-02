@@ -59,8 +59,8 @@ public class Controller {
     	String str;
     	char ok = 0;
     	while (ok != 'e') {
-    		game.drawInfo();
     		printGame();
+			System.out.print(prompt);
     		str = in.nextLine();
     		ok = game.userCommand(str);
     		while (ok != 'c' && ok != 'e') {

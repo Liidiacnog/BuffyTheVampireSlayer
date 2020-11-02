@@ -62,7 +62,7 @@ public class Vampire {
 	}
 	
 	public String toString() {
-		return (" " + representation + "[" + life + "]");
+		return representation + "[" + life + "]";
 	}
 	
 	public boolean isHere(int i, int j) {

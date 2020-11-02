@@ -40,7 +40,7 @@ public class Slayer {
 			//affect others
 	
 	public String toString() {
-		return (" " + representation + "[" + life + "]");
+		return representation + "[" + life + "]";
 	}
 
 	public boolean isHere(int i, int j) {
