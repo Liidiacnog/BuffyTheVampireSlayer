@@ -52,9 +52,7 @@ public class GameObjectBoard {
 		return valid;
 	}
 
-	public void addVampire() { //we suppose it's only called when we haven't reached max number of vampires yet
-		int x = columns - 1; //vamps appear on last column always
-		int y = currentGame.getRandomClassNextInt(rows);
+	public void addVampire(int x, int y) { //we suppose it's only called when we haven't reached max number of vampires yet
 		if(vamps.isHere(x,  y) == -1) //no vampire in that position
 			vamps.addVamp(x, y);
 	}
@@ -68,7 +66,7 @@ public class GameObjectBoard {
 	
 	
 	public boolean vampCanMove(int x, int y) {
-		return isFree(x--, y);
+		return isFree(--x, y);
 	}
 	
 	public int existsTargetVamp(int x, int y) { 
@@ -111,7 +109,7 @@ public class GameObjectBoard {
 	}
 	
 	public void slayersHit() {
-		for(int pos = 0; pos < slayers.getSize(); ++pos) {
+		for(int pos = 0; pos < slayers.getSize(); pos++) {
 			if(existsTargetVamp(slayers.getX(pos), slayers.getY(pos)) != -1) {
 				vamps.beenHit(existsTargetVamp(slayers.getX(pos), slayers.getY(pos)), slayers.getDamage(pos));
 			}
@@ -146,6 +144,11 @@ public class GameObjectBoard {
 		}
 		
 		return object;
+	}
+
+	public void removeDeadObj() {
+		slayers.removeDeadObj();
+		vamps.removeDeadObj();
 	}
 	
 }

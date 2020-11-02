@@ -75,18 +75,21 @@ public class Controller {
     			str = in.nextLine();
         		ok = game.userCommand(str);
     		}
-    		if (ok == 'e') {
-    			System.out.println("Game Over!");
-    		}else {
+    		if (ok != 'e'){
     			game.update();
     			game.attack();
     			game.addVampire();
-    			//TODO remove dead objects needs to be done separately or not?
-    			game.checkEnd();
+    			game.removeDeadObj();
+    			if (game.checkEnd()) {
+    				ok = 'e';
+    			}
     			game.receiveCoins();
     			game.incrementCycles();
     		}
+    			
     	}
+		printGame();
+		System.out.print("Game over!");
     }
     
 

@@ -98,7 +98,9 @@ public class Game { //TODO pass itself using "this"
 		*/
 		if(board.vampsLeft() > 0 && r.nextDouble() < level.getvampireFrequency()) { 
 			//nextDouble(): returns the next pseudorandom, double value between 0 and 1.0 from this random number generator's sequence.
-			board.addVampire();	
+			int x = level.getColums() - 1; //vamps appear on last column always
+			int y = r.nextInt(level.getRows());
+			board.addVampire(x, y);	
 		}
 	}
 	
@@ -139,7 +141,7 @@ public class Game { //TODO pass itself using "this"
 	
 	public boolean checkEnd() {
 		boolean end = false;
-			if (board.vampsLeft() == 0)
+			if (board.vampsLeft() == 0 && board.vampsOnBoard() == 0)
 				end = true;
 			else if (board.vampsWin())
 				end = true;
@@ -152,6 +154,10 @@ public class Game { //TODO pass itself using "this"
 		object = board.objectOn(x, y); //returns toString() of vamp or slayer who is on (x, y)
 				
 		return object;
+	}
+
+	public void removeDeadObj() {
+		board.removeDeadObj();
 	}
 	
 	

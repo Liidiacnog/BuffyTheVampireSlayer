@@ -33,7 +33,7 @@ public class Vampire {
 	private boolean placed;
 	private static int frequency = 1, damage = 1;
 	//how many vampires are on the board, total number of vampires that can appear in the game:
-	private static int  vampsOnBoard = 0, vampsThisLevel;  
+	private static int  vampsOnBoard = 0, vampsThisLevel, vampsLeft;  
 	private int x, y; //position coordinates on the board
 	private boolean movedBefore; //check whether it is its turn to move or not(they move each 2 cycles)
 	private static String representation = "VˆV";
@@ -58,7 +58,9 @@ public class Vampire {
 		//own state
 	
 	public void move() {
-		--x;//vamp move to the left only
+		if (!movedBefore)
+			--x;//vamp move to the left only
+		movedBefore = !movedBefore;
 	}
 	
 	public String toString() {
@@ -89,15 +91,15 @@ public class Vampire {
 		vampsThisLevel = nrOfVamps;
 	}
 
-	public static void setVampsThisLevel(int nr) {
-		vampsThisLevel = nr;
+	public static void setVampsLeft(int nr) {
+		vampsLeft = nr;
 	}
 	
 	public static void setVampsOnBoard(int nr) {
 		vampsOnBoard = nr;
 	}
 	
-			//getters
+	//getters
 	
 	public int getLife() {
 		return life;
@@ -118,13 +120,17 @@ public class Vampire {
 	public static int getVampsOnBoard() {
 		return vampsOnBoard;
 	}
+	
+	public static int getVampsLeft() {
+		return vampsLeft;
+	}
 
 	public int life() {
 		return life;
 	}
 
 	public boolean reachEnd() {
-		return x == 1;
+		return x == 0;
 	}
 	
 }

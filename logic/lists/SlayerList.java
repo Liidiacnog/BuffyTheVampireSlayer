@@ -62,7 +62,18 @@ public class SlayerList {
 	
 	public static int getCost() {
 		return Slayer.getCost();
-	}	
+	}
+
+	public void removeDeadObj() {
+		for (int i = 0; i < size; i++) {
+			if (slayers[i].getLife() == 0) {
+				for (int j = i; j < size - 1; j++) {
+					slayers[j] = slayers[j + 1];
+				}
+				size -= 1;
+			}
+		}
+	}
 	
 	
 }

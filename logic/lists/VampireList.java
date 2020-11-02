@@ -9,12 +9,15 @@ public class VampireList {
 	public VampireList(int n) { //created with length = numberOfVamps of that Level
 		vamp = new Vampire[n];
 		size = 0; //at first vampsOnBoard will be 0
+		Vampire.setVampsLeft(n);
 	}
 	
 	public void addVamp(int x, int y) {
-		vamp[Vampire.getVampsOnBoard()] = new Vampire(x, y);
-		int newNrOfVamps = Vampire.getVampsOnBoard() + 1;
-		Vampire.setVampsOnBoard(newNrOfVamps);
+		vamp[size] = new Vampire(x, y);
+		size++;
+		Vampire.setVampsOnBoard(size);
+		Vampire.setVampsLeft(Vampire.getVampsLeft() - 1);
+		
 	}
 	
 	
@@ -39,7 +42,7 @@ public class VampireList {
 	}
 	
 	public int left() {
-		return vamp.length - size;
+		return Vampire.getVampsLeft();
 	}
 	
 	public int onBoard() {
@@ -92,6 +95,17 @@ public class VampireList {
 			i++;
 		}
 		return end;
+	}
+	
+	public void removeDeadObj() {
+		for (int i = 0; i < size; i++) {
+			if (vamp[i].getLife() == 0) {
+				for (int j = i; j < size - 1; j++) {
+					vamp[j] = vamp[j + 1];
+				}
+				size -= 1;
+			}
+		}
 	}
 }
 

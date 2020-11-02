@@ -76,6 +76,10 @@ public class Slayer {
 	public static int getCost() {
 		return cost;
 	}
+
+	public int getLife() {
+		return life;
+	}
 }
 	
 	
