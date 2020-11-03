@@ -59,7 +59,6 @@ public class Controller {
     	String str;
     	char ok = 0;
     	while (ok != 'e') {
-<<<<<<< HEAD
    		printGame();
    		System.out.println("");
    		System.out.print(prompt);
@@ -71,25 +70,7 @@ public class Controller {
         		System.out.println(invalidCommandMsg);
     		} else if (ok == 'p') {
     			System.out.println(invalidPositionMsg);
-=======
-    		printGame();
-			System.out.print(prompt);
-    		str = in.nextLine();
-    		ok = game.userCommand(str);
-    		while (ok != 'c' && ok != 'e') {
-    			if (ok == 'i') {
-    				System.out.println();
-        			System.out.println(invalidCommandMsg);
-        		} else if (ok == 'p') {
-        			System.out.println(invalidPositionMsg);
-        		}
-    			System.out.println(helpMsg);
-    			System.out.print(prompt);
-    			str = in.nextLine();
-        		ok = game.userCommand(str);
->>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
     		}
-<<<<<<< HEAD
 			System.out.println(helpMsg);
 			System.out.print(prompt);
 			str = in.nextLine();
@@ -105,20 +86,7 @@ public class Controller {
 			
 			game.receiveCoins();
 			game.incrementCycles();
-=======
-    		if (ok != 'e'){
-    			game.update();
-    			game.attack();
-    			game.addVampire();
-    			game.removeDeadObj();
-    			if (game.checkEnd()) {
-    				ok = 'e';
-    			}
-    			game.receiveCoins();
-    			game.incrementCycles();
->>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
     		}
-    			
     	}
 		printGame();
 		System.out.print("Game over!");

@@ -20,16 +20,11 @@ public class GameObjectBoard {
 	
 	public GameObjectBoard(Level lvl) {
 		rows = lvl.getRows();
-<<<<<<< HEAD
 		columns = lvl.getColumns();
-=======
-		columns = lvl.getColums();
->>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 		vamps = new VampireList(lvl.getVampNumber());
 		slayers = new SlayerList(rows * columns);
 	}
 	
-<<<<<<< HEAD
 /*
 		//TODO no lo vamos a usar, por gamePrinter
 	public String toString() {
@@ -60,8 +55,7 @@ public class GameObjectBoard {
 */
 	
 	
-=======
->>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
+
 	public int vampsLeft() {
 		return vamps.left();
 	}
@@ -97,13 +91,8 @@ public class GameObjectBoard {
 	}
 	
 	
-<<<<<<< HEAD
 	public boolean vampCanMove(int x, int y) {//true if new position of vamp is free
 		return isFree(x, --y);
-=======
-	public boolean vampCanMove(int x, int y) {
-		return isFree(--x, y);
->>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 	}
 	
 	public int existsTargetVamp(int x, int y) { 
@@ -146,14 +135,10 @@ public class GameObjectBoard {
 	}
 	
 	public void slayersHit() {
-<<<<<<< HEAD
-		for(int pos = 0; pos < slayers.getSize(); pos++)
-			if(existsTargetVamp(slayers.getX(pos), slayers.getY(pos)) != -1)
-=======
 		for(int pos = 0; pos < slayers.getSize(); pos++) {
-			if(existsTargetVamp(slayers.getX(pos), slayers.getY(pos)) != -1) {
->>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
+			if(existsTargetVamp(slayers.getX(pos), slayers.getY(pos)) != -1)
 				vamps.beenHit(existsTargetVamp(slayers.getX(pos), slayers.getY(pos)), slayers.getDamage(pos));
+		}
 	}
 	
 	
@@ -176,18 +161,10 @@ public class GameObjectBoard {
 
 	public String objectOn(int x, int y) {
 		String object = "";
-<<<<<<< HEAD
 		if (vamps.isHere(x, y) != -1)
 			object = vamps.toString(vamps.isHere(x, y));
 		else if (slayers.isHere(x, y) != -1)
 			object = slayers.toString(slayers.isHere(x, y));
-=======
-		if (vamps.isHere(x, y) != -1) {
-			object += vamps.toString(vamps.isHere(x, y));
-		} else if (slayers.isHere(x, y) != -1){
-			object += slayers.toString(slayers.isHere(x, y));
-		}
->>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 		
 		return object;
 	}
