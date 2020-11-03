@@ -22,9 +22,17 @@ public class GamePrinter {
 	
 	private void encodeGame(Game game) { //builds matrix with String corresponding to object in that position 
 		board = new String[numRows][numCols];
+<<<<<<< HEAD
 		for(int i = 0; i < numRows; ++i) 
 			for(int j = 0; j < numCols; ++j)
 				board[i][j] = game.boardObject(i, j);
+=======
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numCols; j++) {
+				board[i][j] = game.boardObject(j, i);
+			}
+		}
+>>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 	}
 	
 	 public String toString() {

@@ -31,9 +31,13 @@ public class Game { //TODO pass itself using "this"
 		level = lvl;
 		this.seed = seed;
 		r = new Random(seed);
+<<<<<<< HEAD
 		gamePrinter = new GamePrinter(this, lvl.getRows(), lvl.getColumns());
 		board = new GameObjectBoard(lvl);
 		player = new Player();
+=======
+		gamePrinter = new GamePrinter(this, lvl.getRows(), lvl.getColums());
+>>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 	}
 	
 	public void incrementCycles() {
@@ -106,9 +110,15 @@ public class Game { //TODO pass itself using "this"
 		*/
 		if(board.vampsLeft() > 0 && r.nextDouble() < level.getvampireFrequency()) { 
 			//nextDouble(): returns the next pseudorandom, double value between 0 and 1.0 from this random number generator's sequence.
+<<<<<<< HEAD
 			int col = level.getColumns() - 1; //vamps appear on last column always
 			int row = r.nextInt(level.getRows());
 			board.addVampire(row, col);	
+=======
+			int x = level.getColums() - 1; //vamps appear on last column always
+			int y = r.nextInt(level.getRows());
+			board.addVampire(x, y);	
+>>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 		}
 	}
 	
@@ -157,7 +167,17 @@ public class Game { //TODO pass itself using "this"
 		return end;
 	}
 
+<<<<<<< HEAD
 	
+=======
+	public String boardObject(int x, int y) {
+		String object = "";
+		object = board.objectOn(x, y); //returns toString() of vamp or slayer who is on (x, y)
+				
+		return object;
+	}
+
+>>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 	public void removeDeadObj() {
 		board.removeDeadObj();
 	}

@@ -34,7 +34,11 @@ public class Vampire {
 	private static int frequency = 1, damage = 1;
 	//how many vampires are on the board, total number of vampires that can appear in the game:
 	private static int  vampsOnBoard = 0, vampsThisLevel, vampsLeft;  
+<<<<<<< HEAD
 	private int col, row; //position coordinates on the board
+=======
+	private int x, y; //position coordinates on the board
+>>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 	private boolean movedBefore; //check whether it is its turn to move or not(they move each 2 cycles)
 	private static String representation = "VˆV";
 	
@@ -63,7 +67,11 @@ public class Vampire {
 	
 	public void move() {
 		if (!movedBefore)
+<<<<<<< HEAD
 			--col;//vamp move to the left only
+=======
+			--x;//vamp move to the left only
+>>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 		movedBefore = !movedBefore;
 	}
 	
@@ -103,11 +111,15 @@ public class Vampire {
 		vampsOnBoard = nr;
 	}
 	
+<<<<<<< HEAD
 
 	//getters
 	public boolean getMoved() {
 		return movedBefore;
 	}
+=======
+	//getters
+>>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 	
 	public int getLife() {
 		return life;
@@ -128,6 +140,21 @@ public class Vampire {
 	public static int getVampsOnBoard() {
 		return vampsOnBoard;
 	}
+<<<<<<< HEAD
+=======
+	
+	public static int getVampsLeft() {
+		return vampsLeft;
+	}
+
+	public int life() {
+		return life;
+	}
+
+	public boolean reachEnd() {
+		return x == 0;
+	}
+>>>>>>> branch 'main' of https://github.com/Liidiacnog/Test.git
 	
 	public static int getVampsLeft() {
 		return vampsLeft;
