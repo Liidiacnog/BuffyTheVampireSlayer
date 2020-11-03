@@ -79,7 +79,7 @@ public enum Level {
 		return dim_y;
 	}
 
-	public int getColums() {
+	public int getColumns() {
 		return dim_x;
 	}
 

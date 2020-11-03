@@ -14,7 +14,7 @@ public class GamePrinter {
 	String[][] board;
 	final String space = " ";
 	
-	public GamePrinter (Game game, int cols, int rows) {
+	public GamePrinter (Game game, int rows, int cols) {
 		this.game = game;
 		this.numRows = rows;
 		this.numCols = cols;

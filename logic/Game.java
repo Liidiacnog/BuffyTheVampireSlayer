@@ -31,9 +31,9 @@ public class Game { //TODO pass itself using "this"
 		level = lvl;
 		this.seed = seed;
 		r = new Random(seed);
+		gamePrinter = new GamePrinter(this, lvl.getRows(), lvl.getColumns());
 		board = new GameObjectBoard(lvl);
 		player = new Player();
-		gamePrinter = new GamePrinter(this, level.getColums(), level.getRows());
 	}
 	
 	public void incrementCycles() {
@@ -41,7 +41,7 @@ public class Game { //TODO pass itself using "this"
 	}
 	
 	public String toString() {
-		return "" + gamePrinter;
+		return this.drawInfo() + gamePrinter;
 	}
 	
 	
@@ -55,10 +55,10 @@ public class Game { //TODO pass itself using "this"
 		return Level.getValue(level);
 	}*/ // not used
 	
-	public String boardObject(int x, int y) {
+	public String boardObject(int row, int col) {
 		String object = "";
-		if(!board.isFree(x, y))
-			object = board.objectOn(x, y); //returns toString() of vamp or slayer who is on (x, y)
+		if(!board.isFree(row, col))
+			object = board.objectOn(row, col); //returns toString() of vamp or slayer who is on (row, col)
 				
 		return object;
 	}
@@ -80,11 +80,16 @@ public class Game { //TODO pass itself using "this"
 	}
 	
 	
-	public String stringInfo() {
-		String info = "\n" + "Cycle number: " + cycles + "\n" + "Coins: " + player.getCoins() +
-						"\n" + "Remainig vampires: " + board.vampsLeft() + "\n" +
-						"Vampires on the board: " + board.vampsOnBoard() + "\n";
-		return info;
+	public String drawInfo() {
+		StringBuilder str = new StringBuilder();
+		char jumpLine = '\n';
+		str.append(jumpLine);
+		str.append("Cycle number: ").append(cycles).append(jumpLine);
+		str.append("Coins: ").append(player.getCoins()).append(jumpLine);
+		str.append("Remainig vampires: ").append( board.vampsLeft()).append(jumpLine);
+		str.append("Vampires on the board: ").append(board.vampsOnBoard()).append(jumpLine);
+		
+		return str.toString();
 	}
 
 	//in charge of moving vamps
@@ -101,7 +106,9 @@ public class Game { //TODO pass itself using "this"
 		*/
 		if(board.vampsLeft() > 0 && r.nextDouble() < level.getvampireFrequency()) { 
 			//nextDouble(): returns the next pseudorandom, double value between 0 and 1.0 from this random number generator's sequence.
-			board.addVampire();	
+			int col = level.getColumns() - 1; //vamps appear on last column always
+			int row = r.nextInt(level.getRows());
+			board.addVampire(row, col);	
 		}
 	}
 	
@@ -119,10 +126,10 @@ public class Game { //TODO pass itself using "this"
 			output = 'c'; // c de correct
 		} else if (str.startsWith("a ") || str.startsWith("add ")) {
 			String[] parts = str.split(" ");
-			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]); //TODO prever errores al meter datos para que el prgrama no pete  
-			if (board.validCords(x, y) & x != level.getColums()) { 
+			int row = Integer.parseInt(parts[1]), col = Integer.parseInt(parts[2]); //TODO prever errores al meter datos para que el prgrama no pete  
+			if (board.validCords(row, col) & col != level.getColumns() - 1) { //cannot add slayer on last column 
 				if (player.enoughCoins(GameObjectBoard.getCostSlayers())) {//TODO change coordinates according to tests
-					board.addSlayer(x, y); //TODO coords changes
+					board.addSlayer(row, col); //TODO coords changes
 					player.payCoins(GameObjectBoard.getCostSlayers());
 				} else {
 					System.out.println("Not enough coins");
@@ -142,12 +149,17 @@ public class Game { //TODO pass itself using "this"
 	
 	public boolean checkEnd() {
 		boolean end = false;
-			if (board.vampsLeft() == 0)
+			if (board.vampsLeft() == 0 && board.vampsOnBoard() == 0)
 				end = true;
 			else if (board.vampsWin())
 				end = true;
 			
 		return end;
+	}
+
+	
+	public void removeDeadObj() {
+		board.removeDeadObj();
 	}
 	
 	

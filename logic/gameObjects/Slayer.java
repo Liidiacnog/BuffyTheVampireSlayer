@@ -25,13 +25,13 @@ public class Slayer {
 	private static int cost = 50, resistance = 3, frequency = 1, damage = 1;
 	private static String representation =  "<->";
 	private int life;
-	private int x, y; //position coordinates on the board
+	private int row, col; //position coordinates on the board
 	
 	private Game currentGame; //instance of Class Game in order to be able to use its methods
 	
 	public Slayer(int x, int y) {
-		this.x = x;
-		this.y = y;
+		row = x;
+		col = y;
 		life = resistance; //just initially
 	}
 	
@@ -40,12 +40,12 @@ public class Slayer {
 			//affect others
 	
 	public String toString() {
-		return (" " + representation + "[" + life + "]");
+		return representation + "[" + life + "]";
 	}
 
 	public boolean isHere(int i, int j) {
 		boolean found = false;
-		if (x == i && y == j) {
+		if (row == i && col == j) {
 			found = true;
 		}
 		return found;
@@ -66,15 +66,19 @@ public class Slayer {
 	}
 	
 	public int getX() {
-		return x;
+		return row;
 	}
 	
 	public int getY() {
-		return y;
+		return col;
 	}
 	
 	public static int getCost() {
 		return cost;
+	}
+
+	public int getLife() {
+		return life;
 	}
 }
 	

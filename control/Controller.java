@@ -59,38 +59,38 @@ public class Controller {
     	String str;
     	char ok = 0;
     	while (ok != 'e') {
-    		System.out.println(game.stringInfo()); //shows coins, vamps, ...
-    		printGame();
-    		System.out.println("");
-    		System.out.print("Command > ");
-    		str = in.nextLine();
-    		ok = game.userCommand(str);
-    		while (ok != 'c' && ok != 'e') {
-    			if (ok == 'i') {
-    				System.out.println();
-        			System.out.println(invalidCommandMsg);
-        		} else if (ok == 'p') {
-        			System.out.println(invalidPositionMsg);
-        		}
-    			System.out.println(helpMsg);
-    			System.out.print(prompt);
-    			str = in.nextLine();
-        		ok = game.userCommand(str);
+   		printGame();
+   		System.out.println("");
+   		System.out.print(prompt);
+		str = in.nextLine();
+    	ok = game.userCommand(str);
+    	while (ok != 'c' && ok != 'e') {
+    		if (ok == 'i') {
+    			System.out.println();
+        		System.out.println(invalidCommandMsg);
+    		} else if (ok == 'p') {
+    			System.out.println(invalidPositionMsg);
     		}
-    		if (ok == 'e') {
-    			System.out.println("Game Over!");
-    		}else {
-    			game.update();
-    			game.attack();
-    			game.addVampire();
-    			//TODO remove dead objects needs to be done separately or not?
-    			game.checkEnd();
-    			game.receiveCoins();
-    			game.incrementCycles();
+			System.out.println(helpMsg);
+			System.out.print(prompt);
+			str = in.nextLine();
+    		ok = game.userCommand(str);
+		}
+		if (ok != 'e'){
+			game.update();
+			game.attack();
+			game.addVampire();
+			game.removeDeadObj();
+			if (game.checkEnd())
+				ok = 'e';
+			
+			game.receiveCoins();
+			game.incrementCycles();
     		}
     	}
+		printGame();
+		System.out.print("Game over!");
     }
     
-
 }
 

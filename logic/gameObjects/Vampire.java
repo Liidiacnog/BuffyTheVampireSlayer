@@ -33,8 +33,8 @@ public class Vampire {
 	private boolean placed;
 	private static int frequency = 1, damage = 1;
 	//how many vampires are on the board, total number of vampires that can appear in the game:
-	private static int  vampsOnBoard = 0, vampsThisLevel;  
-	private int x, y; //position coordinates on the board
+	private static int  vampsOnBoard = 0, vampsThisLevel, vampsLeft;  
+	private int col, row; //position coordinates on the board
 	private boolean movedBefore; //check whether it is its turn to move or not(they move each 2 cycles)
 	private static String representation = "VˆV";
 	
@@ -44,8 +44,8 @@ public class Vampire {
 	//constructor 
 	
 	public Vampire (int x, int y) {  
-		this.x = x;
-		this.y = y;
+		row = x;
+		col = y;
 		placed = true;
 		movedBefore = true;
 	}
@@ -57,17 +57,23 @@ public class Vampire {
 
 		//own state
 	
+	public boolean reachEnd() {
+		return col == 0; //column == first
+	}
+	
 	public void move() {
-		--x;//vamp move to the left only
+		if (!movedBefore)
+			--col;//vamp move to the left only
+		movedBefore = !movedBefore;
 	}
 	
 	public String toString() {
-		return (" " + representation + "[" + life + "]");
+		return representation + "[" + life + "]";
 	}
 	
 	public boolean isHere(int i, int j) {
 		boolean found = false;
-		if (x == i && y == j) {
+		if (row == i && col == j) {
 			found = true;
 		}
 		return found;
@@ -89,19 +95,19 @@ public class Vampire {
 		vampsThisLevel = nrOfVamps;
 	}
 
-	public static void setVampsThisLevel(int nr) {
-		vampsThisLevel = nr;
+	public static void setVampsLeft(int nr) {
+		vampsLeft = nr;
 	}
 	
 	public static void setVampsOnBoard(int nr) {
 		vampsOnBoard = nr;
 	}
 	
-			//getters
+
+	//getters
 	public boolean getMoved() {
 		return movedBefore;
 	}
-	
 	
 	public int getLife() {
 		return life;
@@ -112,25 +118,21 @@ public class Vampire {
 	}
 	
 	public int getX() {
-		return x;
+		return row;
 	}
 	
 	public int getY() {
-		return y;
+		return col;
 	}
 	
 	public static int getVampsOnBoard() {
 		return vampsOnBoard;
 	}
-
-	public int life() {
-		return life;
-	}
-
-	public boolean reachEnd() {
-		return x == 1;
-	}
 	
+	public static int getVampsLeft() {
+		return vampsLeft;
+	}
+
 }
 
 
