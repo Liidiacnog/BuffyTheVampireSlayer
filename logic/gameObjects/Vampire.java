@@ -41,15 +41,16 @@ public class Vampire {
 	private static String representation = "VˆV";
 	
 	
-	private Game currentGame; //Game game needs to be passed via a parameter whenever needed
+	private Game game; //Game game needs to be passed via a parameter whenever needed
 	
 	//constructor 
 	
-	public Vampire (int x, int y) {  
+	public Vampire (int x, int y, Game game) {  
 		row = x;
 		col = y;
 		placed = true;
 		movedBefore = true;
+		this.game = game;
 	}
 	
 	//methods
@@ -75,7 +76,7 @@ public class Vampire {
 	
 	public boolean isHere(int i, int j) {
 		boolean found = false;
-		if (row == i && col == j) {
+		if (col == i && row == j) {
 			found = true;
 		}
 		return found;

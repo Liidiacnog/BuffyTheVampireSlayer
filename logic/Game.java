@@ -126,10 +126,10 @@ public class Game { //TODO pass itself using "this"
 			output = 'c'; // c de correct
 		} else if (str.startsWith("a ") || str.startsWith("add ")) {
 			String[] parts = str.split(" ");
-			int row = Integer.parseInt(parts[1]), col = Integer.parseInt(parts[2]); //TODO prever errores al meter datos para que el prgrama no pete  
-			if (board.validCords(row, col) & col != level.getColumns() - 1) { //cannot add slayer on last column 
+			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]); //TODO prever errores al meter datos para que el prgrama no pete  
+			if (board.validCords(x, y) && y != level.getColumns() - 1) { //cannot add slayer on last column 
 				if (player.enoughCoins(GameObjectBoard.getCostSlayers())) {//TODO change coordinates according to tests
-					board.addSlayer(row, col); //TODO coords changes
+					board.addSlayer(x, y); //TODO coords changes
 					player.payCoins(GameObjectBoard.getCostSlayers());
 				} else {
 					System.out.println("Not enough coins");

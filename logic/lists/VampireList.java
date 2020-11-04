@@ -1,5 +1,6 @@
 package logic.lists;
 
+import logic.Game;
 import logic.gameObjects.Vampire;
 
 public class VampireList {
@@ -12,8 +13,8 @@ public class VampireList {
 		Vampire.setVampsLeft(n);
 	}
 	
-	public void addVamp(int x, int y) {
-		vamp[size] = new Vampire(x, y);
+	public void addVamp(int x, int y, Game game) {
+		vamp[size] = new Vampire(x, y, game);
 		size++;
 		Vampire.setVampsOnBoard(size);
 		Vampire.setVampsLeft(Vampire.getVampsLeft() - 1);

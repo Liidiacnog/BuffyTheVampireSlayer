@@ -27,12 +27,13 @@ public class Slayer {
 	private int life;
 	private int row, col; //position coordinates on the board
 	
-	private Game currentGame; //instance of Class Game in order to be able to use its methods
+	private Game game; //instance of Class Game in order to be able to use its methods
 	
-	public Slayer(int x, int y) {
+	public Slayer(int x, int y, Game game) {
 		row = x;
 		col = y;
 		life = resistance; //just initially
+		this.game = game;
 	}
 	
 	//methods

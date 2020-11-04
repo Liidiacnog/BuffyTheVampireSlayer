@@ -1,5 +1,6 @@
 package logic.lists;
 
+import logic.Game;
 import logic.gameObjects.Slayer;
 
 public class SlayerList {
@@ -32,8 +33,8 @@ public class SlayerList {
 		return slayers[i].toString();
 	}
 
-	public void addSlayer(int x, int y) {
-		slayers[size] = new Slayer(x, y);
+	public void addSlayer(int x, int y, Game game) {
+		slayers[size] = new Slayer(x, y, game);
 		size++;
 	}
 	

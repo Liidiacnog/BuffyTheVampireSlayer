@@ -15,7 +15,7 @@ public class GameObjectBoard {
 	
 	private VampireList vamps;
 	private SlayerList slayers;
-	private Game currentGame;
+	private Game game;
 	
 	
 	public GameObjectBoard(Level lvl) {
@@ -24,37 +24,6 @@ public class GameObjectBoard {
 		vamps = new VampireList(lvl.getVampNumber());
 		slayers = new SlayerList(rows * columns);
 	}
-	
-/*
-		//TODO no lo vamos a usar, por gamePrinter
-	public String toString() {
-		int pos;
-		String boardString = "";
-		for (int i = 0; i < rows; i++) {
-			boardString = rowSeparation;
-			for (int j = 0; j < columns; j++) {
-				boardString += "|";
-				pos = vamps.isHere(j + 1,  Math.abs(rows - i));
-				if (pos != -1) {
-					boardString += vamps.toString(pos);
-				} else { 
-					pos = slayers.isHere(j + 1,  Math.abs(rows - i));
-					if (pos != -1){
-						boardString += slayers.toString(pos);
-					} else {
-						boardString += "        ";
-					}
-				}
-				// System.out.print("  " + (j + 1) + "  " + Math.abs(rows - i) + "  "); Coordenadas de cada casilla
-			}
-			boardString += "|";
-		}
-		boardString += rowSeparation;
-		return boardString;
-	}
-*/
-	
-	
 
 	public int vampsLeft() {
 		return vamps.left();
@@ -82,46 +51,31 @@ public class GameObjectBoard {
 
 	public void addVampire(int x, int y) { //we suppose it's only called when we haven't reached max number of vampires yet
 		if(vamps.isHere(x,  y) == -1) //no vampire in that position
-			vamps.addVamp(x, y);
+			vamps.addVamp(x, y, game);
 	}
 	
 	public void addSlayer(int i, int j) {//we suppose it's only called when Player can afford it
 		if(isFree(i, j))
-			slayers.addSlayer(i, j);
+			slayers.addSlayer(i, j, game);
 	}
 	
 	
 	public boolean vampCanMove(int x, int y) {//true if new position of vamp is free
-		return isFree(x, --y);
+		return isFree(--x, y);
 	}
 	
 	public int existsTargetVamp(int x, int y) { 
 		//returns pos = -1 if doesn't exist, and pos = position of hit vamp if found
 		boolean exists = false;
 		int i = 1, pos = -1;
-		while(!exists && i < (columns - (y+1))) { //columns - (x+1) (+1 bc coords start on 0) are positions on x axis that could be free at end of board
-			if(vamps.isHere(x, y + i) != -1)
+		while(!exists && i < (columns - (x+1))) { //columns - (x+1) (+1 bc coords start on 0) are positions on x axis that could be free at end of board
+			if(vamps.isHere(x + i, y) != -1)
 				exists = true;
 			else 
 				++i;
 		}
 		if(exists)
-			pos = vamps.isHere(x, y + i);
-		
-		return pos;
-	}
-	
-	public int existsTargetSlayer(int x, int y) { //returns pos = -1 if doesn't exist, and pos = position of hit vamp if found
-		boolean exists = false;
-		int i = 1, pos = -1;
-		while(!exists && i < (columns - (y+1))) { //columns - (x+1) (+1 bc coords start on 0) are positions on x axis that could be free at end of board
-			if(vamps.isHere(x, y + i) != -1)
-				exists = true;
-			else 
-				++i;
-		}
-		if(exists)
-			pos = vamps.isHere(x, y + i);
+			pos = vamps.isHere(x + i, y);
 		
 		return pos;
 	}
@@ -144,9 +98,9 @@ public class GameObjectBoard {
 	
 	public void vampsBite() {
 		for(int i = 0; i < vamps.getSize(); ++i) {
-			int newY = vamps.getY(i) - 1;
-			if(validCords(vamps.getX(i), newY) && slayers.isHere(vamps.getX(i), newY) != -1)
-				slayers.beenBitten(slayers.isHere(vamps.getX(i), newY), vamps.getDamage(i));
+			int newX = vamps.getX(i) - 1;
+			if(validCords(newX, vamps.getY(i)) && slayers.isHere(newX, vamps.getY(i)) != -1)
+				slayers.beenBitten(slayers.isHere(newX, vamps.getY(i)), vamps.getDamage(i));
 		}
 	}
 
