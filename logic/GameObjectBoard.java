@@ -33,7 +33,7 @@ public class GameObjectBoard {
 		return vamps.onBoard();
 	}
 
-	public boolean validCords(int row, int col) {
+	public boolean validCords(int col, int row) {
 		boolean valid = false;
 		if (row >= 0 && col >= 0 && col < columns && row < rows)
 			valid = true;
@@ -41,7 +41,7 @@ public class GameObjectBoard {
 		return valid;
 	}
 	
-	public boolean isFree (int row, int col) {
+	public boolean isFree (int col, int row) {
 		boolean valid = false;
 		if (validCords(row, col) && slayers.isHere(row, col) == -1 && vamps.isHere(row, col) == -1)
 				valid = true;
@@ -99,8 +99,9 @@ public class GameObjectBoard {
 	public void vampsBite() {
 		for(int i = 0; i < vamps.getSize(); ++i) {
 			int newX = vamps.getX(i) - 1;
-			if(validCords(newX, vamps.getY(i)) && slayers.isHere(newX, vamps.getY(i)) != -1)
+			if(validCords(newX, vamps.getY(i)) && slayers.isHere(newX, vamps.getY(i)) != -1) {
 				slayers.beenBitten(slayers.isHere(newX, vamps.getY(i)), vamps.getDamage(i));
+			}
 		}
 	}
 
