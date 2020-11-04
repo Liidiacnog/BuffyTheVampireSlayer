@@ -61,7 +61,7 @@ public class GameObjectBoard {
 	
 	
 	public boolean vampCanMove(int x, int y) {//true if new position of vamp is free
-		return isFree(--x, y);
+		return isFree(x--, y);
 	}
 	
 	public int existsTargetVamp(int x, int y) { 
