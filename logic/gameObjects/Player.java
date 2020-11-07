@@ -34,4 +34,8 @@ public class Player {
 		coins += COINS_TO_RECEIVE;
 	}
 	
+	public void setCoins(int coins) {
+		this.coins = coins;
+	}
+	
 }

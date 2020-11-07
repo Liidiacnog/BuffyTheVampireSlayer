@@ -7,7 +7,7 @@ public class SlayerList {
 	private int size; //Number of slayers on the Board, not length of array slayers
 	private Slayer[] slayers;
 	
-	public SlayerList(int n) {
+	public SlayerList(int n) {	
 		//slayers length (n) will be rows*columns, but size is initially 0, since there are no slayers on the board yet
 		size = 0;
 		slayers = new Slayer[n];
@@ -28,47 +28,36 @@ public class SlayerList {
 		
 		return i;
 	}
-	
-	public String toString(int i) {
-		return slayers[i].toString();
+
+	public String toString(int x, int y) {
+		String object = "";
+		if (isHere(x, y) != -1)
+			object = slayers[isHere(x, y)].toString();
+		return object;
 	}
 
+	public int getCost() {
+		return Slayer.getCost();
+	}
+	
 	public void addSlayer(int x, int y, Game game) {
 		slayers[size] = new Slayer(x, y, game);
 		size++;
 	}
-	
-	public void beenBitten(int pos, int harm) {
-		slayers[pos].beenBitten(harm);
-	}
-	
-	public String representation(int pos) {
-		return slayers[pos].toString(); //only called when there is always 1 slayer or more
-	}
-	
-	
-	//getters
-	
-	public int getSize() {
-		return size;
-	}
-	
-	public int getX(int pos) {
-		return slayers[pos].getX();
-	}
-	
-	public int getY(int pos) {
-		return slayers[pos].getY();
-	}
-	
-	public int getDamage(int pos) {
-		return slayers[pos].getDamage();
-	}
-	
-	public static int getCost() {
-		return Slayer.getCost();
-	}
 
+	public void bite(int x, int y, int damage) {
+		x--;
+		int pos = isHere(x, y);
+		if (pos != -1) {
+			slayers[pos].damage(damage);
+		}
+	}
+	
+	public void attack(){
+		for(int pos = 0; pos < size; pos++)
+			slayers[pos].attack();
+	}
+	
 	public void removeDeadObj() {
 		for (int i = 0; i < size; i++) {
 			if (slayers[i].getLife() == 0) {
@@ -79,6 +68,8 @@ public class SlayerList {
 			}
 		}
 	}
-	
-	
+
+	public void reset() {
+		size = 0;
+	}
 }

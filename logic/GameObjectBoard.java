@@ -1,38 +1,39 @@
 package logic;
 
-import logic.lists.*;
-
-/*This class encapsulates the state and behaviour of the board. It contains (a reference to) an instance of the VampireList
-class and of the SlayerList class, together with the methods for managing the access to the objects of these lists. 
-The Game class delegates much of its functionality to the Board class. 
-Note that there will only ever be one instance of the Board class in the program, which we will refer to as the board object.
-//Doesn't know where things are, it has to ask the lists
-*/
+import logic.lists.SlayerList;
+import logic.lists.VampireList;
 
 public class GameObjectBoard {
 	
-	private int rows, columns;
-	
+	private Game game;
 	private VampireList vamps;
 	private SlayerList slayers;
-	private Game game;
+	private int columns, rows;
 	
-	
-	public GameObjectBoard(Level lvl) {
-		rows = lvl.getRows();
-		columns = lvl.getColumns();
-		vamps = new VampireList(lvl.getVampNumber());
+	GameObjectBoard(Game game) {
+		this.game = game;
+		columns = game.getCols();
+		rows = game.getRows();
+		vamps = new VampireList(game.getVampsNumber());
 		slayers = new SlayerList(rows * columns);
 	}
 
-	public int vampsLeft() {
-		return vamps.left();
+	public void moveVamps() {
+		vamps.moveVamps();
 	}
 
-	public int vampsOnBoard() {
-		return vamps.onBoard();
+	public boolean vampCanMove(int x, int y) {
+		return isFree(--x, y);
 	}
+	
+	public boolean isFree (int x, int y) {
+		boolean valid = false;
+		if (validCords(x, y) && slayers.isHere(x, y) == -1 && vamps.isHere(x, y) == -1)
+				valid = true;
 
+		return valid;
+	}
+	
 	public boolean validCords(int col, int row) {
 		boolean valid = false;
 		if (row >= 0 && col >= 0 && col < columns && row < rows)
@@ -41,17 +42,20 @@ public class GameObjectBoard {
 		return valid;
 	}
 	
-	public boolean isFree (int col, int row) {
-		boolean valid = false;
-		if (validCords(row, col) && slayers.isHere(row, col) == -1 && vamps.isHere(row, col) == -1)
-				valid = true;
-
-		return valid;
+	public String objectOn(int x, int y) {
+		return "" + vamps.toString(x, y) + slayers.toString(x, y);
 	}
 
-	public void addVampire(int x, int y) { //we suppose it's only called when we haven't reached max number of vampires yet
-		if(vamps.isHere(x,  y) == -1) //no vampire in that position
-			vamps.addVamp(x, y, game);
+	public int vampsLeft() {
+		return vamps.getVampsLeft();
+	}
+
+	public int vampsOnBoard() {
+		return vamps.onBoard();
+	}
+
+	public int getCostSlayers() {
+		return slayers.getCost();
 	}
 	
 	public void addSlayer(int i, int j) {//we suppose it's only called when Player can afford it
@@ -59,75 +63,36 @@ public class GameObjectBoard {
 			slayers.addSlayer(i, j, game);
 	}
 	
-	
-	public boolean vampCanMove(int x, int y) {//true if new position of vamp is free
-		return isFree(x--, y);
+	public void addVampire(int x, int y) { //we suppose it's only called when we haven't reached max number of vampires yet
+		if(vamps.isHere(x,  y) == -1) //no vampire in that position
+			vamps.addVamp(x, y, game);
 	}
 	
-	public int existsTargetVamp(int x, int y) { 
-		//returns pos = -1 if doesn't exist, and pos = position of hit vamp if found
-		boolean exists = false;
-		int i = 1, pos = -1;
-		while(!exists && i < (columns - (x+1))) { //columns - (x+1) (+1 bc coords start on 0) are positions on x axis that could be free at end of board
-			if(vamps.isHere(x + i, y) != -1)
-				exists = true;
-			else 
-				++i;
-		}
-		if(exists)
-			pos = vamps.isHere(x + i, y);
-		
-		return pos;
-	}
-	
-	
-	public void moveVamps() {
-		for(int i = 0; i < vamps.getSize(); ++i) {
-			if(vampCanMove(vamps.getX(i), vamps.getY(i)))
-				vamps.moveVamps(i);
-		}
-	}
-	
-	public void slayersHit() {
-		for(int pos = 0; pos < slayers.getSize(); pos++) {
-			if(existsTargetVamp(slayers.getX(pos), slayers.getY(pos)) != -1)
-				vamps.beenHit(existsTargetVamp(slayers.getX(pos), slayers.getY(pos)), slayers.getDamage(pos));
-		}
-	}
-	
-	
-	public void vampsBite() {
-		for(int i = 0; i < vamps.getSize(); ++i) {
-			int newX = vamps.getX(i) - 1;
-			if(validCords(newX, vamps.getY(i)) && slayers.isHere(newX, vamps.getY(i)) != -1) {
-				slayers.beenBitten(slayers.isHere(newX, vamps.getY(i)), vamps.getDamage(i));
-			}
-		}
+	public void attack() {
+		slayers.attack();
+		vamps.attack();
 	}
 
-	public boolean vampsWin() {
-		return vamps.wins();
+	public void bite(int x, int y, int damage) {
+		slayers.bite(x, y, damage);
 	}
 	
-	public static int getCostSlayers() {
-		return SlayerList.getCost();
+	public void shootBullet(int x, int y, int damage) {
+		vamps.shootBullet(x, y, damage);
 	}
-
-
-	public String objectOn(int x, int y) {
-		String object = "";
-		if (vamps.isHere(x, y) != -1)
-			object = vamps.toString(vamps.isHere(x, y));
-		else if (slayers.isHere(x, y) != -1)
-			object = slayers.toString(slayers.isHere(x, y));
-		
-		return object;
-	}
-
+	
 	public void removeDeadObj() {
 		slayers.removeDeadObj();
 		vamps.removeDeadObj();
 	}
+
+	public void resetValues() {
+		vamps.reset();
+		slayers.reset();
+	}
 	
+	public boolean vampsWin() {
+		return vamps.wins();
+	}
 
 }
