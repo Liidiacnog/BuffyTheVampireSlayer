@@ -10,11 +10,12 @@ import view.GamePrinter;
 
 //Random Class should only be instantiated in Game
 
-public class Game { //TODO pass itself using "this"
-
+public class Game {
+	static final int COINS_TO_RECEIVE = 10; //number of coins received by player
+	
 	//fields
 	private Level level;
-	private Long seed; //TODO provide one for predictable behaviour of tests
+	private Long seed; //provide one for predictable behaviour of tests
 	private Random r;
 	private GameObjectBoard board;
 	private int cycles = 0;
@@ -47,7 +48,7 @@ public class Game { //TODO pass itself using "this"
 			String[] parts = str.split(" ");
 			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
 			if (board.validCords(x, y) && y != level.getColumns() - 1) { //cannot add slayer on last column 
-				if (player.enoughCoins(board.getCostSlayers())) {//TODO change coordinates according to tests
+				if (player.enoughCoins(board.getCostSlayers())) {
 					board.addSlayer(x, y); 
 					player.payCoins(board.getCostSlayers());
 				} else {
@@ -158,7 +159,7 @@ public class Game { //TODO pass itself using "this"
 
 	public void receiveCoins() {
 		if(r.nextInt(2) == 0) //50% probability of receiving 10 coins
-			player.receiveCoins();
+			player.receiveCoins(COINS_TO_RECEIVE);
 	}
 	
 	public void incrementCycles() {

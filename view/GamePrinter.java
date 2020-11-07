@@ -29,9 +29,6 @@ public class GamePrinter {
 	}
 	
 	 public String toString() {
-		 //TODO the toString method of the GamePrinter class should call (via encodeGame and some other methods) 
-		 //the toString methods of the Vampire and Slayer classes. As I said in class, it is very common to have a 
-		 // cascade of implicit calls to toString methods.
 		encodeGame(game);
 		int cellSize = 7;
 		int marginSize = 2;

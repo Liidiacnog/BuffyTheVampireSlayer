@@ -1,7 +1,6 @@
 package control;
 
 import java.util.Scanner;
-
 import logic.Game;
 
 public class Controller {
