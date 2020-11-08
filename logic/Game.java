@@ -12,6 +12,8 @@ import view.GamePrinter;
 
 public class Game {
 	static final int COINS_TO_RECEIVE = 10; //number of coins received by player
+	static final int INITIAL_COINS = 50; //initial coins for Player
+	static final double PROB_RECEIVING_COINS = 0.5;
 	
 	//fields
 	private Level level;
@@ -27,9 +29,9 @@ public class Game {
 		level = lvl;
 		this.seed = seed;
 		player = new Player();
-		board = new GameObjectBoard(this);
+		board = new GameObjectBoard(lvl.getColumns(), lvl.getRows(), lvl.getVampNumber());
 		r = new Random(seed);
-		gamePrinter = new GamePrinter(this, lvl.getRows(), lvl.getColumns());
+		gamePrinter = new GamePrinter(this, lvl.getColumns(), lvl.getRows());
 	}
 
 	public char userCommand(String str) {
@@ -47,9 +49,9 @@ public class Game {
 		} else if (str.startsWith("a ") || str.startsWith("add ")) {
 			String[] parts = str.split(" ");
 			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
-			if (board.validCords(x, y) && y != level.getColumns() - 1) { //cannot add slayer on last column 
+			if (board.validCords(x, y) && x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
 				if (player.enoughCoins(board.getCostSlayers())) {
-					board.addSlayer(x, y); 
+					board.addSlayer(x, y, this); 
 					player.payCoins(board.getCostSlayers());
 				} else {
 					System.out.println("Not enough coins");
@@ -66,10 +68,10 @@ public class Game {
 		return output;
 	}
 	
-	public String boardObject(int row, int col) {
+	public String encodeGame(int row, int col) {
 		String object = "";
 		if(!board.isFree(col, row))
-			object = board.objectOn(col, row); //returns toString() of vamp or slayer who is on (col, row)
+			object = board.encodeGame(col, row); //returns toString() of vamp or slayer who is on (col, row)
 				
 		return object;
 	}
@@ -79,7 +81,7 @@ public class Game {
 	}
 
 	public void update() {
-		board.moveVamps();		
+		board.update();		
 	}
 
 	public void attack() {
@@ -108,7 +110,7 @@ public class Game {
 		str.append(jumpLine);
 		str.append("Cycle number: ").append(cycles).append(jumpLine);
 		str.append("Coins: ").append(player.getCoins()).append(jumpLine);
-		str.append("Remainig vampires: ").append( board.vampsLeft()).append(jumpLine);
+		str.append("Remainig vampires: ").append(board.vampsLeft()).append(jumpLine);
 		str.append("Vampires on the board: ").append(board.vampsOnBoard()).append(jumpLine);
 		
 		return str.toString();
@@ -122,11 +124,14 @@ public class Game {
 			INSANE		10				0.3				5		6
 			Configuration for each level of difficulty
 		*/
-		if(board.vampsLeft() > 0 && r.nextDouble() < level.getvampireFrequency()) { 
+		double next = r.nextDouble(); //TODO quitar, solo para pruebas
+		System.out.println(next);
+		if(board.vampsLeft() > 0 && next < level.getvampireFrequency()) { 
 			//nextDouble(): returns the next pseudorandom, double value between 0 and 1.0 from this random number generator's sequence.
 			int col = level.getColumns() - 1; //vamps appear on last column always
 			int row = r.nextInt(level.getRows());
-			board.addVampire(col, row);	
+			System.out.println(col + ", " + row);
+			board.addVampire(col, row, this);	
 		}
 	}
 
@@ -143,9 +148,9 @@ public class Game {
 	}
 	
 	public void resetValues() {
-		player.setCoins(50);
+		player.setCoins(INITIAL_COINS);
 		cycles = 0;
-		board.resetValues();
+		board.resetValues(level.getVampNumber());
 	}
 	
 	public String checkEnd() {
@@ -158,8 +163,11 @@ public class Game {
 	}
 
 	public void receiveCoins() {
-		if(r.nextInt(2) == 0) //50% probability of receiving 10 coins
+		if(r.nextFloat() < PROB_RECEIVING_COINS) {
+		//this is more intuitive but doesn't match the tests
+		//if(r.nextInt(2) == 0) //50% probability of receiving 10 coins
 			player.receiveCoins(COINS_TO_RECEIVE);
+		}
 	}
 	
 	public void incrementCycles() {

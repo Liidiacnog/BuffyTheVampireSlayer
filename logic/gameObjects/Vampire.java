@@ -5,7 +5,6 @@ import logic.Game;
 public class Vampire {
 
 	private int life = 5;
-	private boolean placed;
 	private static int frequency = 1, damage = 1; //how many vampires are on the board, total number of vampires that can appear in the game:
 	private static int  vampsOnBoard, vampsThisLevel, vampsLeft;  
 	private int col, row; //position coordinates on the board
@@ -16,7 +15,6 @@ public class Vampire {
 	public Vampire (int x, int y, Game game) {  
 		col = x;
 		row = y;
-		placed = true;
 		movedBefore = true;
 		vampsOnBoard = 0;
 		vampsThisLevel = game.getVampsNumber();

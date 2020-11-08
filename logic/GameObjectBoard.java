@@ -1,24 +1,22 @@
 package logic;
 
-import logic.lists.SlayerList;
-import logic.lists.VampireList;
+import logic.lists.*;
+
 
 public class GameObjectBoard {
 	
-	private Game game;
 	private VampireList vamps;
 	private SlayerList slayers;
 	private int columns, rows;
 	
-	GameObjectBoard(Game game) {
-		this.game = game;
-		columns = game.getCols();
-		rows = game.getRows();
-		vamps = new VampireList(game.getVampsNumber());
-		slayers = new SlayerList(rows * columns);
+	GameObjectBoard(int cols, int rows, int nrOfVamps) {
+		columns = cols;
+		this.rows = rows;
+		vamps = new VampireList(nrOfVamps);
+		slayers = new SlayerList(rows * cols);
 	}
 
-	public void moveVamps() {
+	public void update() {
 		vamps.moveVamps();
 	}
 
@@ -42,7 +40,7 @@ public class GameObjectBoard {
 		return valid;
 	}
 	
-	public String objectOn(int x, int y) {
+	public String encodeGame(int x, int y) {
 		return "" + vamps.toString(x, y) + slayers.toString(x, y);
 	}
 
@@ -58,12 +56,12 @@ public class GameObjectBoard {
 		return slayers.getCost();
 	}
 	
-	public void addSlayer(int i, int j) {//we suppose it's only called when Player can afford it
+	public void addSlayer(int i, int j, Game game) {//we suppose it's only called when Player can afford it
 		if(isFree(i, j))
 			slayers.addSlayer(i, j, game);
 	}
 	
-	public void addVampire(int x, int y) { //we suppose it's only called when we haven't reached max number of vampires yet
+	public void addVampire(int x, int y, Game game) { //we suppose it's only called when we haven't reached max number of vampires yet
 		if(vamps.isHere(x,  y) == -1) //no vampire in that position
 			vamps.addVamp(x, y, game);
 	}
@@ -86,8 +84,8 @@ public class GameObjectBoard {
 		vamps.removeDeadObj();
 	}
 
-	public void resetValues() {
-		vamps.reset();
+	public void resetValues(int nrOfVamps) {
+		vamps.reset(nrOfVamps);
 		slayers.reset();
 	}
 	

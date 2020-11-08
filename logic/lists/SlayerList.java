@@ -29,6 +29,8 @@ public class SlayerList {
 		return i;
 	}
 
+
+	//returns toString of corresponding slayer in (x,y) only if there is one
 	public String toString(int x, int y) {
 		String object = "";
 		if (isHere(x, y) != -1)

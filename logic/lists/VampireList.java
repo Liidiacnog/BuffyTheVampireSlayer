@@ -36,6 +36,7 @@ public class VampireList {
 		return i;
 	}
 	
+	//returns toString of corresponding vampire in (x,y) only if there is one
 	public String toString(int x, int y) {
 		String object = "";
 		if (isHere(x, y) != -1)
@@ -99,9 +100,9 @@ public class VampireList {
 		}
 	}
 
-	public void reset() {
+	public void reset(int nrOfVamps) {
 		size = 0;
-		Vampire.setVampsLeft(Vampire.getVampThisLevel());
+		Vampire.setVampsLeft(nrOfVamps);
 		Vampire.setVampsOnBoard(0);
 	}
 	

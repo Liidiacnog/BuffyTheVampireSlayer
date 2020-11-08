@@ -14,7 +14,7 @@ public class GamePrinter {
 	String[][] board;
 	final String space = " ";
 	
-	public GamePrinter (Game game, int rows, int cols) {
+	public GamePrinter (Game game, int cols, int rows) {
 		this.game = game;
 		this.numRows = rows;
 		this.numCols = cols;
@@ -24,7 +24,7 @@ public class GamePrinter {
 		board = new String[numRows][numCols];
 		for(int i = 0; i < numRows; ++i) {
 			for(int j = 0; j < numCols; ++j)
-				board[i][j] = game.boardObject(i, j);
+				board[i][j] = game.encodeGame(i, j);
 		}
 	}
 	
