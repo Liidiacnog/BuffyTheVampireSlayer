@@ -87,6 +87,7 @@ public class Vampire {
 	}
 
 	public void attack() {
-		game.bite(col, row, damage);
+		if(life > 0) //vampires that have just been killed don't harm slayers
+			game.bite(col, row, damage);
 	}
 }
