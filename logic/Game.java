@@ -13,7 +13,7 @@ import view.GamePrinter;
 public class Game {
 	static final int COINS_TO_RECEIVE = 10; //number of coins received by player
 	static final int INITIAL_COINS = 50; //initial coins for Player
-	static final double PROB_RECEIVING_COINS = 0.5;
+	static final double PROB_RECEIVING_COINS = 0.5; //50% probability of receiving 10 coins
 	
 	//fields
 	private Level level;
@@ -164,8 +164,6 @@ public class Game {
 
 	public void receiveCoins() {
 		if(r.nextFloat() < PROB_RECEIVING_COINS) {
-		//this is more intuitive but doesn't match the tests
-		//if(r.nextInt(2) == 0) //50% probability of receiving 10 coins
 			player.receiveCoins(COINS_TO_RECEIVE);
 		}
 	}
