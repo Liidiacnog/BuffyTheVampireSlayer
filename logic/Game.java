@@ -81,6 +81,7 @@ public class Game {
 	}
 
 	public void update() {
+		receiveCoins();
 		board.update();		
 	}
 
@@ -150,7 +151,7 @@ public class Game {
 	public void resetValues() {
 		player.setCoins(INITIAL_COINS);
 		cycles = 0;
-		board.resetValues(level.getVampNumber());
+		board.reset(level.getVampNumber());
 	}
 	
 	public String checkEnd() {
@@ -163,7 +164,7 @@ public class Game {
 	}
 
 	public void receiveCoins() {
-		if(r.nextFloat() < PROB_RECEIVING_COINS) {
+		if(r.nextFloat() > PROB_RECEIVING_COINS) {
 			player.receiveCoins(COINS_TO_RECEIVE);
 		}
 	}

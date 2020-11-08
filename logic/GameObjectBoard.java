@@ -84,7 +84,7 @@ public class GameObjectBoard {
 		vamps.removeDeadObj();
 	}
 
-	public void resetValues(int nrOfVamps) {
+	public void reset(int nrOfVamps) {
 		vamps.reset(nrOfVamps);
 		slayers.reset();
 	}

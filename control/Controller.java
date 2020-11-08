@@ -61,7 +61,6 @@ public class Controller {
 				if (!str.equals("")) {
 					ok = 'e';
 				}
-				game.receiveCoins();
 				game.incrementCycles();
 	    	} else {
 	    		str = "[Game over] Nobody wins...";
