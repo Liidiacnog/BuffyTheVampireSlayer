@@ -35,6 +35,8 @@ public class Controller {
     
     
     //in charge of the loop which keeps the game going
+    /*while the game is not finished, the state of the game is printed on the console, the user is prompted 
+     * for a command and the command is executed*/
     public void run() {
     	String str = "";
     	char ok = 0;
