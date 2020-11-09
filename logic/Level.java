@@ -59,7 +59,7 @@ public enum Level {
 		return numberOfVampires;
 	}
 	
-	public double getvampireFrequency() {
+	public double getVampireFrequency() {
 		return vampireFrequency;
 	}
 

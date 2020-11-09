@@ -5,8 +5,13 @@ import logic.Game;
 public class Vampire {
 
 	private int life = 5;
-	private static int frequency = 1, damage = 1; //how many vampires are on the board, total number of vampires that can appear in the game:
-	private static int  vampsOnBoard, vampsThisLevel, vampsLeft;  
+	private static int frequency = 1, damage = 1; 
+	
+	/*how many vampires are on the board, 
+	 * total number of vampires that can appear in this level, 
+	 * vampires that can appear taking into consideration which ones have appeared already and which ones have died:
+	 */
+	private static int  vampsOnBoard = 0, vampsThisLevel, vampsLeft;  
 	private int col, row; //position coordinates on the board
 	private boolean movedBefore; //check whether it is its turn to move or not(they move each 2 cycles)
 	private static String representation = "VˆV";
@@ -16,17 +21,25 @@ public class Vampire {
 		col = x;
 		row = y;
 		movedBefore = true;
-		vampsOnBoard = 0;
-		vampsThisLevel = game.getVampsNumber();
+		vampsOnBoard++;
+		vampsLeft--;
 		this.game = game;
 	}
+	
+	//updates vampsOnBoard, vampsThisLevel, vampsLeft when a list is created  
+	public static void updateData(int size, int vampsLevel) {
+		vampsOnBoard = size;
+		vampsThisLevel = vampsLevel;
+		vampsLeft = vampsLevel - size;
+	}
+	
 	
 	public static int getVampsNumber() {
 		return vampsThisLevel;
 	}
 
 	public void move() {
-		if (game.canVampMove(col, row)) {
+		if (game.vampCanMove(col, row)) {
 			if (!movedBefore) {
 				col -= 1;
 			}
@@ -64,7 +77,7 @@ public class Vampire {
 	
 	// Getters
 
-	public static int getLeft() {
+	public static int getVampsLeft() {
 		return vampsLeft;
 	}
 
@@ -72,7 +85,7 @@ public class Vampire {
 		return life;
 	}
 
-	public static int getVampThisLevel() {
+	public static int getVampsThisLevel() {
 		return vampsThisLevel;
 	}
 	

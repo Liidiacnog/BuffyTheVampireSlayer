@@ -22,9 +22,8 @@ public class SlayerList {
 			else
 				i++;
 		}
-		if (!found) {
+		if (!found)
 			i = -1;
-		}
 		
 		return i;
 	}
@@ -38,7 +37,7 @@ public class SlayerList {
 		return object;
 	}
 
-	public int getCost() {
+	public static int getCost() {
 		return Slayer.getCost();
 	}
 	
@@ -48,8 +47,7 @@ public class SlayerList {
 	}
 
 	public void bite(int x, int y, int damage) {
-		x--;
-		int pos = isHere(x, y);
+		int pos = isHere(--x, y);
 		if (pos != -1) {
 			slayers[pos].damage(damage);
 		}
@@ -62,7 +60,7 @@ public class SlayerList {
 	
 	public void removeDeadObj() {
 		for (int i = 0; i < size; i++) {
-			if (slayers[i].getLife() == 0) {
+			if (slayers[i].getLife() <= 0) {
 				for (int j = i; j < size - 1; j++) {
 					slayers[j] = slayers[j + 1];
 				}

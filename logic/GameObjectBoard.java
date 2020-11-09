@@ -9,7 +9,7 @@ public class GameObjectBoard {
 	private SlayerList slayers;
 	private int columns, rows;
 	
-	GameObjectBoard(int cols, int rows, int nrOfVamps) {
+	public GameObjectBoard(int cols, int rows, int nrOfVamps) {
 		columns = cols;
 		this.rows = rows;
 		vamps = new VampireList(nrOfVamps);
@@ -33,11 +33,7 @@ public class GameObjectBoard {
 	}
 	
 	public boolean validCords(int col, int row) {
-		boolean valid = false;
-		if (row >= 0 && col >= 0 && col < columns && row < rows)
-			valid = true;
-		
-		return valid;
+		return (row >= 0 && col >= 0 && col < columns && row < rows);
 	}
 	
 	public String encodeGame(int x, int y) {
@@ -62,7 +58,7 @@ public class GameObjectBoard {
 	}
 	
 	public void addVampire(int x, int y, Game game) { //we suppose it's only called when we haven't reached max number of vampires yet
-		if(vamps.isHere(x,  y) == -1) //no vampire in that position
+		if(isFree(x, y)) 
 			vamps.addVamp(x, y, game);
 	}
 	

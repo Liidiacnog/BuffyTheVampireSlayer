@@ -20,7 +20,8 @@ public class GamePrinter {
 		this.numCols = cols;
 	}
 	
-	private void encodeGame(Game game) { //builds matrix with String corresponding to object in that position 
+	//builds matrix with String corresponding to object in that position 
+	private void encodeGame(Game game) { 
 		board = new String[numRows][numCols];
 		for(int i = 0; i < numRows; ++i) {
 			for(int j = 0; j < numCols; ++j)

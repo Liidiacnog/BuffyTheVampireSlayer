@@ -18,9 +18,9 @@ public class Slayer {
 	
 	public boolean isHere(int i, int j) {
 		boolean found = false;
-		if (col == i && row == j) {
+		if (col == i && row == j)
 			found = true;
-		}
+		
 		return found;
 	}
 	

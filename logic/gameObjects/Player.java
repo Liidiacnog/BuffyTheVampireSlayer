@@ -8,9 +8,12 @@ package logic.gameObjects;
 
 
 public class Player {
-	private int coins = 50; //The player starts the game with 50 coins and on each turn has a probability of 50% of receiving 10 coins.
+	private int coins;
 	private static String notEnoughCoinsErrorMsg = "Not enough coins left!";
 	
+	public Player(int initial_coins) {
+		coins = initial_coins;
+	}
 	
 	public String toStringNotEnoughCoins(){
 		return (notEnoughCoinsErrorMsg);

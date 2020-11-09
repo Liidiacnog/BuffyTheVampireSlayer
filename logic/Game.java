@@ -28,9 +28,9 @@ public class Game {
 	public Game(Long seed, Level lvl) {
 		level = lvl;
 		this.seed = seed;
-		player = new Player();
-		board = new GameObjectBoard(lvl.getColumns(), lvl.getRows(), lvl.getVampNumber());
 		r = new Random(seed);
+		board = new GameObjectBoard(lvl.getColumns(), lvl.getRows(), lvl.getVampNumber());
+		player = new Player(INITIAL_COINS);
 		gamePrinter = new GamePrinter(this, lvl.getColumns(), lvl.getRows());
 	}
 
@@ -96,14 +96,15 @@ public class Game {
 		board.attack();	
 	}
 
+	public boolean vampCanMove(int x, int y) {
+		return board.vampCanMove(x, y);
+	}
+
 	public int getVampsNumber() {
 		return level.getVampNumber();
 	}
 
-	public boolean canVampMove(int x, int y) {
-		return board.vampCanMove(x, y);
-	}
-
+	
 	public int getCols() {
 		return level.getColumns();
 	}
@@ -133,7 +134,7 @@ public class Game {
 			Configuration for each level of difficulty
 		*/
 		double next = r.nextDouble();
-		if(board.vampsLeft() > 0 && next < level.getvampireFrequency()) { 
+		if(board.vampsLeft() > 0 && next < level.getVampireFrequency()) { 
 			//nextDouble(): returns the next pseudorandom, double value between 0 and 1.0 from this random number generator's sequence.
 			int col = level.getColumns() - 1; //vamps appear on last column always
 			int row = r.nextInt(level.getRows());

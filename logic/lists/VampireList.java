@@ -11,7 +11,7 @@ public class VampireList {
 	public VampireList(int n) { //created with length = numberOfVamps of that Level
 		vamp = new Vampire[n];
 		size = 0;
-		Vampire.setVampsLeft(n);
+		Vampire.updateData(size, n);
 	}
 
 	public void moveVamps() {
@@ -45,19 +45,16 @@ public class VampireList {
 	}
 
 	public int getVampsLeft() {
-		return Vampire.getLeft();
+		return Vampire.getVampsLeft();
 	}
 
-	public int onBoard() {
+	public int onBoard() { //TODO change?
 		return size;
 	}
 	
 	public void addVamp(int x, int y, Game game) {
 		vamp[size] = new Vampire(x, y, game);
 		size++;
-		Vampire.setVampsOnBoard(size);
-		Vampire.setVampsLeft(Vampire.getLeft() - 1);
-		
 	}
 
 	public void attack() {
@@ -91,7 +88,7 @@ public class VampireList {
 	
 	public void removeDeadObj() {
 		for (int i = 0; i < size; i++) {
-			if (vamp[i].getLife() == 0) {
+			if (vamp[i].getLife() <= 0) {
 				for (int j = i; j < size - 1; j++) {
 					vamp[j] = vamp[j + 1];
 				}
@@ -102,8 +99,7 @@ public class VampireList {
 
 	public void reset(int nrOfVamps) {
 		size = 0;
-		Vampire.setVampsLeft(nrOfVamps);
-		Vampire.setVampsOnBoard(0);
+		Vampire.updateData(size, nrOfVamps);
 	}
 	
 	public boolean wins() {
@@ -112,8 +108,8 @@ public class VampireList {
 		while (!end && i < size) {
 			if (vamp[i].reachEnd())
 				end = true;
-			
-			i++;
+			else
+				i++;
 		}
 		return end;
 	}
