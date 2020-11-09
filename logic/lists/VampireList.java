@@ -137,7 +137,7 @@ public class VampireList {
 		return Vampire.getVampsLeft();
 	}
 
-	public int onBoard() { //TODO change?
+	public int getVampsOnBoard() {
 		return size;
 	}
 	

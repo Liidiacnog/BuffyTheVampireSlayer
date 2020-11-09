@@ -21,7 +21,7 @@ public class GamePrinter {
 		this.numCols = cols;
 	}
 	
-	//builds matrix with String corresponding to object in that position 
+	//builds matrix(2 dimensional array) with the Strings corresponding to objects in every position 
 	private void encodeGame() { 
 		board = game.encodeGame();
 	}

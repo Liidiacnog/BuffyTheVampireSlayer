@@ -42,12 +42,14 @@ public enum Level {
 		this.dim_y = dim_y;
 	}
 
+	
     public static Level parse(String inputString) {
         for (Level level : Level.values())
             if (level.name().equalsIgnoreCase(inputString)) 
             	return level;
         return null;
     }
+    
     
     public static String all(String separator) {
         String allLevels = "";
@@ -56,18 +58,22 @@ public enum Level {
         return allLevels.substring(0, allLevels.length() - separator.length());
     }
 
+    
 	public int getVampNumber() {
 		return numberOfVampires;
 	}
+	
 	
 	public double getVampireFrequency() {
 		return vampireFrequency;
 	}
 
+	
 	public int getRows() {
 		return dim_y;
 	}
 
+	
 	public int getColumns() {
 		return dim_x;
 	}

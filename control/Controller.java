@@ -28,10 +28,13 @@ public class Controller {
 	    this.in = scanner;
     }
     
-    public void  printGame() {
+	
+    public void printGame() {
    	 System.out.println(game);
    }
     
+    
+    //in charge of the loop which keeps the game going
     public void run() {
     	String str = "";
     	char ok = 0;

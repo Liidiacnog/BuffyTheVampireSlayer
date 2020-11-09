@@ -51,8 +51,8 @@ public class Game {
 		str.append(jumpLine);
 		str.append("Cycle number: ").append(cycles).append(jumpLine);
 		str.append("Coins: ").append(player.getCoins()).append(jumpLine);
-		str.append("Remainig vampires: ").append(board.vampsLeft()).append(jumpLine);
-		str.append("Vampires on the board: ").append(board.vampsOnBoard()).append(jumpLine);
+		str.append("Remainig vampires: ").append(board.getVampsLeft()).append(jumpLine);
+		str.append("Vampires on the board: ").append(board.getVampsOnBoard()).append(jumpLine);
 		
 		return str.toString();
 	}
@@ -120,6 +120,7 @@ public class Game {
 	}
 
 
+	//through a random double (number), decides whether to add a vampire on a randomly chosen row, according to the vampire frequency of the level
 	public void addVampire() {
 		/*
 		   Level	Number of vampires	Frequency	board width		board height
@@ -128,7 +129,7 @@ public class Game {
 			INSANE		10				0.3				5				6
 			Configuration for each level of difficulty
 		*/
-		if(board.vampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
+		if(board.getVampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
 			//nextDouble(): returns the next pseudorandom, double value between 0 and 1.0 from this random number generator's sequence.
 			int col = level.getColumns() - 1; //vampires appear on last column always
 			int row = r.nextInt(level.getRows());
@@ -137,6 +138,7 @@ public class Game {
 	}
 
 
+	//true if vampire on (x, y) can move
 	public boolean vampCanMove(int x, int y) {
 		return board.vampCanMove(x, y);
 	}
@@ -154,11 +156,13 @@ public class Game {
 	}
 	
 	
+	//removes references, in lists, to objects that are dead
 	public void removeDeadObj() {
 		board.removeDeadObj();
 	}
 	
 	
+	//resets game
 	public void resetValues() {
 		player.setCoins(INITIAL_COINS);
 		cycles = 0;
@@ -170,7 +174,7 @@ public class Game {
 	//returns string corresponding to who has won, or "" if no one has won yet
 	public String checkEnd() {
 		String str = "";
-		if (board.vampsLeft() == 0 && board.vampsOnBoard() == 0)
+		if (board.getVampsLeft() == 0 && board.getVampsOnBoard() == 0)
 			str = "[Game over] Player wins!";
 		else if (board.vampsWin())
 			str = "[Game over] Vampires win!";
