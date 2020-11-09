@@ -23,13 +23,17 @@ public class GameObjectBoard {
 		String[][] str = new String[rows][columns];
 		for(int i = 0; i < rows; ++i) {
 			for(int j = 0; j < columns; ++j)
-				str[i][j] = vamps.toString(j, i) + slayers.toString(j, i);
-			//returns toString() of vampire OR slayer who is on (j, i) if there is one
-				 
-			//we switch coordinates for "vamps.toString(j, i) + slayers.toString(j, i)", because our whole programme 
+				str[i][j] = objectOn(j, i);
+			//we switch coordinates for "objectOn(j, i)", because our whole programme 
 			//works with (columns, rows) but the 2 dimensional array is built using (rows, columns), like in a matrix
 		}
 		return str;
+	}
+	
+	
+	//returns toString() of vampire OR slayer who is on (x, y) if there is one
+	public String objectOn(int x, int y) {
+		return "" + vamps.toString(x, y) + slayers.toString(x, y);
 	}
 	
 		
