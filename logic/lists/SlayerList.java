@@ -4,7 +4,7 @@ import logic.Game;
 import logic.gameObjects.Slayer;
 
 public class SlayerList {
-	private int size; //Number of slayers on the Board, not length of array slayers
+	private int size; //Number of slayers on the board, not length of array slayers
 	private Slayer[] slayers;
 	
 	

@@ -5,7 +5,7 @@ import logic.gameObjects.Vampire;
 
 public class VampireList {
 	
-	private int size; //total number of vampires that are currently in the game
+	private int size; //total number of vampires that are currently on the board
 	private Vampire[] vamp;
 		
 	//constructor 
