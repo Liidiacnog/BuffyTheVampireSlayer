@@ -45,21 +45,28 @@ public class Game {
 		} else if (str.equals("e") || str.equals("exit")) {
 			output = 'e';
 		}  else if (str.equals("n") || str.equals("none") || str.equals("")) {
-			output = 'c'; // c de correct
+			output = 'c'; // c of correct
 		} else if (str.startsWith("a ") || str.startsWith("add ")) {
 			String[] parts = str.split(" ");
-			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
-			if (board.validCords(x, y) && x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
-				if (player.enoughCoins(board.getCostSlayers())) {
-					board.addSlayer(x, y, this); 
-					player.payCoins(board.getCostSlayers());
+			try {
+				int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
+				if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
+					if (player.enoughCoins(board.getCostSlayers())) {
+						board.addSlayer(x, y, this); 
+						player.payCoins(board.getCostSlayers());
+					} else {
+						System.out.println("Not enough coins");
+					}
+					output = 'c';	
 				} else {
-					System.out.println("Not enough coins");
+					output = 'p'; // p of (invalid) position
 				}
-				output = 'c';	
-			} else {
-				output = 'p'; // p of (invalid) position
+			} catch (ArrayIndexOutOfBoundsException e) {
+				output = 'p';
+			} catch (NumberFormatException nfe) {
+				output = 'p';
 			}
+			
 		} else {
 			output = 'i'; // i of invalid
 		}
