@@ -3,12 +3,14 @@ package logic.gameObjects;
 import logic.Game;
 
 public class Slayer {
+	
 	private static int cost = 50, resistance = 3, frequency = 1, damage = 1;
 	private static String representation =  "<->";
 	private int life;
 	private int row, col; //position coordinates on the board
 	private Game game; //instance of Class Game in order to be able to use its methods
 	
+	//constructor 
 	public Slayer(int x, int y, Game game) {
 		col = x;
 		row = y;
@@ -16,6 +18,13 @@ public class Slayer {
 		this.game = game;
 	}
 	
+	
+	public String toString() {
+		return representation + "[" + life + "]";
+	}
+
+	
+	//checks if its coordinates are (i, j)
 	public boolean isHere(int i, int j) {
 		boolean found = false;
 		if (col == i && row == j)
@@ -24,22 +33,26 @@ public class Slayer {
 		return found;
 	}
 	
-	public String toString() {
-		return representation + "[" + life + "]";
+	
+	//calls method in game which will check if any vampire can be shot by its bullet shot from (col, row)
+	public void attack() {
+		game.shootBullet(col, row, damage);
 	}
-
+	
+	
+	//reduces its life by "harm"
+	public void damage(int harm) {
+		life -= harm;
+	}
+	
+	
+	//Getters
+	
 	public static int getCost() {
 		return cost;
 	}
 
-	public void damage(int damage2) {
-		life -= damage2;
-	}
 	
-	public void attack() {
-		game.shootBullet(col, row, damage);
-	}
-
 	public int getLife() {
 		return life;
 	}

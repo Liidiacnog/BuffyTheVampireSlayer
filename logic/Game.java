@@ -11,18 +11,20 @@ import view.GamePrinter;
 //Random Class should only be instantiated in Game
 
 public class Game {
+	
+	//constants related to rules of the game
 	static final int COINS_TO_RECEIVE = 10; //number of coins received by player
-	static final int INITIAL_COINS = 50; //initial coins for Player
-	static final double PROB_RECEIVING_COINS = 0.5; //50% probability of receiving 10 coins
+	static final int INITIAL_COINS = 50; //initial coins of player
+	static final double PROB_RECEIVING_COINS = 0.5; //player has 50% chances of receiving 10 coins
 	
 	//fields
 	private Level level;
 	private Long seed; //provide one for predictable behaviour of tests
 	private Random r;
 	private GameObjectBoard board;
-	private int cycles = 0;
 	private Player player;
 	private GamePrinter gamePrinter;
+	private int cycles = 0;
 	
 	//constructor
 	public Game(Long seed, Level lvl) {
@@ -33,7 +35,36 @@ public class Game {
 		player = new Player(INITIAL_COINS);
 		gamePrinter = new GamePrinter(this, lvl.getColumns(), lvl.getRows());
 	}
+	
 
+	
+	public String toString() {
+		return drawInfo() + gamePrinter;
+	}
+
+	
+	//draws information needed every cycle of the game before displaying the board:
+	//cycle number, coins, remaining vampires and vampires currently on the board
+	public String drawInfo() {
+		StringBuilder str = new StringBuilder();
+		char jumpLine = '\n';
+		str.append(jumpLine);
+		str.append("Cycle number: ").append(cycles).append(jumpLine);
+		str.append("Coins: ").append(player.getCoins()).append(jumpLine);
+		str.append("Remainig vampires: ").append(board.vampsLeft()).append(jumpLine);
+		str.append("Vampires on the board: ").append(board.vampsOnBoard()).append(jumpLine);
+		
+		return str.toString();
+	}
+	
+	
+	//generates a String "matrix" (String[][]) which is the representation of the board object
+	public String[][] encodeGame() {
+		return board.toStringMatrixBoard();
+	}
+	
+	
+	//manages input of the user, returns char which tells run() which action to carry out
 	public char userCommand(String str) {
 		char output = '0';
 		str = str.toLowerCase();
@@ -51,11 +82,11 @@ public class Game {
 			try {
 				int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
 				if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
-					if (player.enoughCoins(board.getCostSlayers())) {
+					if (board.canAfford(player.getCoins()) != -1) {
 						board.addSlayer(x, y, this); 
-						player.payCoins(board.getCostSlayers());
+						player.payCoins(board.canAfford(player.getCoins()));
 					} else {
-						System.out.println("Not enough coins");
+						System.out.println(player.toStringNotEnoughCoins());
 					}
 					output = 'c';
 				} else {
@@ -67,93 +98,66 @@ public class Game {
 				output = 'p';
 			}
 			
-		} else {
+		}else
 			output = 'i'; // i of invalid
-		}
 		
 		
 		return output;
 	}
 	
-	public String encodeGame(int row, int col) {
-		String object = "";
-		if(!board.isFree(col, row))
-			object = board.encodeGame(col, row); //returns toString() of vamp or slayer who is on (col, row)
-				
-		return object;
-	}
 	
-	public String toString() {
-		return drawInfo() + gamePrinter;
-	}
+	
+	//actions on game loop:
 
 	public void update() {
 		receiveCoins();
 		board.update();		
 	}
 
+	
 	public void attack() {
 		board.attack();	
 	}
+
+
+	public void addVampire() {
+		/*
+		   Level	Number of vampires	Frequency	board width		board height
+			EASY		3				0.1				8				4
+			HARD		5				0.2				7				3
+			INSANE		10				0.3				5				6
+			Configuration for each level of difficulty
+		*/
+		if(board.vampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
+			//nextDouble(): returns the next pseudorandom, double value between 0 and 1.0 from this random number generator's sequence.
+			int col = level.getColumns() - 1; //vampires appear on last column always
+			int row = r.nextInt(level.getRows());
+			board.addVampire(col, row, this);	
+		}
+	}
+
 
 	public boolean vampCanMove(int x, int y) {
 		return board.vampCanMove(x, y);
 	}
 
-	public int getVampsNumber() {
-		return level.getVampNumber();
-	}
-
 	
-	public int getCols() {
-		return level.getColumns();
-	}
-
-	public int getRows() {
-		return level.getRows();
-	}
-	
-	public String drawInfo() {
-		StringBuilder str = new StringBuilder();
-		char jumpLine = '\n';
-		str.append(jumpLine);
-		str.append("Cycle number: ").append(cycles).append(jumpLine);
-		str.append("Coins: ").append(player.getCoins()).append(jumpLine);
-		str.append("Remainig vampires: ").append(board.vampsLeft()).append(jumpLine);
-		str.append("Vampires on the board: ").append(board.vampsOnBoard()).append(jumpLine);
-		
-		return str.toString();
-	}
-	
-	public void addVampire() {
-		/*
-		   Level	Number of vampires	Frequency	board width	board height
-			EASY		3				0.1				8		4
-			HARD		5				0.2				7		3
-			INSANE		10				0.3				5		6
-			Configuration for each level of difficulty
-		*/
-		double next = r.nextDouble();
-		if(board.vampsLeft() > 0 && next < level.getVampireFrequency()) { 
-			//nextDouble(): returns the next pseudorandom, double value between 0 and 1.0 from this random number generator's sequence.
-			int col = level.getColumns() - 1; //vamps appear on last column always
-			int row = r.nextInt(level.getRows());
-			System.out.println(col + ", " + row);
-			board.addVampire(col, row, this);	
-		}
-	}
-
+	//tells board to tell slayerList to check if any of the slayers can be bitten by a vampire on (x, y)
 	public void bite (int x, int y, int damage) {
 		board.bite(x, y, damage);
 	}
 	
+	
+	//tells board to tell vampireList to check if any of the vampires can be shot by a slayer on (x, y)
 	public void shootBullet(int x, int y, int damage) {
 		board.shootBullet(x, y, damage);
 	}
 	
+	
 	public void removeDeadObj() {
 		board.removeDeadObj();
 	}
+	
 	
 	public void resetValues() {
 		player.setCoins(INITIAL_COINS);
@@ -161,6 +165,9 @@ public class Game {
 		board.reset(level.getVampNumber());
 	}
 	
+	
+	//checks if slayers have killed all possible vampires, or vampires have reached end of board
+	//returns string corresponding to who has won, or "" if no one has won yet
 	public String checkEnd() {
 		String str = "";
 		if (board.vampsLeft() == 0 && board.vampsOnBoard() == 0)
@@ -170,13 +177,16 @@ public class Game {
 		return str;
 	}
 
+	
+	//checks odds of player of receiving coins, and if he should receive them, calls method in charge
 	public void receiveCoins() {
-		if(r.nextFloat() > PROB_RECEIVING_COINS) {
+		if(r.nextFloat() > PROB_RECEIVING_COINS)
 			player.receiveCoins(COINS_TO_RECEIVE);
-		}
 	}
+	
 	
 	public void incrementCycles() {
 		cycles++;
 	}
+	
 }

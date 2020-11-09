@@ -14,6 +14,7 @@ public class GamePrinter {
 	String[][] board;
 	final String space = " ";
 	
+	//constructor 
 	public GamePrinter (Game game, int cols, int rows) {
 		this.game = game;
 		this.numRows = rows;
@@ -21,16 +22,12 @@ public class GamePrinter {
 	}
 	
 	//builds matrix with String corresponding to object in that position 
-	private void encodeGame(Game game) { 
-		board = new String[numRows][numCols];
-		for(int i = 0; i < numRows; ++i) {
-			for(int j = 0; j < numCols; ++j)
-				board[i][j] = game.encodeGame(i, j);
-		}
+	private void encodeGame() { 
+		board = game.encodeGame();
 	}
 	
 	 public String toString() {
-		encodeGame(game);
+		encodeGame();
 		int cellSize = 7;
 		int marginSize = 2;
 		String vDelimiter = "|";

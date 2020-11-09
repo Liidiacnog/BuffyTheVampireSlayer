@@ -22,7 +22,8 @@ public class Controller {
     private Game game;
     private Scanner in;
     
-    public Controller(Game game, Scanner scanner) {
+  //constructor 
+	public Controller(Game game, Scanner scanner) {
 	    this.game = game;
 	    this.in = scanner;
     }

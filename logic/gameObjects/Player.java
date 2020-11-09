@@ -11,29 +11,31 @@ public class Player {
 	private int coins;
 	private static String notEnoughCoinsErrorMsg = "Not enough coins left!";
 	
+	//constructor 
 	public Player(int initial_coins) {
 		coins = initial_coins;
 	}
+	
 	
 	public String toStringNotEnoughCoins(){
 		return (notEnoughCoinsErrorMsg);
 	}
 	
+	
 	public int getCoins() {
     	return coins;
     }
 
-	public boolean enoughCoins(int i) {
-		return (coins >= i);
-	}
-
+	
 	public void payCoins(int i) {
 		coins -= i;
 	}
 	
+	
 	public void receiveCoins(int amount) {
 		coins += amount;
 	}
+	
 	
 	public void setCoins(int coins) {
 		this.coins = coins;

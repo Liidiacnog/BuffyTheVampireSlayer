@@ -33,6 +33,7 @@ public enum Level {
 	private double vampireFrequency;
 	private int dim_x, dim_y;
 
+	//constructor 
 	private Level(String name, int numberOfVampires, double vampireFrequency, int dim_x, int dim_y) {
 		this.name = name;
 		this.numberOfVampires = numberOfVampires;
