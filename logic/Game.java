@@ -57,7 +57,7 @@ public class Game {
 					} else {
 						System.out.println("Not enough coins");
 					}
-					output = 'c';	
+					output = 'c';
 				} else {
 					output = 'p'; // p of (invalid) position
 				}
