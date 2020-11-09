@@ -126,14 +126,13 @@ public class Game {
 	
 	public void addVampire() {
 		/*
-		 * Level	Number of vampires	Frequency	board width	board height
+		   Level	Number of vampires	Frequency	board width	board height
 			EASY		3				0.1				8		4
 			HARD		5				0.2				7		3
 			INSANE		10				0.3				5		6
 			Configuration for each level of difficulty
 		*/
-		double next = r.nextDouble(); //TODO quitar, solo para pruebas
-		System.out.println(next);
+		double next = r.nextDouble();
 		if(board.vampsLeft() > 0 && next < level.getvampireFrequency()) { 
 			//nextDouble(): returns the next pseudorandom, double value between 0 and 1.0 from this random number generator's sequence.
 			int col = level.getColumns() - 1; //vamps appear on last column always

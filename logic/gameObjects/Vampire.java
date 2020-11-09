@@ -26,12 +26,12 @@ public class Vampire {
 	}
 
 	public void move() {
-		if (!movedBefore) {
-			if (game.canVampMove(col, row)) {
+		if (game.canVampMove(col, row)) {
+			if (!movedBefore) {
 				col -= 1;
 			}
+			movedBefore = !movedBefore;
 		}
-		movedBefore = !movedBefore;
 	}
 	
 	public boolean isHere(int i, int j) {
