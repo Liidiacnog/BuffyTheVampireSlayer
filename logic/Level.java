@@ -49,7 +49,7 @@ public enum Level {
             	return level;
         return null;
     }
-    
+	
     
     public static String all(String separator) {
         String allLevels = "";

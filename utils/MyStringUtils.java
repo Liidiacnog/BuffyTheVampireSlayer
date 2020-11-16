@@ -1,6 +1,5 @@
 package utils;
 
-
 public class MyStringUtils {
 	public static String repeat(String elmnt, int length) {
 		String result = "";
