@@ -25,6 +25,7 @@ public class Game {
 	private Player player;
 	private GamePrinter gamePrinter;
 	private int cycles = 0;
+	private boolean isFinished = false;
 	
 	//constructor
 	public Game(Long seed, Level lvl) {
@@ -63,15 +64,25 @@ public class Game {
 		return board.toStringMatrixBoard();
 	}
 	
+	//to execute exit game
+	public void endGame() {
+		isFinished = true;
+	}
+	
+	//checks if game has come to an end
+	public boolean isFinished() {
+		return this.isFinished;
+	}
+	
 	
 	//manages input of the user, returns char which tells run() which action to carry out
-	public char userCommand(String str) {
+	public char userCommand(String str) {//TODO move out of here
 		char output = '0';
 		str = str.toLowerCase();
 		if (str.equals("h") || str.equals("help")) {
 			output = 'h';
 		} else if (str.equals("r") || str.equals("reset")) {
-			resetValues();
+			reset();
 			output = 'r'; // r of reset
 		} else if (str.equals("e") || str.equals("exit")) {
 			output = 'e';
@@ -163,7 +174,7 @@ public class Game {
 	
 	
 	//resets game
-	public void resetValues() {
+	public void reset() {
 		player.setCoins(INITIAL_COINS);
 		cycles = 0;
 		board.reset(level.getVampNumber());
@@ -172,12 +183,16 @@ public class Game {
 	
 	//checks if slayers have killed all possible vampires, or vampires have reached end of board
 	//returns string corresponding to who has won, or "" if no one has won yet
-	public String checkEnd() {
+	public String checkEnd() {//TODO change returned value bc now Game has attribute isFinished
 		String str = "";
-		if (board.getVampsLeft() == 0 && board.getVampsOnBoard() == 0)
+		if (board.getVampsLeft() == 0 && board.getVampsOnBoard() == 0) {
 			str = "[Game over] Player wins!";
-		else if (board.vampsWin())
+			isFinished = true;
+		}else if (board.vampsWin()) {
 			str = "[Game over] Vampires win!";
+			isFinished = true;
+		}
+		
 		return str;
 	}
 
@@ -192,5 +207,21 @@ public class Game {
 	public void incrementCycles() {
 		cycles++;
 	}
+	
+	
+	public int getLvlDimX() {
+		return level.getColumns();
+	}
+	
+	public int getLvlDimY() {
+		return level.getRows();
+	}
+	
+	
+	public boolean isFree(int x, int y) {
+		return board.isFree(x,  y);
+	}
+	
+	
 	
 }

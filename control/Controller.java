@@ -2,8 +2,8 @@ package control;
 
 import java.util.Scanner;
 
-import control.Commands.Command;
-import control.Commands.CommandGenerator;
+import control.commands.Command;
+import control.commands.CommandGenerator;
 import logic.Game;
 
 public class Controller {
@@ -16,7 +16,7 @@ public class Controller {
     
     public Controller(Game game, Scanner scanner) {
 	    this.game = game;
-	    	this.scanner = scanner;
+	    this.scanner = scanner;
     }
     
     public void  printGame() {
@@ -35,9 +35,9 @@ public class Controller {
 			  String s = scanner.nextLine();
 			  String[] parameters = s.toLowerCase().trim().split(" ");
 			  System.out.println("[DEBUG] Executing: " + s);
-		      Command command = CommandGenerator.parse(parameters);
+		      Command command = CommandGenerator.parseCommand(parameters, this);
 		      if (command != null) { 
-		    	  		refreshDisplay = command.execute(game);
+		    	  		refreshDisplay = command.execute(game);//TODO when is it false?
 		       } 
 		       else {
 		    	   		System.out.println("[ERROR]: "+ unknownCommandMsg);
@@ -49,6 +49,19 @@ public class Controller {
 
     }
 
+    
+    public int getLvlDimX() { //TODO should Controller know about this?
+    	return game.getLvlDimX();
+    }
+    public int getLvlDimY() {//TODO should Controller know about this?
+     	return game.getLvlDimY();
+    }
+    
+    
+    public boolean isFree(int x, int y) {
+    	return game.isFree(x, y);
+    }
+    
 }
 
 

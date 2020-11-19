@@ -1,6 +1,7 @@
-package control.Commands;
+package control.commands;
 
 import logic.Game;
+
 
 public abstract class Command {
 
