@@ -3,7 +3,7 @@ package control;
 import java.util.Scanner;
 
 import control.Commands.Command;
-import control.Commands.CommandGenerator;
+import utils.CommandGenerator;
 import logic.Game;
 
 public class Controller {
@@ -26,10 +26,10 @@ public class Controller {
     public void run() {
 	    	boolean refreshDisplay = true;
 
-	    while (!game.isFinished()){
+	    while (game.checkEnd().equals("")){
 	    		
-        		 if (refreshDisplay) printGame();
-        		 refreshDisplay = false;
+        	  if (refreshDisplay) printGame();
+        	  refreshDisplay = false;
         		 
 			  System.out.println(prompt);	
 			  String s = scanner.nextLine();
@@ -45,7 +45,7 @@ public class Controller {
 		}
 	    
         	if (refreshDisplay) printGame();
-    		System.out.println ("[Game over] " + game.getWinnerMessage());
+    		System.out.println ("[Game over] " + game.checkEnd());
 
     }
 
