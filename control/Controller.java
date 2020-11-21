@@ -26,7 +26,7 @@ public class Controller {
     public void run() {
 	    	boolean refreshDisplay = true;
 
-	    while (game.checkEnd().equals("")){
+	    while (game.getEnd().equals("")){
 	    		
         	  if (refreshDisplay) printGame();
         	  refreshDisplay = false;
@@ -45,7 +45,7 @@ public class Controller {
 		}
 	    
         	if (refreshDisplay) printGame();
-    		System.out.println ("[Game over] " + game.checkEnd());
+    		System.out.println ("[Game over] " + game.getEnd());
 
     }
 

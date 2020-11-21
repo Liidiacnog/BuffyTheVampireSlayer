@@ -2,6 +2,7 @@ package logic;
 import logic.gameObjects.Player;
 import java.util.Random;
 import view.GamePrinter;
+import view.IPrintable;
 
 /*This class encapsulates the logic of the game and is responsible for updating the state of all the game elements. 
   It maintains the current cycle number. It contains (a reference to) the board object, to which the game object 
@@ -30,7 +31,7 @@ public class Game {
 	public Game(Long seed, Level lvl) {
 		level = lvl;
 		this.seed = seed;
-		r = new Random(seed);
+		r = new Random(this.seed);
 		board = new GameObjectBoard(lvl.getColumns(), lvl.getRows(), lvl.getVampNumber());
 		player = new Player(INITIAL_COINS);
 		gamePrinter = new GamePrinter(this, lvl.getColumns(), lvl.getRows());
@@ -62,50 +63,6 @@ public class Game {
 	public String[][] encodeGame() {
 		return board.toStringMatrixBoard();
 	}
-	
-	
-	//manages input of the user, returns char which tells run() which action to carry out
-	public char userCommand(String str) {
-		char output = '0';
-		str = str.toLowerCase();
-		if (str.equals("h") || str.equals("help")) {
-			output = 'h';
-		} else if (str.equals("r") || str.equals("reset")) {
-			resetValues();
-			output = 'r'; // r of reset
-		} else if (str.equals("e") || str.equals("exit")) {
-			output = 'e';
-		}  else if (str.equals("n") || str.equals("none") || str.equals("")) {
-			output = 'c'; // c of correct
-		} else if (str.startsWith("a ") || str.startsWith("add ")) {
-			String[] parts = str.split(" ");
-			try {
-				int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
-				if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
-					if (board.canAfford(player.getCoins()) != -1) {
-						board.addSlayer(x, y, this); 
-						player.payCoins(board.canAfford(player.getCoins()));
-					} else {
-						System.out.println(player.toStringNotEnoughCoins());
-					}
-					output = 'c';
-				} else {
-					output = 'p'; // p of (invalid) position
-				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				output = 'p';
-			} catch (NumberFormatException nfe) {
-				output = 'p';
-			}
-			
-		}else
-			output = 'i'; // i of invalid
-		
-		
-		return output;
-	}
-	
-	
 	
 	//actions on game loop:
 
@@ -172,7 +129,7 @@ public class Game {
 	
 	//checks if slayers have killed all possible vampires, or vampires have reached end of board
 	//returns string corresponding to who has won, or "" if no one has won yet
-	public String checkEnd() {
+	public String getEnd() {
 		String str = "";
 		if (board.getVampsLeft() == 0 && board.getVampsOnBoard() == 0)
 			str = "[Game over] Player wins!";
@@ -192,5 +149,66 @@ public class Game {
 	public void incrementCycles() {
 		cycles++;
 	}
+
+
+
+	public void addSlayer(int x, int y) {
+		board.addSlayer(x, y, this);
+	}
+
+
+
+	public void exitCommand() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	public void helpCommand() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
+
+//manages input of the user, returns char which tells run() which action to carry out
+	/*public char userCommand(String str) {
+		char output = '0';
+		str = str.toLowerCase();
+		if (str.equals("h") || str.equals("help")) {
+			output = 'h';
+		} else if (str.equals("r") || str.equals("reset")) {
+			resetValues();
+			output = 'r'; // r of reset
+		} else if (str.equals("e") || str.equals("exit")) {
+			output = 'e';
+		}  else if (str.equals("n") || str.equals("none") || str.equals("")) {
+			output = 'c'; // c of correct
+		} else if (str.startsWith("a ") || str.startsWith("add ")) {
+			String[] parts = str.split(" ");
+			try {
+				int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
+				if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
+					if (board.canAfford(player.getCoins()) != -1) {
+						board.addSlayer(x, y, this); 
+						player.payCoins(board.canAfford(player.getCoins()));
+					} else {
+						System.out.println(player.toStringNotEnoughCoins());
+					}
+					output = 'c';
+				} else {
+					output = 'p'; // p of (invalid) position
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {
+				output = 'p';
+			} catch (NumberFormatException nfe) {
+				output = 'p';
+			}
+			
+		}else
+			output = 'i'; // i of invalid
+		
+		
+		return output;
+	}*/
