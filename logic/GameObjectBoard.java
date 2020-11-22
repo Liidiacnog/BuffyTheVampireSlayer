@@ -2,7 +2,7 @@ package logic;
 
 import logic.lists.*;
 import java.util.ArrayList;
-import utils.GameElement;
+import logic.gameObjects.GameElement;
 
 // TODO the Board class will manage the (single) list of GameElement objects and the Game class will have an 
 //attribute of class Board. 
@@ -23,7 +23,7 @@ public class GameObjectBoard {
 		this.rows = rows;
 		vamps = new VampireList(nrOfVamps);//TODO change
 		slayers = new SlayerList(rows * cols);
-		gameElements = new ArrayList<GameElement>;
+		gameElements = new ArrayList<>();
 	}
 
 	
