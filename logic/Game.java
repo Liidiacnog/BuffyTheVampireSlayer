@@ -27,6 +27,7 @@ public class Game {
 	private GamePrinter gamePrinter;
 	private int cycles = 0;
 	private boolean isFinished = false;
+	private String winnerMsg = ""; //no winner by default
 	
 	//constructor
 	public Game(Long seed, Level lvl) {
@@ -83,7 +84,8 @@ public class Game {
 
 	public void update() {
 		receiveCoins();
-		board.update();		
+		board.update();
+		incrementCycles();
 	}
 
 	
@@ -157,17 +159,14 @@ public class Game {
 	
 	//checks if slayers have killed all possible vampires, or vampires have reached end of board
 	//returns string corresponding to who has won, or "" if no one has won yet
-	public String checkEnd() {//TODO change returned value bc now Game has attribute isFinished
-		String str = "";
-		if (board.getVampsLeft() == 0 && board.getVampsOnBoard() == 0) {
-			str = "[Game over] Player wins!";
+	public void checkEnd() {
+		if (board.checkEnd()) {
+			winnerMsg = "[Game over] Player wins!";
 			isFinished = true;
 		}else if (board.vampsWin()) {
-			str = "[Game over] Vampires win!";
+			winnerMsg = "[Game over] Vampires win!";
 			isFinished = true;
 		}
-		
-		return str;
 	}
 
 	
@@ -182,5 +181,9 @@ public class Game {
 		cycles++;
 	}
 	
+	
+	public String getWinnerMessage() {
+		return winnerMsg;
+	}
 	
 }

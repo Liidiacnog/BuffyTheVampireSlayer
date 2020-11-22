@@ -38,6 +38,9 @@ public class Controller {
 		      Command command = CommandGenerator.parseCommand(parameters, this);
 		      if (command != null) { 
 		    	  		refreshDisplay = command.execute(game);//TODO when is it false?
+		    	  		game.update();
+		    	  		game.removeDeadObj();
+		    	  		game.checkEnd();
 		       } 
 		       else {
 		    	   		System.out.println("[ERROR]: "+ unknownCommandMsg);

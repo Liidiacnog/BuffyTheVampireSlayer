@@ -5,7 +5,7 @@ import logic.Game;
 public class UpdateCommand extends NoParamsCommand{
 
 	public UpdateCommand() {
-		super("none", "", "", "[n]one | []: update"); //TODO no sÃ© que es details
+		super("none", "", "", "[n]one | []: update"); //TODO details?
 	}
 	
 	public boolean execute(Game game) {

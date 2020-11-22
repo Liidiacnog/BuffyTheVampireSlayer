@@ -135,6 +135,10 @@ public class GameObjectBoard {
 		return slayers.canAfford(coins);
 	}
 	
+	public boolean checkEnd() {
+		return getVampsLeft() == 0 && getVampsOnBoard() == 0;
+	}
+	
 	
 	//Getters:
 	
