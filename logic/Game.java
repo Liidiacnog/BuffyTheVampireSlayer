@@ -65,7 +65,7 @@ public class Game {
 	}
 	
 	//to execute exit game
-	public void endGame() {
+	public void exit() {
 		isFinished = true;
 	}
 	
@@ -89,7 +89,7 @@ public class Game {
 	public void attack() {
 		board.attack();	
 	}
-
+	
 	
 	public void addSlayer(int x, int y) {
 		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 

@@ -15,15 +15,5 @@ public class ExitCommand extends NoParamsCommand {
 		return true;
 	}
 
-	@Override
-	public Command parse(String[] commandWords) {
-		ExitCommand command = null;
-		
-		if (matchCommandName(commandWords[0])) {
-			command = new ExitCommand();
-		}
-		
-		return command;
-	}
 
 }

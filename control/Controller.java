@@ -3,7 +3,7 @@ package control;
 import java.util.Scanner;
 
 import control.commands.Command;
-import control.commands.CommandGenerator;
+import utils.CommandGenerator;
 import logic.Game;
 
 public class Controller {

@@ -1,4 +1,4 @@
-package control.Commands;
+package control.commands;
 
 import logic.Game;
 
@@ -11,18 +11,8 @@ public class ResetCommand extends NoParamsCommand {
 
 	@Override
 	public boolean execute(Game game) {
-		game.resetValues();
-		return false;
-	}
-
-	@Override
-	public Command parse(String[] commandWords) {
-		ResetCommand command = null;
-		if (matchCommandName(commandWords[0])) {
-			command = new ResetCommand();
-		}
-		
-		return command;
+		game.reset();
+		return true;
 	}
 
 }

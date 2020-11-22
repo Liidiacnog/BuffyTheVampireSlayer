@@ -1,6 +1,7 @@
-package control.Commands;
+package control.commands;
 
 import logic.Game;
+import utils.CommandGenerator;
 
 public class HelpCommand extends NoParamsCommand {
 
@@ -9,20 +10,11 @@ public class HelpCommand extends NoParamsCommand {
 		// TODO iniciar details
 	}
 
+	
 	@Override
 	public boolean execute(Game game) {
-		game.help();
-		return true;
-	}
-
-	@Override
-	public Command parse(String[] commandWords) {
-		HelpCommand command = null;
-		if (matchCommandName(commandWords[0])) {
-			command = new HelpCommand();
-		}
-		
-		return command;
+		System.out.println(CommandGenerator.commandHelp());//TODO should it print it or just send the String in some way
+		return true; 
 	}
 
 }

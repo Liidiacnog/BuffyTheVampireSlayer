@@ -12,6 +12,7 @@ public class UpdateCommand extends NoParamsCommand{
 		return true;
 	}
 
+	@Override
 	public Command parse(String[] commandWords) {
 		UpdateCommand command = null;
 		if (matchCommandName(commandWords[0]) || commandWords[0].equals("")) {
@@ -20,5 +21,5 @@ public class UpdateCommand extends NoParamsCommand{
 		
 		return command;
 	}
-
+	
 }
