@@ -50,22 +50,52 @@ public class Controller {
     }
 
     
-    public int getLvlDimX() { //TODO should Controller know about this?
-    	return game.getLvlDimX();
-    }
-    public int getLvlDimY() {//TODO should Controller know about this?
-     	return game.getLvlDimY();
-    }
-    
-    
-    public boolean isFree(int x, int y) {
-    	return game.isFree(x, y);
-    }
     
 }
 
 
-
+/*
+//manages input of the user, returns char which tells run() which action to carry out
+public char userCommand(String str) {//TODO move out of here
+	char output = '0';
+	str = str.toLowerCase();
+	if (str.equals("h") || str.equals("help")) {
+		output = 'h';
+	} else if (str.equals("r") || str.equals("reset")) {
+		reset();
+		output = 'r'; // r of reset
+	} else if (str.equals("e") || str.equals("exit")) {
+		output = 'e';
+	}  else if (str.equals("n") || str.equals("none") || str.equals("")) {
+		output = 'c'; // c of correct
+	} else if (str.startsWith("a ") || str.startsWith("add ")) {
+		String[] parts = str.split(" ");
+		try {
+			int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
+			if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
+				if (board.canAfford(player.getCoins()) != -1) {
+					board.addSlayer(x, y, this); 
+					player.payCoins(board.canAfford(player.getCoins()));
+				} else {
+					System.out.println(player.toStringNotEnoughCoins());
+				}
+				output = 'c';
+			} else {
+				output = 'p'; // p of (invalid) position
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			output = 'p';
+		} catch (NumberFormatException nfe) {
+			output = 'p';
+		}
+		
+	}else
+		output = 'i'; // i of invalid
+	
+	
+	return output;
+}
+*/
 
 //OLD CODE (OURS)
 /*package control;

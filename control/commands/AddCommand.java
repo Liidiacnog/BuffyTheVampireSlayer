@@ -1,4 +1,4 @@
-package control.Commands;
+package control.commands;
 
 import logic.Game;
 
@@ -21,13 +21,13 @@ public class AddCommand extends Command {
 	@Override
 	public boolean execute(Game game) {
 		game.addSlayer(x, y);
-		return false;
+		return true;
 	}
 
 	@Override
 	public Command parse(String[] commandWords) {
 		AddCommand command = null;
-		if (matchCommandName(commandWords[0])) {
+		if (matchCommandName(commandWords[0])) {//TODO falta lo de try
 			command = new AddCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]));
 		}
 		

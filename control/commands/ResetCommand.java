@@ -2,7 +2,7 @@ package control.Commands;
 
 import logic.Game;
 
-public class ResetCommand extends Command {
+public class ResetCommand extends NoParamsCommand {
 
 	public ResetCommand() {
 		super("reset", "r", "", "[r]eset: reset game");

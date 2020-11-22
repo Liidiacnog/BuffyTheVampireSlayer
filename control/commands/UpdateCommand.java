@@ -1,21 +1,21 @@
-package control.Commands;
+package control.commands;
 
 import logic.Game;
 
-public class NoCommand extends Command{
+public class UpdateCommand extends NoParamsCommand{
 
-	public NoCommand() {
+	public UpdateCommand() {
 		super("none", "", "", "[n]one | []: update"); //TODO no sÃ© que es details
 	}
 	
 	public boolean execute(Game game) {
-		return false;
+		return true;
 	}
 
 	public Command parse(String[] commandWords) {
-		NoCommand command = null;
+		UpdateCommand command = null;
 		if (matchCommandName(commandWords[0]) || commandWords[0].equals("")) {
-			command = new NoCommand();
+			command = new UpdateCommand();
 		}
 		
 		return command;

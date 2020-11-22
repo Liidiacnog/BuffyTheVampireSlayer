@@ -2,7 +2,7 @@ package control.Commands;
 
 import logic.Game;
 
-public class HelpCommand extends Command {
+public class HelpCommand extends NoParamsCommand {
 
 	public HelpCommand() {
 		super("help", "h", "", "[h]elp: show this help");
@@ -11,8 +11,8 @@ public class HelpCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) {
-		game.helpCommand();
-		return false;
+		game.help();
+		return true;
 	}
 
 	@Override

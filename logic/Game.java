@@ -75,46 +75,6 @@ public class Game {
 	}
 	
 	
-	//manages input of the user, returns char which tells run() which action to carry out
-	public char userCommand(String str) {//TODO move out of here
-		char output = '0';
-		str = str.toLowerCase();
-		if (str.equals("h") || str.equals("help")) {
-			output = 'h';
-		} else if (str.equals("r") || str.equals("reset")) {
-			reset();
-			output = 'r'; // r of reset
-		} else if (str.equals("e") || str.equals("exit")) {
-			output = 'e';
-		}  else if (str.equals("n") || str.equals("none") || str.equals("")) {
-			output = 'c'; // c of correct
-		} else if (str.startsWith("a ") || str.startsWith("add ")) {
-			String[] parts = str.split(" ");
-			try {
-				int x = Integer.parseInt(parts[1]), y = Integer.parseInt(parts[2]);
-				if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
-					if (board.canAfford(player.getCoins()) != -1) {
-						board.addSlayer(x, y, this); 
-						player.payCoins(board.canAfford(player.getCoins()));
-					} else {
-						System.out.println(player.toStringNotEnoughCoins());
-					}
-					output = 'c';
-				} else {
-					output = 'p'; // p of (invalid) position
-				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				output = 'p';
-			} catch (NumberFormatException nfe) {
-				output = 'p';
-			}
-			
-		}else
-			output = 'i'; // i of invalid
-		
-		
-		return output;
-	}
 	
 	
 	
@@ -130,7 +90,20 @@ public class Game {
 		board.attack();	
 	}
 
+	
+	public void addSlayer(int x, int y) {
+		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
+			if (board.canAfford(player.getCoins()) != -1) {
+				board.addSlayer(x, y, this); 
+				player.payCoins(board.canAfford(player.getCoins()));
+			}else{ //TODO does it have to be in charge of printing it?
+				System.out.println(player.toStringNotEnoughCoins());
+			}
+		}
+	}
 
+
+	
 	//through a random double (number), decides whether to add a vampire on a randomly chosen row, according to the vampire frequency of the level
 	public void addVampire() {
 		/*
@@ -207,21 +180,6 @@ public class Game {
 	public void incrementCycles() {
 		cycles++;
 	}
-	
-	
-	public int getLvlDimX() {
-		return level.getColumns();
-	}
-	
-	public int getLvlDimY() {
-		return level.getRows();
-	}
-	
-	
-	public boolean isFree(int x, int y) {
-		return board.isFree(x,  y);
-	}
-	
 	
 	
 }

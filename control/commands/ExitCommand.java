@@ -1,8 +1,8 @@
-package control.Commands;
+package control.commands;
 
 import logic.Game;
 
-public class ExitCommand extends Command {
+public class ExitCommand extends NoParamsCommand {
 
 	public ExitCommand() {
 		super("exit", "e", "", "[e]xit: exit game");
@@ -11,8 +11,8 @@ public class ExitCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) {
-		game.exitCommand();
-		return false;
+		game.exit();
+		return true;
 	}
 
 	@Override
