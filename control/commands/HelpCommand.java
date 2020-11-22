@@ -1,22 +1,28 @@
-package control.commands;
+package control.Commands;
 
 import logic.Game;
 
-public class HelpCommand extends NoParamsCommand {
-	
-	help = "[h]elp: show this help%n"; //TODO
-	
-	public static final String details = ""; //TODO what is details?
-	
-	public HelpCommand(){
-		super("Help", "h", details, help); //TODO change name, shortcut?
+public class HelpCommand extends Command {
+
+	public HelpCommand() {
+		super("help", "h", "", "[h]elp: show this help");
+		// TODO iniciar details
 	}
-	
-	/*to be implemented by a method which calls some method of the game object passed as a parameter, and may also 
-	 * perform some other action*/
+
+	@Override
 	public boolean execute(Game game) {
-		System.out.println(CommandGenerator.commandHelp());//TODO should it print it or just send the String in some way
-		return true; 
+		game.helpCommand();
+		return false;
 	}
-	
+
+	@Override
+	public Command parse(String[] commandWords) {
+		HelpCommand command = null;
+		if (matchCommandName(commandWords[0])) {
+			command = new HelpCommand();
+		}
+		
+		return command;
+	}
+
 }

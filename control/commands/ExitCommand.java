@@ -1,19 +1,29 @@
-package control.commands;
+package control.Commands;
 
 import logic.Game;
 
-public class ExitCommand extends NoParamsCommand{
+public class ExitCommand extends Command {
 
-	help = "[e]xit: exit game%n";
-	
-	
-	public ExitCommand(){ //public Command(String name,  String shortcut, String details, String help){    
-		super("Exit", "e", , ); //TODO change?
+	public ExitCommand() {
+		super("exit", "e", "", "[e]xit: exit game");
+		// TODO iniciar details
 	}
-	
+
+	@Override
 	public boolean execute(Game game) {
-		game.endGame();
-		return true;
+		game.exitCommand();
+		return false;
 	}
-	
+
+	@Override
+	public Command parse(String[] commandWords) {
+		ExitCommand command = null;
+		
+		if (matchCommandName(commandWords[0])) {
+			command = new ExitCommand();
+		}
+		
+		return command;
+	}
+
 }

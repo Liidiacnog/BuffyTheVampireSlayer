@@ -1,18 +1,29 @@
-package control.commands;
+package control.Commands;
 
 import logic.Game;
 
-public class ResetCommand extends NoParamsCommand{
+public class ResetCommand extends Command {
 
-	help =  "[r]eset: reset game%n";
-
-	public ResetCommand(){ //public Command(String name,  String shortcut, String details, String help){    
-		super("Reset", "r", , ); //TODO change?
+	public ResetCommand() {
+		super("reset", "r", "", "[r]eset: reset game");
+		// TODO iniciar details
 	}
-	
+
+	@Override
 	public boolean execute(Game game) {
-		game.reset();
-		return true;
+		game.resetValues();
+		return false;
 	}
-	
+
+	@Override
+	public Command parse(String[] commandWords) {
+		ResetCommand command = null;
+		if (matchCommandName(commandWords[0])) {
+			command = new ResetCommand();
+		}
+		
+		return command;
+	}
+
 }
+

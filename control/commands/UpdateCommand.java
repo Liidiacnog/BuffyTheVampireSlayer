@@ -1,20 +1,24 @@
-package control.commands;
+package control.Commands;
 
 import logic.Game;
 
-public class UpdateCommand extends NoParamsCommand{
-	help = "[n]one | []: update%n";
-	
-	public UpdateCommand(){
-		super("Update", "n", details, help); //TODO change name, shortcut?
+public class NoCommand extends Command{
+
+	public NoCommand() {
+		super("none", "", "", "[n]one | []: update"); //TODO no sÃ© que es details
 	}
 	
-	/*to be implemented by a method which calls some method of the game object passed as a parameter, and may also 
-	 * perform some other action*/
 	public boolean execute(Game game) {
-		game.update();
-		return true; 
+		return false;
 	}
-	
-	
+
+	public Command parse(String[] commandWords) {
+		NoCommand command = null;
+		if (matchCommandName(commandWords[0]) || commandWords[0].equals("")) {
+			command = new NoCommand();
+		}
+		
+		return command;
+	}
+
 }

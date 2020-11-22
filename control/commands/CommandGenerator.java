@@ -1,3 +1,41 @@
+package utils;
+
+import control.Commands.AddCommand;
+import control.Commands.Command;
+import control.Commands.ExitCommand;
+import control.Commands.HelpCommand;
+import control.Commands.NoCommand;
+import control.Commands.ResetCommand;
+
+public class CommandGenerator {
+
+	public static Command parse(String[] s) {
+		Command command;
+		
+		command = new ExitCommand();
+		command = command.parse(s);
+		if (command == null) {
+			command = new ResetCommand();
+			command = command.parse(s);
+		}
+		if (command == null) {
+			command = new AddCommand();
+			command = command.parse(s);
+		}
+		if (command == null) {
+			command = new HelpCommand();
+			command = command.parse(s);
+		} else {
+			command = new NoCommand();
+			command = command.parse(s);
+		}
+		
+		return command;
+	}
+	
+}
+
+/*
 package control.commands;
 
 import control.Controller;
@@ -37,12 +75,12 @@ public class CommandGenerator {
 	
 	/*passes the minimally processed input text to an object of each of the concrete command classes, 
 	 * in order to see which of them accepts it as valid text for that command*/
-	public static Command parseCommand (String[] input, Controller controller) {
+	/*public static Command parseCommand (String[] input, Controller controller) {
 		Command obj = null;
 		int i = 0; 
 		/*If the parse method of a given concrete subclass of the Command class accepts the input text as valid, 
 		 * it returns an object	of that concrete subclass, otherwise it returns the value null. */
-		while(i < availableCommands.length && availableCommands[i].parse(input) == null) {
+		/*while(i < availableCommands.length && availableCommands[i].parse(input) == null) {
 			++i; 
 		}
 		if(availableCommands[i].parse(input) != null) {
@@ -55,7 +93,7 @@ public class CommandGenerator {
 	
 	/*has a similar structure to the parseCommand() method but calling the helpText() method of each of the Command subclasses
 	 * in turn. This method is called by the execute method of the HelpCommand class.*/
-	public static String commandHelp() {
+/*	public static String commandHelp() {
 		String str = String.format("Available commands:%n");
 		int i = 0; 
 		while(i < availableCommands.length) {
@@ -68,3 +106,4 @@ public class CommandGenerator {
 	}
 	
 }
+*/
