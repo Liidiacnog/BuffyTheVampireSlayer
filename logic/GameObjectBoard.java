@@ -49,12 +49,11 @@ public class GameObjectBoard {
 			}
 			else
 				++i;
-		}
-		
+		}		
 		return str;
 	}
 	
-		
+	
 	//actions in game loop:
 	
 	//moves elements that should do so
@@ -75,7 +74,7 @@ public class GameObjectBoard {
 	
 	//if (x, y) is not occupied, adds a vampire on it
 	public void addVampire(int x, int y, Game game) { 
-		//we take for granted it's only called when we haven't reached max number of vampires yet
+		//we assume it's only called when we haven't reached max number of vampires yet
 		if(isFree(x, y)) {
 			Vampire vamp = new Vampire(x, y, game);
 			gameElements.add(vamp);
@@ -85,9 +84,11 @@ public class GameObjectBoard {
 	
 	//if (i, j) is not occupied, adds a slayer on it
 	public void addSlayer(int i, int j, Game game) {
-		//we suppose it's only called when player can afford it
-		if(isFree(i, j))
-			slayers.addSlayer(i, j, game);
+		//we assume it's only called when player can afford it
+		if(isFree(i, j)) {
+			Slayer slayer = new Slayer(i, j, game);
+			gameElements.add(slayer);
+		}
 	}
 	
 	
@@ -127,15 +128,20 @@ public class GameObjectBoard {
 	
 	//calls methods in lists in charge of removing dead objects
 	public void removeDeadObj() {
-		gameElements.removeDeadObj();
+		for(int i = 0; i < gameElements.size(); i++) {
+			if(gameElements.get(i).isDead())
+				gameElements.remove(gameElements.get(i));
+		}
 	}
 
 	
 	//resets elements on the board
 	public void reset(int nrOfVamps) {
-		gameElements.reset(nrOfVamps);
+		gameElements.clear();
+		Vampire.updateData(0, nrOfVamps); //TODO remove from here?
 	}
 	
+	//TODO VOY POR AQUÍ
 	
 	//true if a vampire has reached the end of the board
 	public boolean vampsWin() {

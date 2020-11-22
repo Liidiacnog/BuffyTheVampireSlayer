@@ -4,9 +4,10 @@ import logic.Game;
 
 public class GameElement {
 
-	private int x, y;
-	private Game game;
-	private String representation;
+	protected int x, y;
+	protected Game game;
+	protected String representation;
+	protected int life;
 	
 	public GameElement() {
 		
@@ -27,5 +28,7 @@ public class GameElement {
 	
 	public void attack() {}//TODO legal? 
 	
-	
+	public boolean isDead() {
+		return life <= 0 ;
+	}
 }
