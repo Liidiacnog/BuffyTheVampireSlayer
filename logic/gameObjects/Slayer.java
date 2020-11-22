@@ -2,7 +2,7 @@ package logic.gameObjects;
 
 import logic.Game;
 
-public class Slayer {
+public class Slayer extends GameElement{
 	
 	private static int cost = 50, resistance = 3, frequency = 1, damage = 1;
 	private static String representation =  "<->";

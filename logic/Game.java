@@ -8,8 +8,9 @@ import view.GamePrinter;
   delegates much of its functionality, and (a reference to) the player object.
  */
 
-//Random Class should only be instantiated in Game
 
+/*The classes Game and Board only deal with generic elements (i.e. of class GameElement) and so cannot distinguish 
+the concrete class of the objects being manipulated.*/
 public class Game {
 	
 	//constants related to rules of the game

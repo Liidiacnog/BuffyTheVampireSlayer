@@ -1,20 +1,29 @@
 package logic;
 
 import logic.lists.*;
+import java.util.ArrayList;
+import utils.GameElement;
 
+// TODO the Board class will manage the (single) list of GameElement objects and the Game class will have an 
+//attribute of class Board. 
 
+/*The classes Game and Board only deal with generic elements (i.e. of class GameElement) and so cannot distinguish 
+the concrete class of the objects being manipulated.*/
 public class GameObjectBoard {
 	
 	private VampireList vamps;
-	private SlayerList slayers;
+	private SlayerList slayers; //TODO substitute for
+	private ArrayList<GameElement> gameElements;
+
 	private int columns, rows;
 	
 	//constructor 
 	public GameObjectBoard(int cols, int rows, int nrOfVamps) {
 		columns = cols;
 		this.rows = rows;
-		vamps = new VampireList(nrOfVamps);
+		vamps = new VampireList(nrOfVamps);//TODO change
 		slayers = new SlayerList(rows * cols);
+		gameElements = new ArrayList<GameElement>;
 	}
 
 	

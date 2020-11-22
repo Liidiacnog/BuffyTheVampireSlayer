@@ -2,7 +2,7 @@ package logic.gameObjects;
 
 import logic.Game;
 
-public class Vampire {
+public class Vampire extends GameElement{
 
 	private static int resistance = 5, frequency = 1, damage = 1; 
 	private static String representation = "VˆV";
