@@ -2,7 +2,7 @@ package logic.gameObjects;
 
 import logic.Game;
 
-public class GameElement {
+public class GameElement implements IAttack{
 
 	protected int x, y;
 	protected Game game;

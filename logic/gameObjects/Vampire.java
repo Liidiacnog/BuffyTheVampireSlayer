@@ -46,8 +46,13 @@ public class Vampire extends GameElement{
 	
 	//calls method in game which will check if any slayer can be bitten from (col, row)
 		public void attack() {
-			if(life > 0) //vampires that have just been killed don't harm slayers
-				game.bite(col, row, damage);
+			if(life > 0) {
+				IAttack other = game.getAttackableInPos(x - 1, y);
+				if (other != null) {
+					other.receiveVampireAttack(damage); //TODO enterarse de que va esto
+				}
+			}
+				
 	}
 		
 	

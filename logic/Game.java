@@ -2,6 +2,7 @@ package logic;
 import logic.gameObjects.Player;
 import java.util.Random;
 import view.GamePrinter;
+import view.IPrintable;
 
 /*This class encapsulates the logic of the game and is responsible for updating the state of all the game elements. 
   It maintains the current cycle number. It contains (a reference to) the board object, to which the game object 
@@ -11,7 +12,7 @@ import view.GamePrinter;
 
 /*The classes Game and Board only deal with generic elements (i.e. of class GameElement) and so cannot distinguish 
 the concrete class of the objects being manipulated.*/
-public class Game {
+public class Game implements IPrintable{
 	
 	//constants related to rules of the game
 	static final int COINS_TO_RECEIVE = 10; //number of coins received by player
@@ -37,33 +38,6 @@ public class Game {
 		board = new GameObjectBoard(lvl.getColumns(), lvl.getRows(), lvl.getVampNumber());
 		player = new Player(INITIAL_COINS);
 		gamePrinter = new GamePrinter(this, lvl.getColumns(), lvl.getRows());
-	}
-	
-
-	
-	public String toString() {
-		return drawInfo() + gamePrinter;
-	}
-
-	
-	//draws information needed every cycle of the game before displaying the board:
-	//cycle number, coins, remaining vampires and vampires currently on the board
-	public String drawInfo() {
-		StringBuilder str = new StringBuilder();
-		char jumpLine = '\n';
-		str.append(jumpLine);
-		str.append("Cycle number: ").append(cycles).append(jumpLine);
-		str.append("Coins: ").append(player.getCoins()).append(jumpLine);
-		str.append("Remainig vampires: ").append(board.getVampsLeft()).append(jumpLine);
-		str.append("Vampires on the board: ").append(board.getVampsOnBoard()).append(jumpLine);
-		
-		return str.toString();
-	}
-	
-	
-	//generates a String "matrix" (String[][]) which is the representation of the board object
-	public String[][] encodeGame() {
-		return board.toStringMatrixBoard();
 	}
 	
 	//to execute exit game
@@ -185,5 +159,56 @@ public class Game {
 	public String getWinnerMessage() {
 		return winnerMsg;
 	}
+
+
+
+	@Override
+	public String getPositionToString(int x, int y) {
+		return  board.objToString(x, y);
+	}
+
+
+
+	@Override
+	public String getInfo() {
+		StringBuilder str = new StringBuilder();
+		char jumpLine = '\n';
+		str.append(jumpLine);
+		str.append("Cycle number: ").append(cycles).append(jumpLine);
+		str.append("Coins: ").append(player.getCoins()).append(jumpLine);
+		str.append("Remainig vampires: ").append(board.getVampsLeft()).append(jumpLine);
+		str.append("Vampires on the board: ").append(board.getVampsOnBoard()).append(jumpLine);
+		
+		return str.toString();
+	}
 	
 }
+
+
+
+/*CODIGO QUE YA NO SE USA
+
+//draws information needed every cycle of the game before displaying the board:
+	//cycle number, coins, remaining vampires and vampires currently on the board
+	/*public String drawInfo() {
+		StringBuilder str = new StringBuilder();
+		char jumpLine = '\n';
+		str.append(jumpLine);
+		str.append("Cycle number: ").append(cycles).append(jumpLine);
+		str.append("Coins: ").append(player.getCoins()).append(jumpLine);
+		str.append("Remainig vampires: ").append(board.getVampsLeft()).append(jumpLine);
+		str.append("Vampires on the board: ").append(board.getVampsOnBoard()).append(jumpLine);
+		
+		return str.toString();
+	}
+	
+	public String toString() {
+		return drawInfo() + gamePrinter;
+	}
+	
+	//generates a String "matrix" (String[][]) which is the representation of the board object
+	public String[][] encodeGame() {
+		return board.toStringMatrixBoard();
+	}
+	
+*/

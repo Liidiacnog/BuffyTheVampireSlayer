@@ -23,36 +23,32 @@ public class GameObjectBoard {
 		gameElements = new ArrayList<>();
 	}
 
-	
-	//returns representation of the board as a String[][] (2 dimensional array of Strings)
-	public String[][] toStringMatrixBoard() {
-		String[][] str = new String[rows][columns];
-		for(int i = 0; i < rows; ++i) {
-			for(int j = 0; j < columns; ++j)
-				str[i][j] = objectOn(j, i);
-			//we switch coordinates for "objectOn(j, i)", because our whole programme 
-			//works with (columns, rows) but the 2 dimensional array is built using (rows, columns), like in a matrix
-		}
-		return str;
-	}
-	
-	
-	//returns toString() of game element on (x, y) if there is one
-	public String objectOn(int x, int y) {
+
+
+	public String objToString(int x, int y) {
+		int pos;
 		String str = "";
+		pos = indexOf(x, y);
+		if (pos != -1)
+			str = gameElements.get(pos).toString();
+		return "" + str;
+	}
+
+
+	private int indexOf(int x, int y) {
 		boolean found = false;
-		int i = 0; 
-		while(i < gameElements.size() && !found) {
+		int i = 0, pos = -1;
+		while (i < gameElements.size() && !found) {
 			if(gameElements.get(i).isHere(x, y)) {
-				str = "" + gameElements.get(i); //TODO does it work?
 				found = true;
+				pos = i;
 			}
 			else
 				++i;
-		}		
-		return str;
+		}
+		
+		return pos;
 	}
-	
 	
 	//actions in game loop:
 	
@@ -76,8 +72,7 @@ public class GameObjectBoard {
 	public void addVampire(int x, int y, Game game) { 
 		//we assume it's only called when we haven't reached max number of vampires yet
 		if(isFree(x, y)) {
-			Vampire vamp = new Vampire(x, y, game);
-			gameElements.add(vamp);
+			gameElements.add(new Vampire(x, y, game));
 		}
 	}
 	
@@ -86,15 +81,16 @@ public class GameObjectBoard {
 	public void addSlayer(int i, int j, Game game) {
 		//we assume it's only called when player can afford it
 		if(isFree(i, j)) {
-			Slayer slayer = new Slayer(i, j, game);
-			gameElements.add(slayer);
+			gameElements.add(new Slayer(i, j, game));
 		}
 	}
 	
 	
 	//calls bite() in slayerList to check if a slayer can be bitten by the vampire who's on (x, y)
 	public void bite(int x, int y, int damage) {
-		slayers.bite(x, y, damage);
+		for (int i = 0; i < gameElements.size(); i++) {
+			gameElements.get(i).bite(x, y, damage);
+		}
 	}
 	
 	
@@ -172,7 +168,22 @@ public class GameObjectBoard {
 	
 }
 
-
+/*//returns toString() of game element on (x, y) if there is one
+	public String objectOn(int x, int y) {
+		String str = "";
+		boolean found = false;
+		int i = 0; 
+		while(i < gameElements.size() && !found) {
+			if(gameElements.get(i).isHere(x, y)) {
+				str = "" + gameElements.get(i); //TODO does it work? no se necesita así, he hecho una generica que no devuelve string sino la posicion
+				found = true;
+			}
+			else
+				++i;
+		}		
+		return str;
+	}
+	*/
 
 //ANTIGUO
 /*public class GameObjectBoard {
