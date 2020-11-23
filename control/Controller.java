@@ -38,7 +38,7 @@ public class Controller {
 		      Command command = CommandGenerator.parseCommand(parameters, this);
 		      if (command != null) { 
 		    	  		refreshDisplay = command.execute(game);//TODO when is it false?
-		    	  		game.update();
+		    	  		game.update();			//TODO change bc some commands (ex. Help) shouldn't increment cycle
 		    	  		game.removeDeadObj();
 		    	  		game.checkEnd();
 		       } 

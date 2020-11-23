@@ -132,7 +132,7 @@ public class Game implements IPrintable{
 	
 	
 	//checks if slayers have killed all possible vampires, or vampires have reached end of board
-	//returns string corresponding to who has won, or "" if no one has won yet
+	//updates winnerMsg string corresponding to who has won, or "" if no one has won yet
 	public void checkEnd() {
 		if (board.checkEnd()) {
 			winnerMsg = "[Game over] Player wins!";

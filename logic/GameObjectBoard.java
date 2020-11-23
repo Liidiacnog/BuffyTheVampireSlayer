@@ -34,7 +34,8 @@ public class GameObjectBoard {
 		return "" + str;
 	}
 
-
+	//acts like ArrayList indexOf(), except it takes advantage of the fact that on each tile of the board
+	//there can only be one element, so each position coordinates are univocally linked to the element on that position
 	private int indexOf(int x, int y) {
 		boolean found = false;
 		int i = 0, pos = -1;
@@ -109,7 +110,7 @@ public class GameObjectBoard {
 	//true if (x, y) is a is a valid position to put an object, and that "tile" isn't occupied by any object of the board 
 	public boolean isFree (int x, int y) {
 		boolean valid = false;
-		if (validCords(x, y) && gameElements.isHere(x, y) == -1)
+		if (validCords(x, y) && indexOf(x, y) == -1)
 				valid = true;
 
 		return valid;
