@@ -4,11 +4,8 @@ import logic.Game;
 
 public class Vampire extends GameElement{
 
+	
 	private static int resistance = 5, frequency = 1, damage = 1; 
-	private static String representation = "VˆV";
-	private int life;
-	private int col, row; //position coordinates on the board
-	private Game game; //Game game needs to be passed via a parameter whenever needed
 	private boolean movedBefore; //to check whether it is its turn to move or not(they move each 2 cycles)
 	
 	/*how many vampires are on the board, 
@@ -19,13 +16,11 @@ public class Vampire extends GameElement{
 	
 	//constructor 
 	public Vampire (int x, int y, Game game) {  
-		col = x;
-		row = y;
-		life = resistance;
+		super(x, y, game);
 		movedBefore = true;
 		vampsOnBoard++; //new vampire is added to the board on x, y
 		vampsLeft--; //one less vampire can be added to the board
-		this.game = game;
+		representation = ;
 	}
 	
 

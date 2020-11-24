@@ -6,8 +6,6 @@ import logic.gameObjects.GameElement;
 import logic.gameObjects.Vampire;
 import logic.gameObjects.Slayer;
 
-// TODO the Board class will manage the (single) list of GameElement objects and the Game class will have an 
-//attribute of class Board. 
 
 /*The classes Game and Board only deal with generic elements (i.e. of class GameElement) and so cannot distinguish 
 the concrete class of the objects being manipulated.*/
@@ -31,7 +29,7 @@ public class GameObjectBoard {
 		pos = indexOf(x, y);
 		if (pos != -1)
 			str = gameElements.get(pos).toString();
-		return "" + str;
+		return str;
 	}
 
 	//acts like ArrayList indexOf(), except it takes advantage of the fact that on each tile of the board

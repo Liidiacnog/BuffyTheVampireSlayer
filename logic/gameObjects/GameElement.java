@@ -4,13 +4,16 @@ import logic.Game;
 
 public class GameElement implements IAttack{
 
-	protected int x, y;
-	protected Game game;
-	protected String representation;
-	protected int life;
+	public int col, row, life;
+	public Game game;
+	public static String representation;
+	public static int frequency, damage, resistance;
 	
-	public GameElement() {
-		
+	public GameElement(int x, int y, Game game) {
+		col = x;
+		row = y;
+		this.game = game;
+		life = resistance;
 	}
 	
 	
@@ -20,7 +23,7 @@ public class GameElement implements IAttack{
 	
 	//returns true if the gameElement has coordinates (x, y)
 	public boolean isHere(int x, int y) {
-		return this.x == x && this.y == y;
+		return col == x && row == y;
 	}
 		
 	//to be overwritten by elements that do move
