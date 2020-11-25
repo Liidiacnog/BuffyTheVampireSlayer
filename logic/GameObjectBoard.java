@@ -136,17 +136,22 @@ public class GameObjectBoard {
 		Vampire.updateData(0, nrOfVamps); //TODO remove from here?
 	}
 	
-	//TODO VOY POR AQUÍ
 	
 	//true if a vampire has reached the end of the board
 	public boolean vampsWin() {
-		return vamps.wins();
+		boolean win = false;
+		for(int i = 0; i < gameElements.size(); ++i) {
+			if(gameElements.get(i).getRepresentation() == Vampire.getRepresentation()))//TODO how to do it?
+				if(gameElements.get(i).reachEnd()) //TODO do we define it in GameElements even though it doesn't apply to Slayers?
+					win = true;
+		}
+		return win;
 	}
 
 	
-	//returns the cost of a slayer if coins are sufficient to afford it, otherwise returns -1
+	//returns the cost of a slayer if coins are enough to afford it, otherwise returns -1
 	public int canAfford(int coins) {
-		return slayers.canAfford(coins);
+		return Slayer.canAfford(coins);
 	}
 	
 	public boolean checkEnd() {

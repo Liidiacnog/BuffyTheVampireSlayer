@@ -45,13 +45,16 @@ public class Slayer extends GameElement{
 		life -= harm;
 	}
 	
+	//returns -1 if coins aren't enough to pay for cost, or returns cost otherwise
+	//TODO legal? or breaking encapsulation?
+	public static int canAfford(int coins) {
+		int sol = -1;
+		if(coins >= cost)
+			sol = cost;
+		return sol;
+	}
 	
 	//Getters
-	
-	public static int getCost() {
-		return cost;
-	}
-
 	
 	public int getLife() {
 		return life;

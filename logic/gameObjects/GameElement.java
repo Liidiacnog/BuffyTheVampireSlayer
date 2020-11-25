@@ -16,10 +16,16 @@ public class GameElement implements IAttack{
 		life = resistance;
 	}
 	
-	
-	public String toString() {
+
+	//TODO okay?
+	public static String getRepresentation() {
 		return representation;
 	}
+	
+	public String toString() {
+		return representation + "[" + life + "]";
+	}
+	
 	
 	//returns true if the gameElement has coordinates (x, y)
 	public boolean isHere(int x, int y) {

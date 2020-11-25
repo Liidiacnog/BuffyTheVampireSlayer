@@ -20,7 +20,7 @@ public class Vampire extends GameElement{
 		movedBefore = true;
 		vampsOnBoard++; //new vampire is added to the board on x, y
 		vampsLeft--; //one less vampire can be added to the board
-		representation = ;
+		representation = "VˆV";
 	}
 	
 
@@ -42,7 +42,7 @@ public class Vampire extends GameElement{
 	//calls method in game which will check if any slayer can be bitten from (col, row)
 		public void attack() {
 			if(life > 0) {
-				IAttack other = game.getAttackableInPos(x - 1, y);
+				IAttack other = game.getAttackableInPos(col - 1, row);
 				if (other != null) {
 					other.receiveVampireAttack(damage); //TODO enterarse de que va esto
 				}
