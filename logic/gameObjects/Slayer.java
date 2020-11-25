@@ -12,10 +12,8 @@ public class Slayer extends GameElement{
 	
 	//constructor 
 	public Slayer(int x, int y, Game game) {
-		col = x;
-		row = y;
+		super(x, y, game);
 		life = resistance; //just initially
-		this.game = game;
 	}
 	
 	

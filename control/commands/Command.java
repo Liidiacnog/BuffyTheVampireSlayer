@@ -5,13 +5,9 @@ import logic.Game;
 
 public abstract class Command {
 
-	  private final String name;
-	  protected final String shortcut;
-	  private final String details; 
-	  private final String help;
+	  private final String name, shortcut, details, help;
 
-	  protected static final String incorrectNumberOfArgsMsg = "Incorrect number of arguments";
-	  protected static final String incorrectArgsMsg = "Incorrect arguments format";
+	  protected static final String incorrectNumberOfArgsMsg = "Incorrect number of arguments", incorrectArgsMsg = "Incorrect arguments format";
 	  
 	  public Command(String name,  String shortcut, String details, String help){    
 	    this.name = name;

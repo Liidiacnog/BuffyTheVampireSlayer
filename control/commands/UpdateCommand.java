@@ -5,12 +5,10 @@ import logic.Game;
 public class UpdateCommand extends NoParamsCommand{
 
 	public UpdateCommand() {
-		super("none", "", "", "[n]one | []: update"); //TODO details?
-		shortcut = "";
+		super("none", "n", " update", "[n]one | []:");
 	}
 	
 	public boolean execute(Game game) {
-		shortcut = "";
 		return true;
 	}
 

@@ -2,31 +2,18 @@ package logic.gameObjects;
 
 import logic.Game;
 
-public abstract class GameElement implements IAttack{ //TODO change to abstract
+public abstract class GameElement implements IAttack{
 
-	public int col, row, life; //TODO change to protected
-	public Game game;
-	public static String representation;
-	public static int frequency, damage, resistance;
+	protected int col, row, life; //TODO change to protected
+	protected Game game;
 	
 	public GameElement(int x, int y, Game game) {
 		col = x;
 		row = y;
 		this.game = game;
-		life = resistance;
 	}
 	
 
-	//TODO okay?
-	public static String getRepresentation() {
-		return representation;
-	}
-	
-	public String toString() {
-		return representation + "[" + life + "]";
-	}
-	
-	
 	//returns true if the gameElement has coordinates (x, y)
 	public boolean isHere(int x, int y) {
 		return col == x && row == y;

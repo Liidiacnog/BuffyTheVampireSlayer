@@ -4,10 +4,9 @@ import logic.Game;
 
 public class Vampire extends GameElement{
 
-	
 	private static int resistance = 5, frequency = 1, damage = 1; 
 	private boolean movedBefore; //to check whether it is its turn to move or not(they move each 2 cycles)
-	representation = "";
+	private String representation = "VˆV";
 	/*how many vampires are on the board, 
 	 * total number of vampires that can appear in this level, 
 	 * vampires that can appear taking into consideration which ones have appeared already and which ones have died:
@@ -20,7 +19,6 @@ public class Vampire extends GameElement{
 		movedBefore = true;
 		vampsOnBoard++; //new vampire is added to the board on x, y
 		vampsLeft--; //one less vampire can be added to the board
-		representation = "VˆV";
 	}
 	
 

@@ -5,18 +5,15 @@ import logic.Game;
 public class AddCommand extends Command {
 	
 	private int x, y;
-	String name
 	
 	public AddCommand() {
-		super("add", "a", "", "[a]dd <x> <y>: add a slayer in position x, y");
-		// TODO iniciar details
+		super("add", "a", " add a slayer in position x, y", "[a]dd <x> <y>:");
 	}
 	
 	public AddCommand(int xCord, int yCord) {
-		super("add", "a", "", "[a]dd <x> <y>: add a slayer in position x, y");
+		super("add", "a", " add a slayer in position x, y", "[a]dd <x> <y>:");
 		x = xCord;
 		y = yCord;
-		// TODO iniciar details
 	}
 
 	@Override
