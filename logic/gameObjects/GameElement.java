@@ -4,7 +4,8 @@ import logic.Game;
 
 public abstract class GameElement implements IAttack{
 
-	protected int col, row, life; //TODO change to protected
+	protected int col, row; //position coordinates on the board
+	protected int life;
 	protected Game game;
 	
 	public GameElement(int x, int y, Game game) {

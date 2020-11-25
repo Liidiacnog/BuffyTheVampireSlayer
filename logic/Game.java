@@ -1,8 +1,8 @@
 package logic;
-import logic.gameObjects.Player;
+import logic.gameObjects.*;
+
 import java.util.Random;
-import view.GamePrinter;
-import view.IPrintable;
+import view.*;
 
 /*This class encapsulates the logic of the game and is responsible for updating the state of all the game elements. 
   It maintains the current cycle number. It contains (a reference to) the board object, to which the game object 
@@ -38,6 +38,8 @@ public class Game implements IPrintable{
 		board = new GameObjectBoard(lvl.getColumns(), lvl.getRows(), lvl.getVampNumber());
 		player = new Player(INITIAL_COINS);
 		gamePrinter = new GamePrinter(this, lvl.getColumns(), lvl.getRows());
+		
+		Vampire.updateData(0, lvl.getVampNumber());
 	}
 	
 	//to execute exit game
@@ -160,14 +162,12 @@ public class Game implements IPrintable{
 		return winnerMsg;
 	}
 
-
+	
 
 	@Override
 	public String getPositionToString(int x, int y) {
 		return  board.objToString(x, y);
 	}
-
-
 
 	@Override
 	public String getInfo() {
@@ -181,6 +181,12 @@ public class Game implements IPrintable{
 		
 		return str.toString();
 	}
+	
+	
+	public IAttack getAttackableInPos() {
+		//TODO getAttackableInPos
+	}
+	
 	
 }
 

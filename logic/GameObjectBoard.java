@@ -110,7 +110,6 @@ public class GameObjectBoard {
 		boolean valid = false;
 		if (validCords(x, y) && indexOf(x, y) == -1)
 				valid = true;
-
 		return valid;
 	}
 	
@@ -141,7 +140,7 @@ public class GameObjectBoard {
 	public boolean vampsWin() {
 		boolean win = false;
 		for(int i = 0; i < gameElements.size(); ++i) {
-			if(gameElements.get(i).reachEnd()) //TODO do we define it in GameElements even though it doesn't apply to Slayers?
+			if(gameElements.get(i).reachEnd())
 				win = true;
 		}
 		return win;
@@ -161,32 +160,15 @@ public class GameObjectBoard {
 	//Getters:
 	
 	public int getVampsLeft() {
-		return vamps.getVampsLeft();
+		return Vampire.getVampsLeft();
 	}
 
 	public int getVampsOnBoard() {
-		return vamps.getVampsOnBoard();
+		return Vampire.getVampsOnBoard();
 	}
 
 	
 }
-
-/*//returns toString() of game element on (x, y) if there is one
-	public String objectOn(int x, int y) {
-		String str = "";
-		boolean found = false;
-		int i = 0; 
-		while(i < gameElements.size() && !found) {
-			if(gameElements.get(i).isHere(x, y)) {
-				str = "" + gameElements.get(i); //TODO does it work? no se necesita así, he hecho una generica que no devuelve string sino la posicion
-				found = true;
-			}
-			else
-				++i;
-		}		
-		return str;
-	}
-	*/
 
 //ANTIGUO
 /*public class GameObjectBoard {

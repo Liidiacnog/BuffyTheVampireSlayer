@@ -7,8 +7,6 @@ public class Slayer extends GameElement{
 	private static int cost = 50, resistance = 3, frequency = 1, damage = 1;
 	private static String representation =  "<->";
 	private int life;
-	private int row, col; //position coordinates on the board
-	private Game game; //instance of Class Game in order to be able to use its methods
 	
 	//constructor 
 	public Slayer(int x, int y, Game game) {

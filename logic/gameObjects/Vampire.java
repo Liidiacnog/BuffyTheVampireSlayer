@@ -6,7 +6,7 @@ public class Vampire extends GameElement{
 
 	private static int resistance = 5, frequency = 1, damage = 1; 
 	private boolean movedBefore; //to check whether it is its turn to move or not(they move each 2 cycles)
-	private String representation = "VˆV";
+	private static String representation = "VˆV";
 	/*how many vampires are on the board, 
 	 * total number of vampires that can appear in this level, 
 	 * vampires that can appear taking into consideration which ones have appeared already and which ones have died:
@@ -77,10 +77,10 @@ public class Vampire extends GameElement{
 	
 		
 	//updates vampsOnBoard, vampsThisLevel, vampsLeft ONLY when a list is created or reset  
-	public static void updateData(int size, int vampsLevel) {
-		vampsOnBoard = size;
+	public static void updateData(int nr, int vampsLevel) {
+		vampsOnBoard = nr;
 		vampsThisLevel = vampsLevel;
-		vampsLeft = vampsLevel - size;
+		vampsLeft = vampsLevel - nr;
 	}
 	
 	
@@ -96,14 +96,18 @@ public class Vampire extends GameElement{
 		return vampsLeft;
 	}
 
-	public int getLife() {
-		return life;
+	public static int getVampsOnBoard() {
+		return vampsOnBoard;
 	}
-
+	
 	public static int getVampsThisLevel() {
 		return vampsThisLevel;
 	}
 	
+	public int getLife() {
+		return life;
+	}
+
 	// Setters
 	
 	public static void setVampsOnBoard(int nr) {

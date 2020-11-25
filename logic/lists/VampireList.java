@@ -12,7 +12,6 @@ public class VampireList {
 	public VampireList(int n) { //created with length = numberOfVamps of that Level
 		vamp = new Vampire[n];
 		size = 0;
-		Vampire.updateData(size, n);//TODO change to constructor of Game
 	}
 
 	
