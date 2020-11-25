@@ -5,7 +5,7 @@ import logic.Game;
 
 public abstract class Command {
 
-	  protected final String name;
+	  private final String name;
 	  protected final String shortcut;
 	  private final String details; 
 	  private final String help;

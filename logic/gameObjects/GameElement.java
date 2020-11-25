@@ -2,9 +2,9 @@ package logic.gameObjects;
 
 import logic.Game;
 
-public class GameElement implements IAttack{
+public abstract class GameElement implements IAttack{ //TODO change to abstract
 
-	public int col, row, life;
+	public int col, row, life; //TODO change to protected
 	public Game game;
 	public static String representation;
 	public static int frequency, damage, resistance;
@@ -33,9 +33,13 @@ public class GameElement implements IAttack{
 	}
 		
 	//to be overwritten by elements that do move
-	public void move() {} //TODO legal? 
+	public abstract void move();
 	
-	public void attack() {}//TODO legal? 
+	public abstract void attack();
+	
+	public boolean reachEnd() {
+		return false;
+	}
 	
 	public boolean isDead() {
 		return life <= 0 ;

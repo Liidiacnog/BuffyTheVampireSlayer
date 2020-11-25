@@ -6,9 +6,11 @@ public class UpdateCommand extends NoParamsCommand{
 
 	public UpdateCommand() {
 		super("none", "", "", "[n]one | []: update"); //TODO details?
+		shortcut = "";
 	}
 	
 	public boolean execute(Game game) {
+		shortcut = "";
 		return true;
 	}
 

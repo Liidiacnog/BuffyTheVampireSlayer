@@ -7,7 +7,7 @@ public class Vampire extends GameElement{
 	
 	private static int resistance = 5, frequency = 1, damage = 1; 
 	private boolean movedBefore; //to check whether it is its turn to move or not(they move each 2 cycles)
-	
+	representation = "";
 	/*how many vampires are on the board, 
 	 * total number of vampires that can appear in this level, 
 	 * vampires that can appear taking into consideration which ones have appeared already and which ones have died:
@@ -42,7 +42,7 @@ public class Vampire extends GameElement{
 	//calls method in game which will check if any slayer can be bitten from (col, row)
 		public void attack() {
 			if(life > 0) {
-				IAttack other = game.getAttackableInPos(col - 1, row);
+				IAttack other = game.getAttackableInPos(col - 1, row); //TODO implement returning a GameElement
 				if (other != null) {
 					other.receiveVampireAttack(damage); //TODO enterarse de que va esto
 				}

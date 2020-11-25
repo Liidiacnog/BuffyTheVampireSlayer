@@ -141,9 +141,8 @@ public class GameObjectBoard {
 	public boolean vampsWin() {
 		boolean win = false;
 		for(int i = 0; i < gameElements.size(); ++i) {
-			if(gameElements.get(i).getRepresentation() == Vampire.getRepresentation()))//TODO how to do it?
-				if(gameElements.get(i).reachEnd()) //TODO do we define it in GameElements even though it doesn't apply to Slayers?
-					win = true;
+			if(gameElements.get(i).reachEnd()) //TODO do we define it in GameElements even though it doesn't apply to Slayers?
+				win = true;
 		}
 		return win;
 	}

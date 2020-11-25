@@ -46,7 +46,6 @@ public class Slayer extends GameElement{
 	}
 	
 	//returns -1 if coins aren't enough to pay for cost, or returns cost otherwise
-	//TODO legal? or breaking encapsulation?
 	public static int canAfford(int coins) {
 		int sol = -1;
 		if(coins >= cost)
