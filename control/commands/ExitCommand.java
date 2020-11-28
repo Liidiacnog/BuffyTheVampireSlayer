@@ -5,14 +5,13 @@ import logic.Game;
 public class ExitCommand extends NoParamsCommand {
 
 	public ExitCommand() {
-		super("exit", "e", "", "[e]xit: exit game");
-		// TODO iniciar details
+		super("exit", "e", "[e]xit", "exit game");
 	}
 
 	@Override
 	public boolean execute(Game game) {
 		game.exit();
-		return true;
+		return false;
 	}
 
 

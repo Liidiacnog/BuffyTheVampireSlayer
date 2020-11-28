@@ -16,12 +16,13 @@ public abstract class Command {
 	    this.help = help;
 	  }
 	  
+	  //return true if no refresh of the display is needed (example: help, reset, exit, addSlayer when it hasn't been added,...)
 	  public abstract boolean execute(Game game);
 	  
 	  public abstract Command parse(String[] commandWords);
 	  
 	  protected boolean matchCommandName(String name) {
-		    return this.shortcut.equalsIgnoreCase(name) || 
+		    return shortcut.equalsIgnoreCase(name) || 
 		        this.name.equalsIgnoreCase(name);
 	  }
 	  

@@ -7,19 +7,21 @@ public class AddCommand extends Command {
 	private int x, y;
 	
 	public AddCommand() {
-		super("add", "a", " add a slayer in position x, y", "[a]dd <x> <y>:");
+		super("add", "a", "[a]dd <x> <y>", "add a slayer in position x, y");
 	}
 	
-	public AddCommand(int xCord, int yCord) {
+	public AddCommand(int xCoord, int yCoord) {
 		super("add", "a", " add a slayer in position x, y", "[a]dd <x> <y>:");
-		x = xCord;
-		y = yCord;
+		x = xCoord;
+		y = yCoord;
 	}
 
 	@Override
 	public boolean execute(Game game) {
-		game.addSlayer(x, y);
-		return true;
+		if(game.addSlayer(x, y))
+			return true;
+		else
+			return false;
 	}
 
 	@Override

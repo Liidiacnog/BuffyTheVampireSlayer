@@ -19,12 +19,12 @@ public class Controller {
 	    this.scanner = scanner;
     }
     
-    public void  printGame() {
-   	 System.out.println(game);
+    public void printGame() {
+   	 	System.out.println("" + game);
    }
     
     public void run() {
-	    	boolean refreshDisplay = true;
+	    boolean refreshDisplay = true;
 
 	    while (!game.isFinished()){
 	    		
@@ -37,10 +37,14 @@ public class Controller {
 			  System.out.println("[DEBUG] Executing: " + s);
 		      Command command = CommandGenerator.parseCommand(parameters, this);
 		      if (command != null) { 
-		    	  		refreshDisplay = command.execute(game);//TODO when is it false?
-		    	  		game.update();			//TODO change bc some commands (ex. Help) shouldn't increment cycle
-		    	  		game.removeDeadObj();
-		    	  		game.checkEnd();
+		    	  		refreshDisplay = command.execute(game);
+		    	  		if(refreshDisplay) {
+		    	  			game.update();
+		    				game.attack();
+		    				game.addVampire();
+		    				game.removeDeadObj();
+		    				game.incrementCycles();
+		    	  		}
 		       } 
 		       else {
 		    	   		System.out.println("[ERROR]: "+ unknownCommandMsg);
@@ -59,7 +63,7 @@ public class Controller {
 
 /*
 //manages input of the user, returns char which tells run() which action to carry out
-public char userCommand(String str) {//TODO move out of here
+public char userCommand(String str) {
 	char output = '0';
 	str = str.toLowerCase();
 	if (str.equals("h") || str.equals("help")) {

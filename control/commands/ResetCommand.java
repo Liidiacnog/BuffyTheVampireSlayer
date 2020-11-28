@@ -5,8 +5,7 @@ import logic.Game;
 public class ResetCommand extends NoParamsCommand {
 
 	public ResetCommand() {
-		super("reset", "r", "", "[r]eset: reset game");
-		// TODO iniciar details
+		super("reset", "r", "[r]eset", "reset game");
 	}
 
 	@Override

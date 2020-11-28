@@ -30,7 +30,7 @@ public class Slayer extends GameElement{
 				other = game.getAttackableInPos(i, row);
 				if (other != null) {
 					if (other.receiveSlayerAttack(damage))
-					found = true;
+						found = true;
 				}
 				i++;
 			}

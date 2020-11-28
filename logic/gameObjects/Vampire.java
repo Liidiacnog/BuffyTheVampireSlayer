@@ -54,7 +54,17 @@ public class Vampire extends GameElement{
 		}
 	}
 	
+	//returns new y coordinate of vampire if it were able to move
+	public static int canMoveY(int y) {
+		return y;
+	}
 	
+	//returns new x coordinate of vampire if it were able to move
+		public static int canMoveX(int x) {
+			return --x;
+	}
+	
+		
 	//returns distance at which the bullet is from him (the minimum is 1 "tile" away), or returns -1 if he can't get hit by it
 	public int target(int xBullet, int yBullet) {
 		int dist = -1;

@@ -4,14 +4,8 @@ import logic.gameObjects.*;
 import java.util.Random;
 import view.*;
 
-/*This class encapsulates the logic of the game and is responsible for updating the state of all the game elements. 
-  It maintains the current cycle number. It contains (a reference to) the board object, to which the game object 
-  delegates much of its functionality, and (a reference to) the player object.
- */
+//TODO reset empieza con 1, y el board no muestra nada
 
-
-/*The classes Game and Board only deal with generic elements (i.e. of class GameElement) and so cannot distinguish 
-the concrete class of the objects being manipulated.*/
 public class Game implements IPrintable {
 	
 	//constants related to rules of the game
@@ -42,6 +36,11 @@ public class Game implements IPrintable {
 		Vampire.updateData(0, lvl.getVampNumber());
 	}
 	
+	
+	public String toString() {
+		return gamePrinter.toString();
+	}
+	
 	//to execute exit game
 	public void exit() {
 		isFinished = true;
@@ -58,7 +57,6 @@ public class Game implements IPrintable {
 	public void update() {
 		receiveCoins();
 		board.update();
-		incrementCycles();
 	}
 
 	
@@ -67,15 +65,18 @@ public class Game implements IPrintable {
 	}
 	
 	
-	public void addSlayer(int x, int y) {
+	public boolean addSlayer(int x, int y) {
+		boolean added = false;
 		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
 			if (board.canAfford(player.getCoins()) != -1) {
 				board.addSlayer(x, y, this); 
 				player.payCoins(board.canAfford(player.getCoins()));
+				added = true;
 			} else{ //TODO does it have to be in charge of printing it?
 				System.out.println(player.toStringNotEnoughCoins());
 			}
 		}
+		return added;
 	}
 
 
@@ -113,7 +114,7 @@ public class Game implements IPrintable {
 	//resets game
 	public void reset() {
 		player.setCoins(INITIAL_COINS);
-		cycles = 0;
+		cycles = -1; //set to -1 because afterwards, in Controller, we have incrementCycles(), and we want cycles = 0 TODO do it in another way?
 		board.reset(level.getVampNumber());
 	}
 	
@@ -151,7 +152,7 @@ public class Game implements IPrintable {
 
 	@Override
 	public String getPositionToString(int x, int y) {
-		return  board.objToString(x, y);
+		return board.objToString(x, y);
 	}
 
 	@Override
@@ -168,7 +169,7 @@ public class Game implements IPrintable {
 	}
 
 	public IAttack getAttackableInPos(int i, int j) {
-		IAttack objective = board.getAttackble(i, j);
+		IAttack objective = board.getAttackable(i, j);
 		return objective;
 	}
 	

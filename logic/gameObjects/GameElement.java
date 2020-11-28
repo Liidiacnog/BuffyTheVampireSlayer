@@ -32,4 +32,5 @@ public abstract class GameElement implements IAttack{
 	public boolean isDead() {
 		return life <= 0 ;
 	}
+	
 }
