@@ -111,13 +111,6 @@ public class Vampire extends GameElement{
 	public static void setVampsLeft(int nr) {
 		vampsLeft = nr;
 	}
-
-
-	@Override
-	public void attack() {
-		// TODO No se porque aunque en gameElement tiene un argumento me pide que implemente esta tambien sino da error
-		
-	}
 }
 
 //NO SE USA

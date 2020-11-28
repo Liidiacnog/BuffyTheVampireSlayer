@@ -66,13 +66,6 @@ public class Slayer extends GameElement{
 	public int getLife() {
 		return life;
 	}
-
-
-	@Override
-	public void attack() {
-		// TODO No se porque aunque en gameElement tiene un argumento me pide que implemente esta tambien sino da error
-		
-	}
 }
 
 //NO SE USA
