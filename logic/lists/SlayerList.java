@@ -89,12 +89,12 @@ public class SlayerList {
 	
 	/*checks if coins of player are enough to buy a slayer
 	returns the cost of a slayer if he can afford it, and -1 if not*/
-	public int canAfford(int coins) {
+	/*public int canAfford(int coins) {
 		int cost = Slayer.getCost();
 		if(cost > coins)
 			cost = -1;
 		
 		return cost;
-	}
+	}*/
 	
 }

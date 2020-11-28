@@ -3,6 +3,7 @@ package logic;
 import logic.lists.*;//TODO remove
 import java.util.ArrayList;
 import logic.gameObjects.GameElement;
+import logic.gameObjects.IAttack;
 import logic.gameObjects.Vampire;
 import logic.gameObjects.Slayer;
 
@@ -62,7 +63,7 @@ public class GameObjectBoard {
 	//tells lists to tell their elements to attack
 	public void attack() {
 		for(int i = 0; i < gameElements.size(); i++) {
-			gameElements.get(i).attack();
+			gameElements.get(i).attack(columns);
 		}
 	}
 
@@ -82,20 +83,6 @@ public class GameObjectBoard {
 		if(isFree(i, j)) {
 			gameElements.add(new Slayer(i, j, game));
 		}
-	}
-	
-	
-	//calls bite() in slayerList to check if a slayer can be bitten by the vampire who's on (x, y)
-	public void bite(int x, int y, int damage) {
-		for (int i = 0; i < gameElements.size(); i++) {
-			gameElements.get(i).bite(x, y, damage);
-		}
-	}
-	
-	
-	//calls shootBullet() in VampireList to check if a vampire can be hit by the bullet shot from (x, y)
-	public void shootBullet(int x, int y, int damage) {
-		vamps.shootBullet(x, y, damage);
 	}
 	
 	
@@ -155,7 +142,13 @@ public class GameObjectBoard {
 	public boolean checkEnd() {
 		return getVampsLeft() == 0 && getVampsOnBoard() == 0;
 	}
-	
+
+	public IAttack getAttackble(int i, int j) {
+		IAttack objective = null;
+		if (indexOf(i, j) != -1)
+			objective = gameElements.get(indexOf(i, j));
+		return objective;
+	}
 	
 	//Getters:
 	

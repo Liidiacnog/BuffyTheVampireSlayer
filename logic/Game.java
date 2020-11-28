@@ -12,7 +12,7 @@ import view.*;
 
 /*The classes Game and Board only deal with generic elements (i.e. of class GameElement) and so cannot distinguish 
 the concrete class of the objects being manipulated.*/
-public class Game implements IPrintable{
+public class Game implements IPrintable {
 	
 	//constants related to rules of the game
 	static final int COINS_TO_RECEIVE = 10; //number of coins received by player
@@ -53,9 +53,6 @@ public class Game implements IPrintable{
 	}
 	
 	
-	
-	
-	
 	//actions on game loop:
 
 	public void update() {
@@ -75,7 +72,7 @@ public class Game implements IPrintable{
 			if (board.canAfford(player.getCoins()) != -1) {
 				board.addSlayer(x, y, this); 
 				player.payCoins(board.canAfford(player.getCoins()));
-			}else{ //TODO does it have to be in charge of printing it?
+			} else{ //TODO does it have to be in charge of printing it?
 				System.out.println(player.toStringNotEnoughCoins());
 			}
 		}
@@ -105,18 +102,6 @@ public class Game implements IPrintable{
 	public boolean vampCanMove(int x, int y) {
 		return board.vampCanMove(x, y);
 	}
-
-	
-	//tells board to tell slayerList to check if any of the slayers can be bitten by a vampire on (x, y)
-	public void bite (int x, int y, int damage) {
-		board.bite(x, y, damage);
-	}
-	
-	
-	//tells board to tell vampireList to check if any of the vampires can be shot by a slayer on (x, y)
-	public void shootBullet(int x, int y, int damage) {
-		board.shootBullet(x, y, damage);
-	}
 	
 	
 	//removes references, in lists, to objects that are dead
@@ -139,7 +124,7 @@ public class Game implements IPrintable{
 		if (board.checkEnd()) {
 			winnerMsg = "[Game over] Player wins!";
 			isFinished = true;
-		}else if (board.vampsWin()) {
+		} else if (board.vampsWin()) {
 			winnerMsg = "[Game over] Vampires win!";
 			isFinished = true;
 		}
@@ -181,12 +166,11 @@ public class Game implements IPrintable{
 		
 		return str.toString();
 	}
-	
-	
-	public IAttack getAttackableInPos() {
-		//TODO getAttackableInPos
+
+	public IAttack getAttackableInPos(int i, int j) {
+		IAttack objective = board.getAttackble(i, j);
+		return objective;
 	}
-	
 	
 }
 
@@ -217,4 +201,15 @@ public class Game implements IPrintable{
 		return board.toStringMatrixBoard();
 	}
 	
-*/
+
+	
+	//tells board to tell slayerList to check if any of the slayers can be bitten by a vampire on (x, y)
+	/*public void bite (int x, int y, int damage) {
+		board.bite(x, y, damage);
+	}
+	
+	
+	//tells board to tell vampireList to check if any of the vampires can be shot by a slayer on (x, y)
+	public void shootBullet(int x, int y, int damage) {
+		board.shootBullet(x, y, damage);
+	}*/

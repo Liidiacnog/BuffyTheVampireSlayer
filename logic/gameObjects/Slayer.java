@@ -18,21 +18,23 @@ public class Slayer extends GameElement{
 	public String toString() {
 		return representation + "[" + life + "]";
 	}
-
-	
-	//checks if its coordinates are (i, j)
-	public boolean isHere(int i, int j) {
-		boolean found = false;
-		if (col == i && row == j)
-			found = true;
-		
-		return found;
-	}
 	
 	
 	//calls method in game which will check if any vampire can be shot by its bullet shot from (col, row)
-	public void attack() {
-		game.shootBullet(col, row, damage);
+	public void attack(int columns) {
+		boolean found = false;
+		int i = col + 1;
+		IAttack other = null;
+		if(life > 0) {
+			while (!found && i < columns) {
+				other = game.getAttackableInPos(i, row);
+				if (other != null) {
+					if (other.receiveSlayerAttack(damage))
+					found = true;
+				}
+				i++;
+			}
+		}		
 	}
 	
 	
@@ -49,9 +51,36 @@ public class Slayer extends GameElement{
 		return sol;
 	}
 	
+	public boolean receiveVampireAttack(int damage) {
+		life -= damage;
+		return false;
+	}
+
+
+	@Override
+	public void move() {
+	}
+	
 	//Getters
 	
 	public int getLife() {
 		return life;
 	}
+
+
+	@Override
+	public void attack() {
+		// TODO No se porque aunque en gameElement tiene un argumento me pide que implemente esta tambien sino da error
+		
+	}
 }
+
+//NO SE USA
+//checks if its coordinates are (i, j)
+	/*public boolean isHere(int i, int j) {
+		boolean found = false;
+		if (col == i && row == j)
+			found = true;
+		
+		return found;
+	}*/

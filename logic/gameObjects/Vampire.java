@@ -27,25 +27,14 @@ public class Vampire extends GameElement{
 	}
 	
 	
-	//checks if its coordinates are (i, j)
-	public boolean isHere(int i, int j) {
-		boolean found = false;
-		if (col == i && row == j) {
-			found = true;
-		}
-		return found;
-	}
-	
-	
 	//calls method in game which will check if any slayer can be bitten from (col, row)
-		public void attack() {
-			if(life > 0) {
-				IAttack other = game.getAttackableInPos(col - 1, row); //TODO implement returning a GameElement
-				if (other != null) {
-					other.receiveVampireAttack(damage); //TODO enterarse de que va esto
-				}
+	public void attack(int columns) {
+		if(life > 0) {
+			IAttack other = game.getAttackableInPos(col - 1, row); 
+			if (other != null) {
+				other.receiveVampireAttack(damage);
 			}
-				
+		}		
 	}
 		
 	
@@ -89,6 +78,11 @@ public class Vampire extends GameElement{
 		return col == 0;
 	}
 	
+	public boolean receiveSlayerAttack(int damage) {
+		life -= damage;
+		return true;
+	}
+	
 	
 	//Getters
 
@@ -117,5 +111,22 @@ public class Vampire extends GameElement{
 	public static void setVampsLeft(int nr) {
 		vampsLeft = nr;
 	}
-	
+
+
+	@Override
+	public void attack() {
+		// TODO No se porque aunque en gameElement tiene un argumento me pide que implemente esta tambien sino da error
+		
+	}
 }
+
+//NO SE USA
+
+//checks if its coordinates are (i, j)
+/*public boolean isHere(int i, int j) {
+	boolean found = false;
+	if (col == i && row == j) {
+		found = true;
+	}
+	return found;
+}*/
