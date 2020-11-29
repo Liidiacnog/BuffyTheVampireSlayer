@@ -129,10 +129,10 @@ public class Game implements IPrintable {
 	//updates winnerMsg string corresponding to who has won, or "" if no one has won yet
 	public boolean checkEnd() {
 		if (board.checkEnd()) {
-			winnerMsg = "[Game over] Player wins!";
+			winnerMsg = "Player wins!";
 			isFinished = true;
 		} else if (board.vampsWin()) {
-			winnerMsg = "[Game over] Vampires win!";
+			winnerMsg = "Vampires win!";
 			isFinished = true;
 		}
 		return isFinished;
