@@ -4,8 +4,6 @@ import logic.gameObjects.*;
 import java.util.Random;
 import view.*;
 
-//TODO reset empieza con 1, y el board no muestra nada
-
 public class Game implements IPrintable {
 	
 	//constants related to rules of the game
