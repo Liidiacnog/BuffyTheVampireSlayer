@@ -12,6 +12,8 @@ public class Game implements IPrintable {
 	static final int COINS_TO_RECEIVE = 10; //number of coins received by player
 	static final int INITIAL_COINS = 50; //initial coins of player
 	static final double PROB_RECEIVING_COINS = 0.5; //player has 50% chances of receiving 10 coins
+	static final String invalidPositionMsg = "Invalid position";//shown when adding a gameElement on an invalid position 
+	
 	
 	//fields
 	private Level level;
@@ -75,6 +77,10 @@ public class Game implements IPrintable {
 			} else{ //TODO does it have to be in charge of printing it?
 				System.out.println(player.toStringNotEnoughCoins());
 			}
+		}
+		else {//TODO does it have to be in charge of printing it?
+			System.out.println(invalidPositionMsg);
+			System.out.println();
 		}
 		return added;
 	}

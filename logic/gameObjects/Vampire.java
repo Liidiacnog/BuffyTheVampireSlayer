@@ -16,6 +16,7 @@ public class Vampire extends GameElement{
 	//constructor 
 	public Vampire (int x, int y, Game game) {  
 		super(x, y, game);
+		life = resistance;
 		movedBefore = true;
 		vampsOnBoard++; //new vampire is added to the board on x, y
 		vampsLeft--; //one less vampire can be added to the board
@@ -83,10 +84,16 @@ public class Vampire extends GameElement{
 	}
 	
 	
-	//check if it has reached the first column of the board
+	//check if it has moved past the first column of the board
 	public boolean reachEnd() {
-		return col == 0;
+		return col == -1;
 	}
+	
+	//check if the Vampire whose next coordinates will be (x, y) is going to move past the first column of the board
+	public boolean reachEnd(int x, int y) {
+		return x == -1;
+	}
+	
 	
 	public boolean receiveSlayerAttack(int damage) {
 		life -= damage;

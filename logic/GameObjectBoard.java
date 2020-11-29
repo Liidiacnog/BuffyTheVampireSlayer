@@ -85,11 +85,11 @@ public class GameObjectBoard {
 	}
 	
 	
-	//true if the next column that the vampire on (x, y) would occupy is free	
+	//true if the vampire on (x, y) could move	
 	public boolean vampCanMove(int x, int y) {
 		int newX = Vampire.canMoveX(x);
 		int newY = Vampire.canMoveY(y);
-		return isFree(newX, newY);
+		return isFree(newX, newY) || gameElements.get(indexOf(x, y)).reachEnd(newX, newY);
 	}
 	
 	

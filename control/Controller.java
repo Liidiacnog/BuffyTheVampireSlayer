@@ -31,7 +31,7 @@ public class Controller {
         		 if (refreshDisplay) printGame();
         		 refreshDisplay = false;
         		 
-			  System.out.println(prompt);	
+			  System.out.print(prompt);	
 			  String s = scanner.nextLine();
 			  String[] parameters = s.toLowerCase().trim().split(" ");
 			  System.out.println("[DEBUG] Executing: " + s);
