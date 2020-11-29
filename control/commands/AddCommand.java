@@ -11,7 +11,7 @@ public class AddCommand extends Command {
 	}
 	
 	public AddCommand(int xCoord, int yCoord) {
-		super("add", "a", " add a slayer in position x, y", "[a]dd <x> <y>:");
+		super("add", "a", "[a]dd <x> <y>", "add a slayer in position x, y");
 		x = xCoord;
 		y = yCoord;
 	}
