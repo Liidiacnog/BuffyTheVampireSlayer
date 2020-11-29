@@ -43,7 +43,8 @@ public class Controller {
 		    				game.attack();
 		    				game.addVampire();
 		    				game.removeDeadObj();
-		    				game.incrementCycles();
+		    				if(!game.checkEnd())
+		    					game.incrementCycles();
 		    	  		}
 		       } 
 		       else {
@@ -105,42 +106,6 @@ public char userCommand(String str) {
 */
 
 //OLD CODE (OURS)
-/*package control;
-
-import java.util.Scanner;
-import logic.Game;
-
-public class Controller {
-
-	
-	public final String prompt = "Command > ";
-	public static final String helpMsg = String.format(
-			"Available commands:%n" +
-			"[a]dd <x> <y>: add a slayer in position x, y%n" +
-			"[h]elp: show this help%n" + 
-			"[r]eset: reset game%n" + 
-			"[e]xit: exit game%n"+ 
-			"[n]one | []: update%n");
-	
-	public static final String unknownCommandMsg = String.format("Unknown command");
-	public static final String invalidCommandMsg = String.format("Invalid command");
-	public static final String invalidPositionMsg = String.format("Invalid position");
-
-    private Game game;
-    private Scanner in;
-    
-  //constructor 
-	public Controller(Game game, Scanner scanner) {
-	    this.game = game;
-	    this.in = scanner;
-    }
-    
-	
-    public void printGame() {
-   	 System.out.println(game);
-   }
-    
-   */ 
     //in charge of the loop which keeps the game going
     /*while the game is not finished, the state of the game is printed on the console, the user is prompted 
      * for a command and the command is executed*/
