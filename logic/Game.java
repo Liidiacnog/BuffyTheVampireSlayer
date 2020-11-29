@@ -24,7 +24,7 @@ public class Game implements IPrintable {
 	private GamePrinter gamePrinter;
 	private int cycles = 0;
 	private boolean isFinished = false;
-	private String winnerMsg = ""; //no winner by default
+	private String winnerMsg = "Nobody wins..."; //no winner by default
 	
 	//constructor
 	public Game(Long seed, Level lvl) {
