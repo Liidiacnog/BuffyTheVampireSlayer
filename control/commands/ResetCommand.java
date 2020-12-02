@@ -10,6 +10,7 @@ public class ResetCommand extends NoParamsCommand {
 
 	@Override
 	public boolean execute(Game game) {
+		game.setIncrementCycles(false);
 		game.reset();
 		return true;
 	}

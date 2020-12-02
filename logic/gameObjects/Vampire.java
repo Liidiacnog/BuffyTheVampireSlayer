@@ -29,7 +29,7 @@ public class Vampire extends GameElement{
 	
 	
 	//calls method in game which will check if any slayer can be bitten from (col, row)
-	public void attack(int columns) {
+	public void attack() {
 		if(life > 0) {
 			IAttack other = game.getAttackableInPos(col - 1, row); 
 			if (other != null) {

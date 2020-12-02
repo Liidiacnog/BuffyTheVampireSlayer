@@ -20,12 +20,12 @@ public class Slayer extends GameElement{
 	
 	
 	//calls method in game which will check if any vampire can be shot by its bullet shot from (col, row)
-	public void attack(int columns) {
+	public void attack() {
 		boolean found = false;
 		int i = col + 1;
 		IAttack other = null;
 		if(life > 0) {
-			while (!found && i < columns) {
+			while (!found && i < game.getBoardColumns()) {
 				other = game.getAttackableInPos(i, row);
 				if (other != null) {
 					if (other.receiveSlayerAttack(damage))

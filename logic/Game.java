@@ -23,6 +23,8 @@ public class Game implements IPrintable {
 	private int cycles = 0;
 	private boolean isFinished = false;
 	private String winnerMsg = "Nobody wins..."; //no winner by default
+	private boolean incrementCycles = true;
+	
 	
 	//constructor
 	public Game(Long seed, Level lvl) {
@@ -54,6 +56,15 @@ public class Game implements IPrintable {
 	
 	//actions on game loop:
 
+	public void refreshDisplay() {
+		update(); 
+		attack();
+		addVampire();
+		removeDeadObj();
+		if(incrementCycles)
+			incrementCycles();
+	}
+	
 	public void update() {
 		receiveCoins();
 		board.update();
@@ -72,7 +83,7 @@ public class Game implements IPrintable {
 				board.addSlayer(x, y, this); 
 				player.payCoins(board.canAfford(player.getCoins()));
 				added = true;
-			} else{ //TODO does it have to be in charge of printing it?
+			} else{ //TODO does it have to be in charge of printing it?, CHANGE using exceptions or using attribute on game that stores error messages and then pass it to controller so that it prints it
 				System.out.println(player.toStringNotEnoughCoins());
 			}
 		}
@@ -118,7 +129,7 @@ public class Game implements IPrintable {
 	//resets game
 	public void reset() {
 		player.setCoins(INITIAL_COINS);
-		cycles = -1; //set to -1 because afterwards, in Controller, we have incrementCycles(), and we want cycles = 0 TODO do it in another way?
+		cycles = 0;
 		board.reset(level.getVampNumber());
 	}
 	
@@ -154,7 +165,15 @@ public class Game implements IPrintable {
 	}
 
 	
+	public int getBoardColumns() {
+		return board.getColumns();
+	}
+	
 
+	public void setIncrementCycles(boolean newValue) {
+		incrementCycles = newValue;
+	}
+	
 	@Override
 	public String getPositionToString(int x, int y) {
 		return board.objToString(x, y);
@@ -179,43 +198,3 @@ public class Game implements IPrintable {
 	}
 	
 }
-
-
-
-/*CODIGO QUE YA NO SE USA
-
-//draws information needed every cycle of the game before displaying the board:
-	//cycle number, coins, remaining vampires and vampires currently on the board
-	/*public String drawInfo() {
-		StringBuilder str = new StringBuilder();
-		char jumpLine = '\n';
-		str.append(jumpLine);
-		str.append("Cycle number: ").append(cycles).append(jumpLine);
-		str.append("Coins: ").append(player.getCoins()).append(jumpLine);
-		str.append("Remainig vampires: ").append(board.getVampsLeft()).append(jumpLine);
-		str.append("Vampires on the board: ").append(board.getVampsOnBoard()).append(jumpLine);
-		
-		return str.toString();
-	}
-	
-	public String toString() {
-		return drawInfo() + gamePrinter;
-	}
-	
-	//generates a String "matrix" (String[][]) which is the representation of the board object
-	public String[][] encodeGame() {
-		return board.toStringMatrixBoard();
-	}
-	
-
-	
-	//tells board to tell slayerList to check if any of the slayers can be bitten by a vampire on (x, y)
-	/*public void bite (int x, int y, int damage) {
-		board.bite(x, y, damage);
-	}
-	
-	
-	//tells board to tell vampireList to check if any of the vampires can be shot by a slayer on (x, y)
-	public void shootBullet(int x, int y, int damage) {
-		board.shootBullet(x, y, damage);
-	}*/

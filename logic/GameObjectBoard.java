@@ -161,5 +161,8 @@ public class GameObjectBoard {
 		return Vampire.getVampsOnBoard();
 	}
 
+	public int getColumns() {
+		return columns;
+	}
 
 }

@@ -11,13 +11,14 @@ public class AddCommand extends Command {
 	}
 	
 	public AddCommand(int xCoord, int yCoord) {
-		super("add", "a", "[a]dd <x> <y>", "add a slayer in position x, y");
+		this(); //calls AddCommand contructor defined in this subclass, on a previous line
 		x = xCoord;
 		y = yCoord;
 	}
 
 	@Override
 	public boolean execute(Game game) {
+		game.setIncrementCycles(true);
 		return game.addSlayer(x, y);
 	}
 

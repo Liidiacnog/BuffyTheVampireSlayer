@@ -9,6 +9,7 @@ public class UpdateCommand extends NoParamsCommand{
 	}
 	
 	public boolean execute(Game game) {
+		game.setIncrementCycles(true);
 		return true;
 	}
 
