@@ -23,7 +23,7 @@ public abstract class GameElement implements IAttack{
 	//to be overwritten by elements that do move
 	public abstract void move();
 	
-	public abstract void attack(int columns);
+	public abstract void attack();
 	
 	//check if the element has moved past the first column of the board
 	public boolean reachEnd() {

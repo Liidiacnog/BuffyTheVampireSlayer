@@ -11,7 +11,7 @@ public class AddCommand extends Command {
 	}
 	
 	public AddCommand(int xCoord, int yCoord) {
-		this(); //calls AddCommand contructor defined in this subclass, on a previous line
+		this(); //calls AddCommand constructor defined in this subclass, on a previous line
 		x = xCoord;
 		y = yCoord;
 	}
