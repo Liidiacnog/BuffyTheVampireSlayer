@@ -4,9 +4,9 @@ import logic.Game;
 
 public class Vampire extends GameElement{
 
-	private static int resistance = 5, frequency = 1, damage = 1; 
+	protected static final int resistance = 5, frequency = 1, damage = 1; //protected because Dracula uses them
 	private boolean movedBefore; //to check whether it is its turn to move or not(they move each 2 cycles)
-	private static String representation = "VˆV";
+	private static final String representation = "VˆV";
 	/*how many vampires are on the board, 
 	 * total number of vampires that can appear in this level, 
 	 * vampires that can appear taking into consideration which ones have appeared already and which ones have died:

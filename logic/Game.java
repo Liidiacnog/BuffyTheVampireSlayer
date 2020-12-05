@@ -23,6 +23,7 @@ public class Game implements IPrintable {
 	private int cycles = 0;
 	private boolean isFinished = false;
 	private String winnerMsg = "Nobody wins..."; //no winner by default
+	private String DraculaArisenMsg = "Dracula has arisen";
 	private boolean incrementCycles = true;
 	
 	
@@ -59,7 +60,7 @@ public class Game implements IPrintable {
 	public void refreshDisplay() {
 		update(); 
 		attack();
-		addVampire();
+		addVampires();
 		removeDeadObj();
 		if(incrementCycles)
 			incrementCycles();
@@ -94,7 +95,12 @@ public class Game implements IPrintable {
 		return added;
 	}
 
-
+	public void addVampires() {
+		addVampire();
+		if(!Dracula.getAppearedBefore())
+			if(addDracula())
+				System.out.println(DraculaArisenMsg); //TODO prints it or not here?
+	}
 	
 	//through a random double (number), decides whether to add a vampire on a randomly chosen row, according to the vampire frequency of the level
 	public void addVampire() {
@@ -112,7 +118,18 @@ public class Game implements IPrintable {
 			board.addVampire(col, row, this);	
 		}
 	}
+	
 
+	public boolean addDracula() {
+		boolean added = false;/*same probability of appearing as normal vampires, but only called if Dracula hasn't appeared yet*/
+		if(r.nextDouble() < level.getVampireFrequency()) { 
+			int col = level.getColumns() - 1; //vampires appear on last column always
+			int row = r.nextInt(level.getRows());
+			added = board.addDracula(col, row, this);	
+		}
+		return added;
+	}
+	
 
 	//true if vampire on (x, y) can move
 	public boolean vampCanMove(int x, int y) {

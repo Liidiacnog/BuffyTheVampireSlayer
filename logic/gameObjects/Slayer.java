@@ -4,8 +4,8 @@ import logic.Game;
 
 public class Slayer extends GameElement{
 	
-	private static int cost = 50, resistance = 3, frequency = 1, damage = 1;
-	private static String representation =  "<->";
+	private static final int cost = 50, resistance = 3, frequency = 1, damage = 1;
+	private static final String representation =  "<->";
 	
 	//constructor 
 	public Slayer(int x, int y, Game game) {

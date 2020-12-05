@@ -1,10 +1,7 @@
 package logic;
 
-import java.util.ArrayList;
-import logic.gameObjects.GameElement;
-import logic.gameObjects.IAttack;
-import logic.gameObjects.Vampire;
-import logic.gameObjects.Slayer;
+
+import logic.gameObjects.*;
 import logic.lists.*;
 
 /*The classes Game and Board only deal with generic elements (i.e. of class GameElement) and so cannot distinguish 
@@ -56,6 +53,16 @@ public class GameObjectBoard {
 		}
 	}
 	
+	//if (x, y) is not occupied, adds Dracula on it 
+	public boolean addDracula(int x, int y, Game game) { 
+		boolean added = false;
+		//we assume it's only called when we haven't added Dracula yet
+		if(isFree(x, y)) {
+			gameElements.add(new Dracula(x, y, game));
+			added = true;
+		}
+		return added;
+	}
 	
 	//if (i, j) is not occupied, adds a slayer on it
 	public void addSlayer(int i, int j, Game game) {
