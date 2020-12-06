@@ -50,15 +50,18 @@ public class Slayer extends GameElement{
 		return sol;
 	}
 	
-	public boolean receiveVampireAttack(int damage) {
-		life -= damage;
-		return false;
+	public boolean receiveVampireAttack(int harm) {
+		damage(harm);
+		return true;
 	}
 
+	public boolean receiveDraculaAttack() {
+		damage(life);
+		return true;
+	}
 
 	@Override
-	public void move() {
-	}
+	public void move() {}; //TODO right?, we need it for Vampire to move
 	
 	//Getters
 	

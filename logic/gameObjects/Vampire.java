@@ -4,7 +4,7 @@ import logic.Game;
 
 public class Vampire extends GameElement{
 
-	protected static final int resistance = 5, frequency = 1, damage = 1; //protected because Dracula uses them
+	protected static final int resistance = 5, frequency = 1, damage = 1; //protected because subclasses use them
 	private boolean movedBefore; //to check whether it is its turn to move or not(they move each 2 cycles)
 	private static final String representation = "VˆV";
 	/*how many vampires are on the board, 
@@ -26,7 +26,7 @@ public class Vampire extends GameElement{
 	public String toString() {
 		return representation + "[" + life + "]";
 	}
-	
+
 	
 	//calls method in game which will check if any slayer can be bitten from (col, row)
 	public void attack() {
@@ -76,7 +76,7 @@ public class Vampire extends GameElement{
 	}
 	
 		
-	//updates vampsOnBoard, vampsThisLevel, vampsLeft ONLY when a list is created or reset  
+	//updates vampsOnBoard, vampsThisLevel, vampsLeft ONLY when a list containing them is created or reset  
 	public static void updateData(int nr, int vampsLevel) {
 		vampsOnBoard = nr;
 		vampsThisLevel = vampsLevel;
@@ -95,8 +95,8 @@ public class Vampire extends GameElement{
 	}
 	
 	
-	public boolean receiveSlayerAttack(int damage) {
-		life -= damage;
+	public boolean receiveSlayerAttack(int harm) {
+		damage(harm);
 		return true;
 	}
 	

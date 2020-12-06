@@ -3,9 +3,6 @@ package logic.gameObjects;
 
 import logic.Game;
 
-/*
- * A slayer, or any other type of defender, is destroyed (loses all lives) by a bite from Dracula.
- */
 
 public class Dracula extends Vampire {
 	
@@ -23,12 +20,13 @@ public class Dracula extends Vampire {
 	
 	
 	public void attack() {
-		//TODO voy por aquí
+		if(life > 0) {
+			IAttack other = game.getAttackableInPos(col - 1, row); 
+			if (other != null) {
+				other.receiveDraculaAttack();
+			}
+		}	
 	}
-	
-	
-	
-	
 	
 	public static boolean getAppearedBefore() {
 		return appeared;

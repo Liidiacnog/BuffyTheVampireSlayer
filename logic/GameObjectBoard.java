@@ -45,12 +45,19 @@ public class GameObjectBoard {
 	}
 
 	
+	//TODO generalizar addVampire para todos los vamps que aparecen con misma probabilidad: dracula, vamps normales y explosivevamp
+	
 	//if (x, y) is not occupied, adds a vampire on it
-	public void addVampire(int x, int y, Game game) { 
+	public boolean addVampire(int x, int y, Game game) { 
+		boolean added = false;
 		//we assume it's only called when we haven't reached max number of vampires yet
 		if(isFree(x, y)) {
 			gameElements.add(new Vampire(x, y, game));
+			Vampire.setVampsOnBoard(Vampire.getVampsOnBoard() + 1);
+			Vampire.setVampsLeft(Vampire.getVampsLeft() - 1);
+			added = true;
 		}
+		return added;
 	}
 	
 	//if (x, y) is not occupied, adds Dracula on it 
@@ -59,10 +66,26 @@ public class GameObjectBoard {
 		//we assume it's only called when we haven't added Dracula yet
 		if(isFree(x, y)) {
 			gameElements.add(new Dracula(x, y, game));
+			Vampire.setVampsOnBoard(Vampire.getVampsOnBoard() + 1);
+			Vampire.setVampsLeft(Vampire.getVampsLeft() - 1);
 			added = true;
 		}
 		return added;
 	}
+	
+	//if (x, y) is not occupied, adds a vampire on it
+	public boolean addExplosiveVampire(int x, int y, Game game) { 
+		boolean added = false;
+		//we assume it's only called when we haven't reached max number of vampires yet
+		if(isFree(x, y)) {
+			gameElements.add(new ExplosiveVampire(x, y, game));
+			Vampire.setVampsOnBoard(Vampire.getVampsOnBoard() + 1);
+			Vampire.setVampsLeft(Vampire.getVampsLeft() - 1);
+			added = true;
+		}
+		return added;
+	}
+	
 	
 	//if (i, j) is not occupied, adds a slayer on it
 	public void addSlayer(int i, int j, Game game) {
@@ -121,7 +144,7 @@ public class GameObjectBoard {
 	}
 	
 	public boolean checkEnd() {
-		return getVampsLeft() == 0 && getVampsOnBoard() == 0;
+		return Vampire.getVampsLeft() == 0 && Vampire.getVampsOnBoard() == 0;
 	}
 
 	public IAttack getAttackable(int i, int j) {
@@ -129,14 +152,6 @@ public class GameObjectBoard {
 	}
 	
 	//Getters:
-	
-	public int getVampsLeft() {
-		return Vampire.getVampsLeft();
-	}
-
-	public int getVampsOnBoard() {
-		return Vampire.getVampsOnBoard();
-	}
 
 	public int getColumns() {
 		return columns;

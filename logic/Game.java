@@ -100,10 +100,11 @@ public class Game implements IPrintable {
 		if(!Dracula.getAppearedBefore())
 			if(addDracula())
 				System.out.println(DraculaArisenMsg); //TODO prints it or not here?
+		addExplosiveVampire();
 	}
 	
 	//through a random double (number), decides whether to add a vampire on a randomly chosen row, according to the vampire frequency of the level
-	public void addVampire() {
+	public boolean addVampire() {
 		/*
 		   Level	Number of vampires	Frequency	board width		board height
 			EASY		3				0.1				8				4
@@ -111,21 +112,33 @@ public class Game implements IPrintable {
 			INSANE		10				0.3				5				6
 			Configuration for each level of difficulty
 		*/
-		if(board.getVampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
+		boolean added = false;
+		if(Vampire.getVampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
 			//nextDouble(): returns the next pseudorandom, double value between 0 and 1.0 from this random number generator's sequence.
 			int col = level.getColumns() - 1; //vampires appear on last column always
 			int row = r.nextInt(level.getRows());
-			board.addVampire(col, row, this);	
+			added = board.addVampire(col, row, this);	
 		}
+		return added;
 	}
 	
 
 	public boolean addDracula() {
 		boolean added = false;/*same probability of appearing as normal vampires, but only called if Dracula hasn't appeared yet*/
-		if(r.nextDouble() < level.getVampireFrequency()) { 
+		if(Vampire.getVampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
 			int col = level.getColumns() - 1; //vampires appear on last column always
 			int row = r.nextInt(level.getRows());
 			added = board.addDracula(col, row, this);	
+		}
+		return added;
+	}
+	
+	public boolean addExplosiveVampire() {
+		boolean added = false;/*same probability of appearing as normal vampires*/
+		if(Vampire.getVampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
+			int col = level.getColumns() - 1; //vampires appear on last column always
+			int row = r.nextInt(level.getRows());
+			added = board.addExplosiveVampire(col, row, this);	
 		}
 		return added;
 	}
@@ -203,8 +216,8 @@ public class Game implements IPrintable {
 		str.append(jumpLine);
 		str.append("Cycle number: ").append(cycles).append(jumpLine);
 		str.append("Coins: ").append(player.getCoins()).append(jumpLine);
-		str.append("Remainig vampires: ").append(board.getVampsLeft()).append(jumpLine);
-		str.append("Vampires on the board: ").append(board.getVampsOnBoard()).append(jumpLine);
+		str.append("Remainig vampires: ").append(Vampire.getVampsLeft()).append(jumpLine);
+		str.append("Vampires on the board: ").append(Vampire.getVampsOnBoard()).append(jumpLine);
 		
 		return str.toString();
 	}
