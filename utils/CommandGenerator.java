@@ -12,7 +12,7 @@ public class CommandGenerator {
 				new ResetCommand(),
 				new ExitCommand(),
 				new UpdateCommand(),
-				new AddBlBaCommand()
+				new AddBloodBankCommand()
 		};
 		
 		/*passes the minimally processed input text to an object of each of the concrete command classes, 

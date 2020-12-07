@@ -96,8 +96,8 @@ public class GameElementsList {
 	public int getBooldBankCoins() {
 		int coins = 0;
 		for (int i = 0; i < gameElements.size(); i++) {
-			if (gameElements.get(i).getBlBaCoins() != -1)
-				coins = gameElements.get(i).getBlBaCoins();
+			if (gameElements.get(i).getBloodBankCoins() != -1)
+				coins = gameElements.get(i).getBloodBankCoins();
 		}
 		return coins;
 	}

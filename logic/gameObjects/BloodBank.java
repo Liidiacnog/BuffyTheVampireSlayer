@@ -29,7 +29,7 @@ public class BloodBank extends GameElement {
 	}
 	
 	@Override
-	public int getBlBaCoins() {
+	public int getBloodBankCoins() {
 		return Math.round(cost * 0.1f);
 	}
 	
