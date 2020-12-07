@@ -40,5 +40,10 @@ public class Player {
 	public void setCoins(int coins) {
 		this.coins = coins;
 	}
+
+
+	public boolean canAfford(int cost) {
+		return cost <= coins;
+	}
 	
 }

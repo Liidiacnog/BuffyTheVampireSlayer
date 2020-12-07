@@ -42,9 +42,20 @@ public class Vampire extends GameElement{
 	//reduces its life by "harm"	
 	public void damage(int harm) {
 		life -= harm;
+		if (life <= 0)
+			explode(harm);
 	}
 			
+	public boolean receiveVampireExplotion(int harm) {
+		damage(harm);
+		return false;
+	}
 	
+	// If vamp is not explosive, method explode() does nothing
+	private boolean explode(int harm) {
+		return false;
+	}
+
 	//moves if it's its turn to do so, and there is no one on the tile where he should be going
 	public void move() {
 		if (game.vampCanMove(col, row)) {
@@ -129,14 +140,3 @@ public class Vampire extends GameElement{
 		vampsLeft = nr;
 	}
 }
-
-//NO SE USA
-
-//checks if its coordinates are (i, j)
-/*public boolean isHere(int i, int j) {
-	boolean found = false;
-	if (col == i && row == j) {
-		found = true;
-	}
-	return found;
-}*/

@@ -95,6 +95,25 @@ public class Game implements IPrintable {
 		return added;
 	}
 
+
+	public boolean addBloodBank(int x, int y, int cost) {
+		boolean added = false;
+		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add blood bank on last column 
+			if (player.canAfford(cost)) {
+				board.addBloodBank(x, y, cost, this); 
+				player.payCoins(cost);
+				added = true;
+			} else{ //TODO does it have to be in charge of printing it?, CHANGE using exceptions or using attribute on game that stores error messages and then pass it to controller so that it prints it
+				System.out.println(player.toStringNotEnoughCoins());
+			}
+		}
+		else {//TODO does it have to be in charge of printing it?
+			System.out.println(invalidPositionMsg);
+			System.out.println();
+		}
+		return added;
+	}
+
 	public void addVampires() {
 		addVampire();
 		if(!Dracula.getAppearedBefore())
@@ -182,6 +201,7 @@ public class Game implements IPrintable {
 	public void receiveCoins() {
 		if(r.nextFloat() > PROB_RECEIVING_COINS)
 			player.receiveCoins(COINS_TO_RECEIVE);
+		player.receiveCoins(board.getBloodBankCoins());
 	}
 	
 	

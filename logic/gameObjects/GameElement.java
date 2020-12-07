@@ -39,4 +39,6 @@ public abstract class GameElement implements IAttack{
 		return life <= 0 ;
 	}
 	
+	public int getBlBaCoins() {return -1;}
+	
 }

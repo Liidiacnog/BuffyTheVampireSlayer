@@ -92,6 +92,15 @@ public class GameElementsList {
 			objective = gameElements.get(indexOf(i, j));
 		return objective;
 	}
+
+	public int getBooldBankCoins() {
+		int coins = 0;
+		for (int i = 0; i < gameElements.size(); i++) {
+			if (gameElements.get(i).getBlBaCoins() != -1)
+				coins = gameElements.get(i).getBlBaCoins();
+		}
+		return coins;
+	}
 	
 	
 	

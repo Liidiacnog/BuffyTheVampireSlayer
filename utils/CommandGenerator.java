@@ -11,7 +11,8 @@ public class CommandGenerator {
 				new HelpCommand(),
 				new ResetCommand(),
 				new ExitCommand(),
-				new UpdateCommand()
+				new UpdateCommand(),
+				new AddBlBaCommand()
 		};
 		
 		/*passes the minimally processed input text to an object of each of the concrete command classes, 

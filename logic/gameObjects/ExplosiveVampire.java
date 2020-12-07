@@ -14,16 +14,25 @@ public class ExplosiveVampire extends Vampire{
 		life = resistance;
 	}
 	
-	public void attack() {
+	public boolean explode(int harm) {
 		/* On being destroyed (i.e. the moment its lives reach zero) it explodes causing damage to all neighbouring vampires (the same
 		damage as caused by a bullet), including its diagonal neighbours. */
-		if(life > 0) {
-			IAttack other = game.getAttackableInPos(col - 1, row); 
-			if (other != null) {
-				other.receiveExplosiveVampireAttack();//TODO voy por aquí, hacer lo de las direcciones para facilitar implementar recibir este ataque?
+		IAttack other = null;
+		for (int i = col - 1; i <= col + 1; i++) {
+			for (int j = row - 1; j <= row + 1; j++) {
+				if (i != col || j != row) {
+					other = game.getAttackableInPos(i, j);
+					if (other != null) {
+						other.receiveVampireExplotion(harm);
+					}
+					
+				}
 			}
-		}			
+		}
+		
+		return false;
 	}
 	
-	
 }
+
+//TODO voy por aquí, hacer lo de las direcciones para facilitar implementar recibir este ataque?

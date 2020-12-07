@@ -90,9 +90,12 @@ public class GameObjectBoard {
 	//if (i, j) is not occupied, adds a slayer on it
 	public void addSlayer(int i, int j, Game game) {
 		//we assume it's only called when player can afford it
-		if(isFree(i, j)) {
-			gameElements.add(new Slayer(i, j, game));
-		}
+		gameElements.add(new Slayer(i, j, game));
+	}
+
+
+	public void addBloodBank(int x, int y, int cost, Game game) {
+		gameElements.add(new BloodBank(x, y, cost, game));
 	}
 	
 	
@@ -155,6 +158,11 @@ public class GameObjectBoard {
 
 	public int getColumns() {
 		return columns;
+	}
+
+
+	public int getBloodBankCoins() {
+		return gameElements.getBooldBankCoins();
 	}
 
 }
