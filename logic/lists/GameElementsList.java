@@ -55,11 +55,6 @@ public class GameElementsList {
 	}
 	
 	
-	public boolean reachEnd(int x, int y, int newX, int newY) {
-		return gameElements.get(indexOf(x, y)).reachEnd(newX, newY);
-	}
-	
-	
 	public void removeDeadObj() {
 		for(int i = 0; i < gameElements.size(); i++) {
 			if(gameElements.get(i).isDead())
@@ -76,14 +71,14 @@ public class GameElementsList {
 	//true if a vampire has reached the end of the board
 	//(doesn't give problems bc only vampires implement reachEnd(), slayers always return false)
 	//TODO maybe will give problems if more elements are added and they reachEnd in a different way?
-	public boolean vampsWin() {
+	/*public boolean vampsWin() {
 		boolean win = false;
 		for(int i = 0; i < gameElements.size(); ++i) {
 			if(gameElements.get(i).reachEnd())
 				win = true;
 		}
 		return win;
-	}
+	}*/
 	
 	
 	public IAttack getAttackable(int i, int j) {
@@ -93,7 +88,7 @@ public class GameElementsList {
 		return objective;
 	}
 
-	public int getBooldBankCoins() {
+	public int getBloodBankCoins() {
 		int coins = 0;
 		for (int i = 0; i < gameElements.size(); i++) {
 			if (gameElements.get(i).getBloodBankCoins() != -1)

@@ -18,6 +18,9 @@ public class Dracula extends Vampire {
 		appeared = true;
 	}
 	
+	public String toString() {
+		return representation + "[" + life + "]";
+	}
 	
 	public void attack() {
 		if(life > 0) {

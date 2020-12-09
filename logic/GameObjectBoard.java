@@ -53,8 +53,6 @@ public class GameObjectBoard {
 		//we assume it's only called when we haven't reached max number of vampires yet
 		if(isFree(x, y)) {
 			gameElements.add(new Vampire(x, y, game));
-			Vampire.setVampsOnBoard(Vampire.getVampsOnBoard() + 1);
-			Vampire.setVampsLeft(Vampire.getVampsLeft() - 1);
 			added = true;
 		}
 		return added;
@@ -66,8 +64,6 @@ public class GameObjectBoard {
 		//we assume it's only called when we haven't added Dracula yet
 		if(isFree(x, y)) {
 			gameElements.add(new Dracula(x, y, game));
-			Vampire.setVampsOnBoard(Vampire.getVampsOnBoard() + 1);
-			Vampire.setVampsLeft(Vampire.getVampsLeft() - 1);
 			added = true;
 		}
 		return added;
@@ -79,8 +75,6 @@ public class GameObjectBoard {
 		//we assume it's only called when we haven't reached max number of vampires yet
 		if(isFree(x, y)) {
 			gameElements.add(new ExplosiveVampire(x, y, game));
-			Vampire.setVampsOnBoard(Vampire.getVampsOnBoard() + 1);
-			Vampire.setVampsLeft(Vampire.getVampsLeft() - 1);
 			added = true;
 		}
 		return added;
@@ -101,9 +95,11 @@ public class GameObjectBoard {
 	
 	//true if the vampire on (x, y) could move	
 	public boolean vampCanMove(int x, int y) {
-		int newX = Vampire.canMoveX(x);
+		int newX = Vampire.canMoveX(x);	// TODO cambiar nombre a moveX()
 		int newY = Vampire.canMoveY(y);
-		return isFree(newX, newY) || gameElements.reachEnd(x, y, newX, newY);
+		if (newX == -1)
+			Vampire.setReachEnd(true);
+		return gameElements.indexOf(newX, newY) == -1;
 	}
 	
 	
@@ -137,7 +133,7 @@ public class GameObjectBoard {
 	
 	//true if a vampire has reached the end of the board
 	public boolean vampsWin() {
-		return gameElements.vampsWin();
+		return Vampire.getReachEnd();
 	}
 
 	
@@ -162,7 +158,7 @@ public class GameObjectBoard {
 
 
 	public int getBloodBankCoins() {
-		return gameElements.getBooldBankCoins();
+		return gameElements.getBloodBankCoins();
 	}
 
 }

@@ -2,7 +2,7 @@ package logic.gameObjects;
 
 public interface IAttack {
 
-	void attack();
+	default void attack() {}
 
 	default boolean receiveSlayerAttack(int damage) {return false;}
 	

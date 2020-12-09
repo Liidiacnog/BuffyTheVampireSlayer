@@ -20,7 +20,7 @@ public class Controller {
     }
     
     public void printGame() {
-   	 	System.out.println("" + game);
+   	 	System.out.println(game);
    }
     
     public void run() {

@@ -6,12 +6,12 @@ public class Vampire extends GameElement{
 
 	protected static final int resistance = 5, frequency = 1, damage = 1; //protected because subclasses use them
 	private boolean movedBefore; //to check whether it is its turn to move or not(they move each 2 cycles)
-	private static final String representation = "VˆV";
-	/*how many vampires are on the board, 
-	 * total number of vampires that can appear in this level, 
+	private final String representation = "VˆV";
+	private static boolean reachEnd = false;
+	/*how many vampires are on the board,
 	 * vampires that can appear taking into consideration which ones have appeared already and which ones have died:
 	 */
-	private static int  vampsOnBoard = 0, vampsThisLevel, vampsLeft;  
+	private static int  vampsOnBoard = 0, vampsLeft;  
 	
 	//constructor 
 	public Vampire (int x, int y, Game game) {  
@@ -52,7 +52,7 @@ public class Vampire extends GameElement{
 	}
 	
 	// If vamp is not explosive, method explode() does nothing
-	private boolean explode(int harm) {
+	protected boolean explode(int harm) {
 		return false;
 	}
 
@@ -73,7 +73,7 @@ public class Vampire extends GameElement{
 	
 	//returns new x coordinate of vampire if it were able to move
 		public static int canMoveX(int x) {
-			return --x;
+			return x - 1;
 	}
 	
 		
@@ -90,21 +90,8 @@ public class Vampire extends GameElement{
 	//updates vampsOnBoard, vampsThisLevel, vampsLeft ONLY when a list containing them is created or reset  
 	public static void updateData(int nr, int vampsLevel) {
 		vampsOnBoard = nr;
-		vampsThisLevel = vampsLevel;
 		vampsLeft = vampsLevel - nr;
 	}
-	
-	
-	//check if it has moved past the first column of the board
-	public boolean reachEnd() {
-		return col == -1;
-	}
-	
-	//check if the Vampire whose next coordinates will be (x, y) is going to move past the first column of the board
-	public boolean reachEnd(int x, int y) {
-		return x == -1;
-	}
-	
 	
 	public boolean receiveSlayerAttack(int harm) {
 		damage(harm);
@@ -122,21 +109,15 @@ public class Vampire extends GameElement{
 		return vampsOnBoard;
 	}
 	
-	public static int getVampsThisLevel() {
-		return vampsThisLevel;
-	}
-	
 	public int getLife() {
 		return life;
 	}
-
-	// Setters
 	
-	public static void setVampsOnBoard(int nr) {
-		vampsOnBoard = nr;
+	public static boolean getReachEnd() {
+		return reachEnd;
 	}
 	
-	public static void setVampsLeft(int nr) {
-		vampsLeft = nr;
+	public static void setReachEnd(boolean b) {
+		reachEnd = b;
 	}
 }

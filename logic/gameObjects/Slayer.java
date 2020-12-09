@@ -59,9 +59,6 @@ public class Slayer extends GameElement{
 		damage(life);
 		return true;
 	}
-
-	@Override
-	public void move() {}; //TODO right?, we need it for Vampire to move
 	
 	//Getters
 	

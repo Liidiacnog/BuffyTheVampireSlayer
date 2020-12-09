@@ -14,6 +14,10 @@ public class ExplosiveVampire extends Vampire{
 		life = resistance;
 	}
 	
+	public String toString() {
+		return representation + "[" + life + "]";
+	}
+	
 	public boolean explode(int harm) {
 		/* On being destroyed (i.e. the moment its lives reach zero) it explodes causing damage to all neighbouring vampires 
 		 * (the same damage as caused by a bullet), including its diagonal neighbours. */

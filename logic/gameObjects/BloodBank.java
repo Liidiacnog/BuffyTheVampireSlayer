@@ -32,11 +32,5 @@ public class BloodBank extends GameElement {
 	public int getBloodBankCoins() {
 		return Math.round(cost * 0.1f);
 	}
-	
-	@Override
-	public void move() {}
-
-	@Override
-	public void attack() {}
 
 }

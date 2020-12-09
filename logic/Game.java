@@ -231,7 +231,7 @@ public class Game implements IPrintable {
 
 	@Override
 	public String getInfo() {
-		StringBuilder str = new StringBuilder();
+		StringBuilder str = new StringBuilder(); //TODO hacerlo sin string builder
 		char jumpLine = '\n';
 		str.append(jumpLine);
 		str.append("Cycle number: ").append(cycles).append(jumpLine);
@@ -243,8 +243,7 @@ public class Game implements IPrintable {
 	}
 
 	public IAttack getAttackableInPos(int i, int j) {
-		IAttack objective = board.getAttackable(i, j);
-		return objective;
+		return board.getAttackable(i, j);
 	}
 	
 }
