@@ -64,6 +64,7 @@ public class Game implements IPrintable {
 		removeDeadObj();
 		if(incrementCycles)
 			incrementCycles();
+		checkEnd();
 	}
 	
 	public void update() {

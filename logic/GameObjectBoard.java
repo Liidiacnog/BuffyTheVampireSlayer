@@ -45,8 +45,6 @@ public class GameObjectBoard {
 	}
 
 	
-	//TODO generalizar addVampire para todos los vamps que aparecen con misma probabilidad: dracula, vamps normales y explosivevamp
-	
 	//if (x, y) is not occupied, adds a vampire on it
 	public boolean addVampire(int x, int y, Game game) { 
 		boolean added = false;
@@ -95,10 +93,8 @@ public class GameObjectBoard {
 	
 	//true if the vampire on (x, y) could move	
 	public boolean vampCanMove(int x, int y) {
-		int newX = Vampire.canMoveX(x);	// TODO cambiar nombre a moveX()
-		int newY = Vampire.canMoveY(y);
-		if (newX == -1)
-			Vampire.setReachEnd(true);
+		int newX = Vampire.moveX(x);
+		int newY = Vampire.moveY(y);
 		return gameElements.indexOf(newX, newY) == -1;
 	}
 	

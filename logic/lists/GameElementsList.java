@@ -68,19 +68,6 @@ public class GameElementsList {
 	}
 	
 	
-	//true if a vampire has reached the end of the board
-	//(doesn't give problems bc only vampires implement reachEnd(), slayers always return false)
-	//TODO maybe will give problems if more elements are added and they reachEnd in a different way?
-	/*public boolean vampsWin() {
-		boolean win = false;
-		for(int i = 0; i < gameElements.size(); ++i) {
-			if(gameElements.get(i).reachEnd())
-				win = true;
-		}
-		return win;
-	}*/
-	
-	
 	public IAttack getAttackable(int i, int j) {
 		IAttack objective = null;
 		if (indexOf(i, j) != -1)

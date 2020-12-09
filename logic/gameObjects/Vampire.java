@@ -61,18 +61,20 @@ public class Vampire extends GameElement{
 		if (game.vampCanMove(col, row)) {
 			if (!movedBefore) {
 				col -= 1;
-			}
+				if(col == 0) //TODO does it have to be when stepping on column 0 or on column -1?
+					Vampire.setReachEnd(true);
+		}
 			movedBefore = !movedBefore;
 		}
 	}
 	
 	//returns new y coordinate of vampire if it were able to move
-	public static int canMoveY(int y) {
+	public static int moveY(int y) {
 		return y;
 	}
 	
 	//returns new x coordinate of vampire if it were able to move
-		public static int canMoveX(int x) {
+		public static int moveX(int x) {
 			return x - 1;
 	}
 	
