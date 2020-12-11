@@ -56,6 +56,10 @@ public class Vampire extends GameElement{
 		return false;
 	}
 
+	public void resetVampMovedBefore() {
+		movedBefore = true;
+	}
+	
 	//moves if it's its turn to do so, and there is no one on the tile where he should be going
 	public void move() {
 		if (game.vampCanMove(col, row)) {

@@ -2,7 +2,7 @@ package logic.gameObjects;
 
 import logic.Game;
 
-public abstract class GameElement implements IAttack{
+public abstract class GameElement implements IAttack{ //TODO abstract?
 
 	protected int col, row; //position coordinates on the board
 	protected int life = 0; //changed on constructor of each subclass whenever an object is instantiated
@@ -38,5 +38,15 @@ public abstract class GameElement implements IAttack{
 	}
 	
 	public int getBloodBankCoins() {return -1;}
+
+
+	public void garlicPushEffect() {
+		int newX = col + 1;
+		if(newX == game.getBoardColumns() + 1) //TODO missing
+			
+	}
+
+
+	public void resetVampMovedBefore() {};
 	
 }

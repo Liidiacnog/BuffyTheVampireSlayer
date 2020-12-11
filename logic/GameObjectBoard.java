@@ -157,4 +157,10 @@ public class GameObjectBoard {
 		return gameElements.getBloodBankCoins();
 	}
 
+
+	public void garlicPushEffect() {
+		gameElements.garlicPushEffect();		
+	}
+
+
 }

@@ -64,7 +64,7 @@ public class Game implements IPrintable {
 		removeDeadObj();
 		if(incrementCycles)
 			incrementCycles();
-		checkEnd();
+		checkEnd(); //TODO Player winner message is never displayed?
 	}
 	
 	public void update() {
@@ -245,6 +245,20 @@ public class Game implements IPrintable {
 
 	public IAttack getAttackableInPos(int i, int j) {
 		return board.getAttackable(i, j);
+	}
+
+
+	public void garlicPush() {
+		/*
+		 * Any vampire that has another game element immediately to its right is unaffected.
+• Any vampire in the rightmost column (including Dracula) is pushed off the
+board and eliminated.
+• Any explosive vampire in the rightmost column does not explode when pushed
+off the board.
+In addition, the garlic push command stuns the vampires causing them not to move
+until the next turn (their move counter is reset).
+		 */
+		board.garlicPushEffect();
 	}
 	
 }

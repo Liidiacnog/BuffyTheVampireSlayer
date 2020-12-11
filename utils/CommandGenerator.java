@@ -12,12 +12,13 @@ public class CommandGenerator {
 				new ResetCommand(),
 				new ExitCommand(),
 				new UpdateCommand(),
-				new AddBloodBankCommand()
+				new AddBloodBankCommand(),
+				new GarlicPushCommand()
 		};
 		
 		/*passes the minimally processed input text to an object of each of the concrete command classes, 
 		 * in order to see which of them accepts it as valid text for that command*/
-		public static Command parseCommand (String[] input, Controller controller) {
+		public static Command parseCommand (String[] input, Controller controller) { //TODO controller needed? this is code they gave us
 			Command obj = null;
 			int i = 0; 
 			while(i < availableCommands.length && availableCommands[i].parse(input) == null) {
@@ -35,10 +36,8 @@ public class CommandGenerator {
 		 * in turn. This method is called by the execute method of the HelpCommand class.*/
 		public static String commandHelp() {
 			String str = String.format("Available commands:%n");
-			int i = 0;
-			while(i < availableCommands.length) {
+			for(int i = 0; i < availableCommands.length; ++i) {
 				str += availableCommands[i].helpText();
-				++i; 
 			}
 			
 			return str;
