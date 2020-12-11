@@ -64,7 +64,7 @@ public class Game implements IPrintable {
 		removeDeadObj();
 		if(incrementCycles)
 			incrementCycles();
-		checkEnd(); //TODO Player winner message is never displayed?
+		checkEnd(); 
 	}
 	
 	public void update() {
@@ -85,11 +85,11 @@ public class Game implements IPrintable {
 				board.addSlayer(x, y, this); 
 				player.payCoins(board.canAfford(player.getCoins()));
 				added = true;
-			} else{ //TODO does it have to be in charge of printing it?, CHANGE using exceptions or using attribute on game that stores error messages and then pass it to controller so that it prints it
+			} else{ 
 				System.out.println(player.toStringNotEnoughCoins());
 			}
 		}
-		else {//TODO does it have to be in charge of printing it?
+		else {
 			System.out.println(invalidPositionMsg);
 			System.out.println();
 		}
@@ -104,11 +104,11 @@ public class Game implements IPrintable {
 				board.addBloodBank(x, y, cost, this); 
 				player.payCoins(cost);
 				added = true;
-			} else{ //TODO does it have to be in charge of printing it?, CHANGE using exceptions or using attribute on game that stores error messages and then pass it to controller so that it prints it
+			} else{ 
 				System.out.println(player.toStringNotEnoughCoins());
 			}
 		}
-		else {//TODO does it have to be in charge of printing it?
+		else {
 			System.out.println(invalidPositionMsg);
 			System.out.println();
 		}
@@ -120,7 +120,7 @@ public class Game implements IPrintable {
 		addVampire();
 		if(!Dracula.getAppearedBefore())
 			if(addDracula())
-				System.out.println(DraculaArisenMsg); //TODO prints it or not here?
+				System.out.println(DraculaArisenMsg);
 		addExplosiveVampire();
 	}
 	

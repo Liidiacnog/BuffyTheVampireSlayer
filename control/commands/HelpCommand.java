@@ -13,7 +13,7 @@ public class HelpCommand extends NoParamsCommand {
 	@Override
 	public boolean execute(Game game) {
 		game.setIncrementCycles(false);
-		System.out.println(CommandGenerator.commandHelp());//TODO should it print it or just send the String in some way?
+		System.out.println(CommandGenerator.commandHelp());
 		return false; 
 	}
 

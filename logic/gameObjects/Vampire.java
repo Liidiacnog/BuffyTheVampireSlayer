@@ -46,6 +46,15 @@ public class Vampire extends GameElement{
 			explode(harm);
 	}
 		
+	//overwrites isDead() from GameElement to keep count of VampsOnBoard
+	public boolean isDead() {
+		boolean dead = false;
+		if (life <= 0) {
+			dead = true;
+			vampsOnBoard--;
+		}
+		return dead;
+	}
 	
 	//effect of garlicPush, overwritten by those who have a special behaviour (Explosive Vampires, for example)
 	public void garlicPushEffect() {
@@ -76,10 +85,10 @@ public class Vampire extends GameElement{
 		if (game.vampCanMove(col, row)) {
 			if (!movedBefore) {
 				col -= 1;
-				if(col == 0) //TODO does it have to be when stepping on column 0 or on column -1?
+				if(col == 0) 
 					Vampire.setReachEnd(true);
 		}
-			movedBefore = !movedBefore;
+		movedBefore = !movedBefore;
 		}
 	}
 	
