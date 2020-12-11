@@ -87,7 +87,7 @@ public class GameElementsList {
 	public void garlicPushEffect() {
 		for (int i = 0; i < gameElements.size(); i++) {
 			gameElements.get(i).garlicPushEffect();
-			gameElements.get(i).resetVampMovedBefore(); //TODO in charge of calling resetVamp... or we leave that to game, who is who knows about rules of game?
+			gameElements.get(i).resetVampMovedBefore(); //TODO in charge of calling resetVampMovedBefore or we leave that to game, who is who knows about rules of game?
 		}		
 	}
 	

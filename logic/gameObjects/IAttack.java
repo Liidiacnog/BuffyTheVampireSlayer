@@ -10,5 +10,5 @@ public interface IAttack {
 	
 	default boolean receiveDraculaAttack() {return false;}
 	
-	default boolean receiveVampireExplotion(int damage) {return false;}
+	default boolean receiveVampireExplosion(int damage) {return false;}
 }

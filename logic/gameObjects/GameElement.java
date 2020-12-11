@@ -39,12 +39,8 @@ public abstract class GameElement implements IAttack{ //TODO abstract?
 	
 	public int getBloodBankCoins() {return -1;}
 
-
-	public void garlicPushEffect() {
-		int newX = col + 1;
-		if(newX == game.getBoardColumns() + 1) //TODO missing
-			
-	}
+	//effect of garlicPush on GameElements
+	public void garlicPushEffect() {}
 
 
 	public void resetVampMovedBefore() {};

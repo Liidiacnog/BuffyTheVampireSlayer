@@ -115,6 +115,7 @@ public class Game implements IPrintable {
 		return added;
 	}
 
+	
 	public void addVampires() {
 		addVampire();
 		if(!Dracula.getAppearedBefore())
@@ -122,6 +123,7 @@ public class Game implements IPrintable {
 				System.out.println(DraculaArisenMsg); //TODO prints it or not here?
 		addExplosiveVampire();
 	}
+	
 	
 	//through a random double (number), decides whether to add a vampire on a randomly chosen row, according to the vampire frequency of the level
 	public boolean addVampire() {
@@ -247,18 +249,24 @@ public class Game implements IPrintable {
 		return board.getAttackable(i, j);
 	}
 
-
-	public void garlicPush() {
-		/*
-		 * Any vampire that has another game element immediately to its right is unaffected.
-• Any vampire in the rightmost column (including Dracula) is pushed off the
-board and eliminated.
-• Any explosive vampire in the rightmost column does not explode when pushed
-off the board.
-In addition, the garlic push command stuns the vampires causing them not to move
-until the next turn (their move counter is reset).
-		 */
-		board.garlicPushEffect();
+	//calls methods in charge of executing the garlicPush Command
+	public boolean garlicPush(int cost) {
+		boolean added = false;
+		if (player.canAfford(cost)) {
+			board.garlicPushEffect();
+			player.payCoins(cost);
+			added = true;
+		}else 
+			System.out.println(player.toStringNotEnoughCoins());
+		
+		return added;
 	}
+	
+	
+	//true if element who is going to move to position newX, newY can move backwards due to garlicPush
+	public boolean garlicPushEffect(int newX, int newY) {
+		return board.isFree(newX, newY);
+	}
+	
 	
 }
