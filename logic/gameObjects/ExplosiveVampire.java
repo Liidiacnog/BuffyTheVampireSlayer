@@ -8,12 +8,13 @@ public class ExplosiveVampire extends Vampire{
 
 	private static final String representation = "V*V";
 	private static final String damage = ""; 
-	private boolean explode = true; //by default
+	private boolean explode;
 	
 	
 	public ExplosiveVampire(int x, int y, Game game) {
 		super(x, y, game);
 		life = resistance;
+		explode = true;
 	}
 	
 	
@@ -40,7 +41,7 @@ public class ExplosiveVampire extends Vampire{
 	}
 	
 	
-	public void garlicPushEffect() {
+	public void garlicPush() {
 		int newX = col + 1, newY = row;
 		if(newX == game.getBoardColumns()) { //if is eliminated from board
 			life = 0;
@@ -49,5 +50,12 @@ public class ExplosiveVampire extends Vampire{
 		else if (game.garlicPushEffect(newX, newY)) //if newX, newY is empty
 			col = newX;
 	}
+	
+	
+	public void lightFlash() {
+		life = 0;	
+		explode = false;
+	}
+	
 	
 }

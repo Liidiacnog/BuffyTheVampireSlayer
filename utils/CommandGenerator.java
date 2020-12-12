@@ -13,7 +13,10 @@ public class CommandGenerator {
 				new ExitCommand(),
 				new UpdateCommand(),
 				new AddBloodBankCommand(),
-				new GarlicPushCommand()
+				new GarlicPushCommand(),
+				new LightFlashCommand(),
+				new SuperCoinsCommand(),
+				new AddVampireCommand()
 		};
 		
 		/*passes the minimally processed input text to an object of each of the concrete command classes, 

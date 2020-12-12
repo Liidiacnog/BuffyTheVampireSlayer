@@ -84,11 +84,16 @@ public class GameElementsList {
 		return coins;
 	}
 
-	public void garlicPushEffect() {
+	public void garlicPush() {
 		for (int i = 0; i < gameElements.size(); i++) {
-			gameElements.get(i).garlicPushEffect();
+			gameElements.get(i).garlicPush();
 			gameElements.get(i).resetVampMovedBefore(); //TODO in charge of calling resetVampMovedBefore or we leave that to game, who is who knows about rules of game?
 		}		
+	}
+
+	public void lightFlash() {
+		for (int i = 0; i < gameElements.size(); i++)
+			gameElements.get(i).lightFlash();
 	}
 	
 	

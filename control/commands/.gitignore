@@ -10,3 +10,7 @@
 /AddBlBaCommand.class
 /AddBloodBankCommand.class
 /GarlicPushCommand.class
+/LightFlashCommand.class
+/SuperCoinsCommand.class
+/AddVampireCommand.class
+/AddVampireCommand$availableTypes.class

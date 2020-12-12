@@ -57,7 +57,7 @@ public class Vampire extends GameElement{
 	}
 	
 	//effect of garlicPush, overwritten by those who have a special behaviour (Explosive Vampires, for example)
-	public void garlicPushEffect() {
+	public void garlicPush() {
 		int newX = col + 1, newY = row;
 		if(newX == game.getBoardColumns()) //if is eliminated from board
 			life = 0;
@@ -65,6 +65,12 @@ public class Vampire extends GameElement{
 			col = newX;
 	}
 
+	
+	//overwritten by Dracula and ExplosiveVampire
+	public void lightFlash() {
+		life = 0;		
+	}
+	
 	
 	public boolean receiveVampireExplosion(int harm) {
 		damage(harm);

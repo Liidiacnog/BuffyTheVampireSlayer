@@ -158,8 +158,13 @@ public class GameObjectBoard {
 	}
 
 
-	public void garlicPushEffect() {
-		gameElements.garlicPushEffect();		
+	public void garlicPush() {
+		gameElements.garlicPush();		
+	}
+
+
+	public void lightFlash() {
+		gameElements.lightFlash();		
 	}
 
 

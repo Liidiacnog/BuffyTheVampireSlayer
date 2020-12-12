@@ -35,4 +35,8 @@ public class Dracula extends Vampire {
 		return appeared;
 	}
 	
+	//affects all vampires except Dracula
+	public void lightFlash() {}
+	
+	
 }

@@ -40,9 +40,12 @@ public abstract class GameElement implements IAttack{ //TODO abstract?
 	public int getBloodBankCoins() {return -1;}
 
 	//effect of garlicPush on GameElements
-	public void garlicPushEffect() {}
+	public void garlicPush() {}
 
 
-	public void resetVampMovedBefore() {};
+	public void resetVampMovedBefore() {}
+
+
+	public void lightFlash() {}
 	
 }

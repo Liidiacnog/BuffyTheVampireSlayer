@@ -118,9 +118,8 @@ public class Game implements IPrintable {
 	
 	public void addVampires() {
 		addVampire();
-		if(!Dracula.getAppearedBefore())
-			if(addDracula())
-				System.out.println(DraculaArisenMsg);
+		if(addDracula())
+			System.out.println(DraculaArisenMsg);
 		addExplosiveVampire();
 	}
 	
@@ -144,16 +143,35 @@ public class Game implements IPrintable {
 		return added;
 	}
 	
-
+	//"artificial" addition of vampires to debug
+	public boolean addVampire(int col, int row) {
+		boolean added = false;
+		if(Vampire.getVampsLeft() > 0)
+			added = board.addVampire(col, row, this);	
+		
+		return added;
+	}
+	
+	
 	public boolean addDracula() {
 		boolean added = false;/*same probability of appearing as normal vampires, but only called if Dracula hasn't appeared yet*/
-		if(Vampire.getVampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
+		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
 			int col = level.getColumns() - 1; //vampires appear on last column always
 			int row = r.nextInt(level.getRows());
 			added = board.addDracula(col, row, this);	
 		}
 		return added;
 	}
+	
+	//"artificial" addition of vampires to debug
+	public boolean addDracula(int col, int row) {
+		boolean added = false;
+		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0)
+			added = board.addDracula(col, row, this);	
+		
+		return added;
+	}
+	
 	
 	public boolean addExplosiveVampire() {
 		boolean added = false;/*same probability of appearing as normal vampires*/
@@ -164,6 +182,18 @@ public class Game implements IPrintable {
 		}
 		return added;
 	}
+	
+	
+	//"artificial" addition of vampires to debug
+	public boolean addExplosiveVampire(int col, int row) {
+		boolean added = false;
+		if(Vampire.getVampsLeft() > 0) 
+			added = board.addExplosiveVampire(col, row, this);	
+		
+		return added;
+	}
+	
+	
 	
 
 	//true if vampire on (x, y) can move
@@ -249,23 +279,45 @@ public class Game implements IPrintable {
 		return board.getAttackable(i, j);
 	}
 
-	//calls methods in charge of executing the garlicPush Command
-	public boolean garlicPush(int cost) {
-		boolean added = false;
+	
+	
+	
+	public boolean lightFlash(int cost) {
+		boolean flash = false;
 		if (player.canAfford(cost)) {
-			board.garlicPushEffect();
+			board.lightFlash();
 			player.payCoins(cost);
-			added = true;
+			flash = true;
 		}else 
 			System.out.println(player.toStringNotEnoughCoins());
 		
-		return added;
+		return flash;
+	}
+	
+	
+	//calls methods in charge of executing the garlicPush Command
+	public boolean garlicPush(int cost) {
+		boolean push = false;
+		if (player.canAfford(cost)) {
+			board.garlicPush();
+			player.payCoins(cost);
+			push = true;
+		}else 
+			System.out.println(player.toStringNotEnoughCoins());
+		
+		return push;
 	}
 	
 	
 	//true if element who is going to move to position newX, newY can move backwards due to garlicPush
 	public boolean garlicPushEffect(int newX, int newY) {
 		return board.isFree(newX, newY);
+	}
+
+
+	public boolean superCoins(int coins) {
+		player.receiveCoins(coins);
+		return true;
 	}
 	
 	
