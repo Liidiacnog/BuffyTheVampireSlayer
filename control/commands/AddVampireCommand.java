@@ -19,8 +19,8 @@ public class AddVampireCommand extends Command{
 		private int x, y;
 		private String type;
 		//ArrayList of String because commandWords is a String array and we need to compare them
-		private ArrayList<String> availableTypes = new ArrayList<>(Arrays.asList( "D", "E", " "));
-				//Dracula, ExplosiveVampire, if no type is specified => normal Vampire //TODO ' ' OR ''?, does it work?
+		private ArrayList<String> availableTypes = new ArrayList<>(Arrays.asList( "D", "E"));
+				//Dracula, ExplosiveVampire, if no type is specified => normal Vampire //TODO ' ' OR ''?, does it work? respuesta: No funciona ninguna
 		
 		public AddVampireCommand() {
 			super("add a vampire", "v", "[v]ampire [<type>] <x> <y>", "add a slayer in position x, y");
@@ -30,7 +30,7 @@ public class AddVampireCommand extends Command{
 			this(); //calls AddCommand constructor defined in this subclass, on a previous line
 			x = xCoord;
 			y = yCoord;
-			this.type = type;
+			this.type = type.toUpperCase();
 		}
 
 		
@@ -51,8 +51,10 @@ public class AddVampireCommand extends Command{
 		public Command parse(String[] commandWords) {
 			AddVampireCommand command = null;
 			if (matchCommandName(commandWords[0])) {//TODO falta lo de try
-				if (availableTypes.indexOf(commandWords[1]) != -1) //it has been found in the ArrayList
+				if (availableTypes.indexOf(commandWords[1].toUpperCase()) != -1) //it has been found in the ArrayList
 					command = new AddVampireCommand(Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]), commandWords[1]);
+				else 
+					command = new AddVampireCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), "");
 			}
 			return command;
 		}

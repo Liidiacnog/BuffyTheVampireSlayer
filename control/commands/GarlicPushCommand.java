@@ -1,5 +1,6 @@
 package control.commands;
 
+import exceptions.MyException;
 import logic.Game;
 import utils.CommandGenerator;
 
@@ -14,7 +15,7 @@ public class GarlicPushCommand extends NoParamsCommand {
 
 	
 	@Override
-	public boolean execute(Game game) {
+	public boolean execute(Game game) throws MyException {
 		game.setIncrementCycles(true);
 		return game.garlicPush(cost);
 	}

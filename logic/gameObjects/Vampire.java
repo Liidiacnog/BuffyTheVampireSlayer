@@ -8,6 +8,7 @@ public class Vampire extends GameElement{
 	private boolean movedBefore; //to check whether it is its turn to move or not(they move each 2 cycles)
 	private final String representation = "VˆV";
 	private static boolean reachEnd = false;
+	protected static boolean stuned = false;
 	/*how many vampires are on the board,
 	 * vampires that can appear taking into consideration which ones have appeared already and which ones have died:
 	 */
@@ -83,17 +84,19 @@ public class Vampire extends GameElement{
 	}
 
 	public void resetVampMovedBefore() {
-		movedBefore = true;
+		stuned = true;
+		movedBefore = false;
 	}
 	
 	//moves if it's its turn to do so, and there is no one on the tile where he should be going
 	public void move() {
 		if (game.vampCanMove(col, row)) {
-			if (!movedBefore) {
+			if (!movedBefore && !stuned) {
 				col -= 1;
-				if(col == 0) 
+				if(col == -1) 
 					Vampire.setReachEnd(true);
-		}
+			} else if (movedBefore)
+				stuned = false;
 		movedBefore = !movedBefore;
 		}
 	}

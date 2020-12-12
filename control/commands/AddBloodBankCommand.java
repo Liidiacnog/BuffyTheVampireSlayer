@@ -1,5 +1,6 @@
 package control.commands;
 
+import exceptions.MyException;
 import logic.Game;
 
 public class AddBloodBankCommand extends Command {
@@ -18,7 +19,7 @@ public class AddBloodBankCommand extends Command {
 	}
 
 	@Override
-	public boolean execute(Game game) {
+	public boolean execute(Game game) throws MyException {
 		game.setIncrementCycles(true);
 		return game.addBloodBank(x, y, cost);
 	}

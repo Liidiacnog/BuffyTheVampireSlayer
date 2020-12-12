@@ -2,6 +2,8 @@ package logic;
 import logic.gameObjects.*;
 
 import java.util.Random;
+
+import exceptions.MyException;
 import view.*;
 
 public class Game implements IPrintable {
@@ -23,7 +25,7 @@ public class Game implements IPrintable {
 	private int cycles = 0;
 	private boolean isFinished = false;
 	private String winnerMsg = "Nobody wins..."; //no winner by default
-	private String DraculaArisenMsg = "Dracula has arisen";
+	private String DraculaArisenMsg = "Dracula has arisen!";
 	private boolean incrementCycles = true;
 	
 	
@@ -57,18 +59,18 @@ public class Game implements IPrintable {
 	
 	//actions on game loop:
 
-	public void refreshDisplay() {
+	public void refreshDisplay() throws MyException {
 		update(); 
 		attack();
 		addVampires();
 		removeDeadObj();
 		if(incrementCycles)
+			receiveCoins();
 			incrementCycles();
 		checkEnd(); 
 	}
 	
 	public void update() {
-		receiveCoins();
 		board.update();
 	}
 
@@ -78,49 +80,47 @@ public class Game implements IPrintable {
 	}
 	
 	
-	public boolean addSlayer(int x, int y) {
+	public boolean addSlayer(int x, int y) throws MyException {
 		boolean added = false;
 		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
 			if (board.canAfford(player.getCoins()) != -1) {
 				board.addSlayer(x, y, this); 
 				player.payCoins(board.canAfford(player.getCoins()));
 				added = true;
-			} else{ 
-				System.out.println(player.toStringNotEnoughCoins());
+			} else { 
+				throw new MyException(player.toStringNotEnoughCoins());
 			}
 		}
 		else {
-			System.out.println(invalidPositionMsg);
-			System.out.println();
+			throw new MyException("[ERROR]: " +  invalidPositionMsg);
 		}
 		return added;
 	}
 
 
-	public boolean addBloodBank(int x, int y, int cost) {
+	public boolean addBloodBank(int x, int y, int cost) throws MyException {
 		boolean added = false;
 		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add blood bank on last column 
 			if (player.canAfford(cost)) {
 				board.addBloodBank(x, y, cost, this); 
 				player.payCoins(cost);
 				added = true;
-			} else{ 
-				System.out.println(player.toStringNotEnoughCoins());
+			} else { 
+				throw new MyException(player.toStringNotEnoughCoins());
 			}
 		}
 		else {
-			System.out.println(invalidPositionMsg);
-			System.out.println();
+			throw new MyException("[ERROR]: " +  invalidPositionMsg);
 		}
 		return added;
 	}
 
 	
-	public void addVampires() {
+	public void addVampires() throws MyException {
 		addVampire();
-		if(addDracula())
-			System.out.println(DraculaArisenMsg);
 		addExplosiveVampire();
+		if(addDracula())
+			throw new MyException('\n' + DraculaArisenMsg);
 	}
 	
 	
@@ -264,15 +264,14 @@ public class Game implements IPrintable {
 
 	@Override
 	public String getInfo() {
-		StringBuilder str = new StringBuilder(); //TODO hacerlo sin string builder
+		String str;
 		char jumpLine = '\n';
-		str.append(jumpLine);
-		str.append("Cycle number: ").append(cycles).append(jumpLine);
-		str.append("Coins: ").append(player.getCoins()).append(jumpLine);
-		str.append("Remainig vampires: ").append(Vampire.getVampsLeft()).append(jumpLine);
-		str.append("Vampires on the board: ").append(Vampire.getVampsOnBoard()).append(jumpLine);
+		str = jumpLine + "Cycle number: " + cycles + jumpLine;
+		str += "Coins: " + player.getCoins() + jumpLine;
+		str += "Remainig vampires: " + Vampire.getVampsLeft() + jumpLine;
+		str += "Vampires on the board: " + Vampire.getVampsOnBoard() + jumpLine;
 		
-		return str.toString();
+		return str;
 	}
 
 	public IAttack getAttackableInPos(int i, int j) {
@@ -282,28 +281,28 @@ public class Game implements IPrintable {
 	
 	
 	
-	public boolean lightFlash(int cost) {
+	public boolean lightFlash(int cost) throws MyException {
 		boolean flash = false;
 		if (player.canAfford(cost)) {
 			board.lightFlash();
 			player.payCoins(cost);
 			flash = true;
-		}else 
-			System.out.println(player.toStringNotEnoughCoins());
+		} else 
+			throw new MyException(player.toStringNotEnoughCoins());
 		
 		return flash;
 	}
 	
 	
 	//calls methods in charge of executing the garlicPush Command
-	public boolean garlicPush(int cost) {
+	public boolean garlicPush(int cost) throws MyException {
 		boolean push = false;
 		if (player.canAfford(cost)) {
 			board.garlicPush();
 			player.payCoins(cost);
 			push = true;
-		}else 
-			System.out.println(player.toStringNotEnoughCoins());
+		} else 
+			throw new MyException(player.toStringNotEnoughCoins());
 		
 		return push;
 	}

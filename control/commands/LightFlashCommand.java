@@ -1,5 +1,6 @@
 package control.commands;
 
+import exceptions.MyException;
 import logic.Game;
 
 
@@ -12,7 +13,7 @@ public class LightFlashCommand extends NoParamsCommand{
 	}
 	
 	@Override
-	public boolean execute(Game game) {
+	public boolean execute(Game game) throws MyException {
 		game.setIncrementCycles(true);
 		return game.lightFlash(cost);
 	}

@@ -27,9 +27,8 @@ public class CommandGenerator {
 			while(i < availableCommands.length && availableCommands[i].parse(input) == null) {
 				++i; 
 			}
-			if(availableCommands[i].parse(input) != null) {
+			if (i != availableCommands.length)
 				obj = availableCommands[i].parse(input);
-			}
 			
 			return obj;
 		}

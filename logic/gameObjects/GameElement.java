@@ -34,7 +34,7 @@ public abstract class GameElement implements IAttack{ //TODO abstract?
 	}
 	
 	public boolean isDead() {
-		return life <= 0 ;
+		return life <= 0;
 	}
 	
 	public int getBloodBankCoins() {return -1;}
