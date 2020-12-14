@@ -14,13 +14,16 @@ public class BloodBank extends GameElement {
 		alive = true;
 	}
 	
+	//implements the method defined in IAttack, but since BloodBanks are killed instantly, it doesn't make use of the vampire's damage (harm)   
 	public boolean receiveVampireAttack(int harm) {
 		alive = false;
 		return true;
 	}
 	
+	//implements the method defined in IAttack, but since BloodBanks are killed instantly, it doesn't make use of the vampire's damage (harm)   
 	public boolean receiveDraculaAttack() {
-		return receiveVampireAttack(0);
+		alive = false;
+		return true;
 	}
 	
 	public String toString() {
