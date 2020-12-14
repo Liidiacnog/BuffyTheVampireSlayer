@@ -56,6 +56,7 @@ public class GameObjectBoard {
 		return added;
 	}
 	
+	
 	//if (x, y) is not occupied, adds Dracula on it 
 	public boolean addDracula(int x, int y, Game game) { 
 		boolean added = false;
@@ -66,6 +67,7 @@ public class GameObjectBoard {
 		}
 		return added;
 	}
+	
 	
 	//if (x, y) is not occupied, adds a vampire on it
 	public boolean addExplosiveVampire(int x, int y, Game game) { 
@@ -85,7 +87,7 @@ public class GameObjectBoard {
 		gameElements.add(new Slayer(i, j, game));
 	}
 
-
+	//adds corresponding BloodBank, only called if it can be added on x, y
 	public void addBloodBank(int x, int y, int cost, Game game) {
 		gameElements.add(new BloodBank(x, y, cost, game));
 	}
@@ -138,13 +140,17 @@ public class GameObjectBoard {
 		return Slayer.canAfford(coins);
 	}
 	
+	
+	//true if the player has finished the game by eliminating all possible vampires
 	public boolean checkEnd() {
 		return Vampire.getVampsLeft() == 0 && Vampire.getVampsOnBoard() == 0;
 	}
 
+	
 	public IAttack getAttackable(int i, int j) {
 		return gameElements.getAttackable(i, j);
 	}
+	
 	
 	//Getters:
 
@@ -163,9 +169,7 @@ public class GameObjectBoard {
 	}
 
 
-	public void lightFlash() {
-		gameElements.lightFlash();		
-	}
+	public void lightFlash() {}
 
 
 }

@@ -8,7 +8,7 @@ public class Vampire extends GameElement{
 	private boolean movedBefore; //to check whether it is its turn to move or not(they move each 2 cycles)
 	private final String representation = "VˆV";
 	private static boolean reachEnd = false;
-	protected static boolean stunned = false;
+	protected boolean stunned = false;
 	/*how many vampires are on the board,
 	 * vampires that can appear taking into consideration which ones have appeared already and which ones have died:
 	 */

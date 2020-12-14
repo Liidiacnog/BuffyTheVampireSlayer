@@ -36,7 +36,7 @@ public class AddCommand extends Command {
 		if (matchCommandName(commandWords[0]) && commandWords.length == 3) {
 			command = new AddCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]));
 		} else if (matchCommandName(commandWords[0])) {
-			commandWords[commandWords.length] = "";	//When the number of parameters is no okay an exception is forced
+			System.out.println("[ERROR]: " + incorrectArgsMsg);
 		}
 		
 		return command;

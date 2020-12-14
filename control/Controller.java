@@ -49,7 +49,7 @@ public class Controller {
 		   	    	  	game.setNewGameCycle(false); //default value, may or may not be modified by the execute() method of each command
 	   		    	  }
 	   		    	  catch (MyException me) {
-	   		    		System.out.println(me);	//Shows errors as coords outside the board or not enaught coins
+	   		    		System.out.println(me);	//Shows errors such as wrong coordinates, not enough coins, ...
 	   		    	  }
 	   	    	  		
 	   		      }

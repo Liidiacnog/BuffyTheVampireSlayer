@@ -42,11 +42,13 @@ public class GameElementsList {
 		}
 	}
 	
+	
 	public void attack() {
 		for(int i = 0; i < gameElements.size(); i++) {
 			gameElements.get(i).attack();
 		}
 	}
+	
 	
 	public void add(GameElement el) {
 		gameElements.add(el);
@@ -85,11 +87,9 @@ public class GameElementsList {
 	}
 
 	public void garlicPush() {
-		for (int i = gameElements.size() - 1; i >= 0; i--) {//The push is done from backwards to fowards in order to leave space for the vamp in front to go back
+		for (int i = 0; i < gameElements.size(); i++) {
 			gameElements.get(i).garlicPush();
 			gameElements.get(i).resetVampMovedBefore();
-			//TODO in charge of calling resetVampMovedBefore or we leave that to game, who is who knows about rules of game?
-			//Aunque sea el game quien sabe de las rules es garlicPush el encargado de hacer que no se muevan, y eso es justo lo que hace
 		}		
 	}
 

@@ -9,11 +9,11 @@ import view.*;
 public class Game implements IPrintable {
 	
 	//constants related to rules of the game
-	static final int COINS_TO_RECEIVE = 10; //number of coins received by player
-	static final int INITIAL_COINS = 50; //initial coins of player
-	static final double PROB_RECEIVING_COINS = 0.5; //player has 50% chances of receiving 10 coins
-	static final String invalidPositionMsg = "Invalid position";//shown when adding a gameElement on an invalid position 
-	static final String noVampsLeft = "No more remaining vampires left";
+	private static final int COINS_TO_RECEIVE = 10; //number of coins received by player
+	private static final int INITIAL_COINS = 50; //initial coins of player
+	private static final double PROB_RECEIVING_COINS = 0.5; //player has 50% chances of receiving 10 coins
+	private static final String invalidPositionMsg = "Invalid position";//shown when adding a gameElement on an invalid position 
+	private static final String noVampsLeft = "No more remaining vampires left";
 	
 	//fields
 	private Level level;
@@ -38,7 +38,6 @@ public class Game implements IPrintable {
 		board = new GameObjectBoard(lvl.getColumns(), lvl.getRows(), lvl.getVampNumber());
 		player = new Player(INITIAL_COINS);
 		gamePrinter = new GamePrinter(this, lvl.getColumns(), lvl.getRows());
-		
 		Vampire.updateData(0, lvl.getVampNumber());
 	}
 	
@@ -71,6 +70,7 @@ public class Game implements IPrintable {
 		checkEnd();
 	}
 	
+	
 	public void update() {
 		board.update();
 	}
@@ -91,15 +91,13 @@ public class Game implements IPrintable {
 	
 	public void addVampires() throws MyException {
 		addVampire();
-		boolean dracula = addDracula();
-		addExplosiveVampire();
-		if(dracula) {
+		if(addDracula())
 			DraculaOnBoard = true;
-		}
+		addExplosiveVampire();
 	}
+
+	//"natural" (random) addition of vampires on game cycle:
 	
-	
-	//through a random double (number), decides whether to add a vampire on a randomly chosen row, according to the vampire frequency of the level
 	public boolean addVampire() {
 		/*
 		   Level	Number of vampires	Frequency	board width		board height
@@ -136,6 +134,52 @@ public class Game implements IPrintable {
 			int col = level.getColumns() - 1; //vampires appear on last column always
 			int row = r.nextInt(level.getRows());
 			added = board.addExplosiveVampire(col, row, this);	
+		}
+		return added;
+	}
+	
+	
+	//"artificial" addition of vampires to debug:
+	
+	public boolean addVampire(int col, int row) throws MyException{
+		boolean added = false;
+		if(Vampire.getVampsLeft() > 0) {
+			added = board.addVampire(col, row, this);	
+			if(!added)
+				throw new MyException("[ERROR]: " +  invalidPositionMsg + '\n');
+		}else {
+			throw new MyException("[ERROR]: " +  noVampsLeft + '\n');
+		}
+		return added;
+	}
+	
+	//"artificial" addition of vampires to debug
+	public boolean addDracula(int col, int row) throws MyException {
+		boolean added = false;
+		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0) {
+			added = board.addDracula(col, row, this);	
+			if(!added)
+				throw new MyException("[ERROR]: " +  invalidPositionMsg + '\n');
+			else
+				DraculaOnBoard = true;
+		}else if (!(Vampire.getVampsLeft() > 0)){
+			throw new MyException("[ERROR]: " +  noVampsLeft + '\n');
+		}else { //Dracula.getAppearedBefore() == true
+			throw new MyException("[ERROR]: " + "Dracula already appeared" + '\n');
+		}
+		return added;
+	}
+	
+	
+	//"artificial" addition of vampires to debug
+	public boolean addExplosiveVampire(int col, int row) throws MyException{
+		boolean added = false;
+		if(Vampire.getVampsLeft() > 0) {
+			added = board.addExplosiveVampire(col, row, this);	
+			if(!added)
+				throw new MyException("[ERROR]: " +  invalidPositionMsg + '\n');
+		}else {
+			throw new MyException("[ERROR]: " +  noVampsLeft + '\n');
 		}
 		return added;
 	}
@@ -201,7 +245,7 @@ public class Game implements IPrintable {
 				player.payCoins(cost);
 				added = true;
 			} else { 
-				throw new MyException(player.toStringNotEnoughCoins());
+				throw new MyException(player.toStringNotEnoughCoins()+ '\n');
 			}
 		}
 		else {
@@ -210,52 +254,10 @@ public class Game implements IPrintable {
 		return added;
 	}
 	
-	//"artificial" addition of vampires to debug
-	public boolean addVampire(int col, int row) throws MyException{
-		boolean added = false;
-		if(Vampire.getVampsLeft() > 0) {
-			added = board.addVampire(col, row, this);	
-			if(!added)
-				throw new MyException("[ERROR]: " +  invalidPositionMsg + '\n');
-		}else {
-			throw new MyException("[ERROR]: " +  noVampsLeft + '\n');
-		}
-		return added;
-	}
-	
-	//"artificial" addition of vampires to debug
-	public boolean addDracula(int col, int row) throws MyException {
-		boolean added = false;
-		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0) {
-			added = board.addDracula(col, row, this);	
-			if(!added)
-				throw new MyException("[ERROR]: " +  invalidPositionMsg + '\n');
-		}else if (!(Vampire.getVampsLeft() > 0)){
-			throw new MyException("[ERROR]: " +  noVampsLeft + '\n');
-		}else { //Dracula.getAppearedBefore() == true
-			throw new MyException("[ERROR]: " + "Dracula already appeared" + '\n');
-		}
-		return added;
-	}
-	
-	
-	//"artificial" addition of vampires to debug
-	public boolean addExplosiveVampire(int col, int row) throws MyException{
-		boolean added = false;
-		if(Vampire.getVampsLeft() > 0) {
-			added = board.addExplosiveVampire(col, row, this);	
-			if(!added)
-				throw new MyException("[ERROR]: " +  invalidPositionMsg + '\n');
-		}else {
-			throw new MyException("[ERROR]: " +  "no" + '\n');
-		}
-		return added;
-	}
-	
-	
 	
 	//Other execution of commands
 	
+	//checks if player affords lightFlash, and if so, calls method in board in charge of it
 	public boolean lightFlash(int cost) throws MyException {
 		boolean flash = false;
 		if (player.canAfford(cost)) {
@@ -264,13 +266,13 @@ public class Game implements IPrintable {
 			player.payCoins(cost);
 			flash = true;
 		} else 
-			throw new MyException(player.toStringNotEnoughCoins());
+			throw new MyException(player.toStringNotEnoughCoins() + '\n');
 		
 		return flash;
 	}
 	
 	
-	//calls methods in charge of executing the garlicPush Command
+	//checks if player affords garlicPush, and if so, calls method in board in charge of it
 	public boolean garlicPush(int cost) throws MyException {
 		boolean push = false;
 		if (player.canAfford(cost)) {
@@ -278,23 +280,23 @@ public class Game implements IPrintable {
 			player.payCoins(cost);
 			push = true;
 		} else 
-			throw new MyException(player.toStringNotEnoughCoins());
+			throw new MyException(player.toStringNotEnoughCoins()+ '\n');
 		
 		return push;
 	}
 	
 	
-	//true if element who is going to move to position newX, newY can move backwards due to garlicPush
+	//true if the element that is going to move to position newX, newY can move backwards due to garlicPush
 	public boolean garlicPushEffect(int newX, int newY) {
 		return board.isFree(newX, newY);
 	}
 
-
+	
+	//implements superCoins
 	public boolean superCoins(int coins) {
 		player.receiveCoins(coins);
 		return true;
 	}
-	
 	
 	
 	//true if vampire on (x, y) can move

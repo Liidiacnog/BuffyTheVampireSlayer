@@ -6,7 +6,8 @@ import logic.Game;
 public class AddBloodBankCommand extends Command {
 	
 	private int x, y, cost;
-
+	
+	
 	public AddBloodBankCommand() {
 		super("bank", "b", "[b]ank <x> <y> <z>", "add a bloodbank in x, y with cost z");
 	}
@@ -31,16 +32,17 @@ public class AddBloodBankCommand extends Command {
 		return exec;
 	}
 
+
 	@Override
 	public Command parse(String[] commandWords) {
 		AddBloodBankCommand command = null;
-		if (matchCommandName(commandWords[0]) && commandWords.length <= 4) {
+		if (matchCommandName(commandWords[0]) && commandWords.length == 4) {
 			command = new AddBloodBankCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]));
 		} else if (matchCommandName(commandWords[0])) {
-			commandWords[commandWords.length] = "";	//When the number of parameters is no okay an exception is forced
+			System.out.println("[ERROR]: " + incorrectArgsMsg);
 		}
 		
 		return command;
 	}
-
+	
 }
