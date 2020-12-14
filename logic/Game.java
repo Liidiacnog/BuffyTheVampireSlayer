@@ -196,6 +196,7 @@ public class Game implements IPrintable {
 		player.setCoins(INITIAL_COINS);
 		cycles = 0;
 		board.reset(level.getVampNumber());
+		DraculaOnBoard = false;
 	}
 	
 	

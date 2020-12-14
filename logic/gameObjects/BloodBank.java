@@ -19,6 +19,10 @@ public class BloodBank extends GameElement {
 		return true;
 	}
 	
+	public boolean receiveDraculaAttack() {
+		return receiveVampireAttack(0);
+	}
+	
 	public String toString() {
 		return representation + "[" + cost + "]";
 	}
