@@ -44,10 +44,5 @@ public abstract class GameElement implements IAttack{
 
 	//effect of lightFlash on GameElements
 	public abstract void lightFlash();
-	
-	
-	public void resetVampMovedBefore() {}
 
-
-	
 }

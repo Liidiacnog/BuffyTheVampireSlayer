@@ -8,7 +8,7 @@ public class ExplosiveVampire extends Vampire{
 
 	private static final String representation = "V*V";
 	private static final String damage = ""; 
-	private boolean explode;
+	private boolean explode; //used to distinguish between being killed by a slayer (true) and being dropped out of the board (false)
 	
 	
 	public ExplosiveVampire(int x, int y, Game game) {
@@ -57,6 +57,7 @@ public class ExplosiveVampire extends Vampire{
 		}
 		else if (game.garlicPushEffect(newX, newY)) //if newX, newY is empty
 			col = newX;
+		resetVampMovedBefore();
 	}
 	
 	

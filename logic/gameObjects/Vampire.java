@@ -10,8 +10,7 @@ public class Vampire extends GameElement{
 	private static boolean reachEnd = false;
 	protected boolean stunned = false;
 	/*how many vampires are on the board,
-	 * vampires that can appear taking into consideration which ones have appeared already and which ones have died:
-	 */
+	 * vampires that can appear taking into consideration which ones have appeared already and which ones have died: */
 	protected static int vampsOnBoard = 0, vampsLeft;  
 	
 	//constructor 
@@ -55,6 +54,7 @@ public class Vampire extends GameElement{
 		return dead;
 	}
 	
+	
 	//effect of garlicPush, overwritten by those who have a special behaviour (Explosive Vampires, for example)
 	public void garlicPush() {
 		int newX = col + 1, newY = row;
@@ -62,6 +62,7 @@ public class Vampire extends GameElement{
 			life = 0;
 		else if (game.garlicPushEffect(newX, newY)) //if newX, newY is empty
 			col = newX;
+		resetVampMovedBefore();
 	}
 
 	
@@ -76,12 +77,15 @@ public class Vampire extends GameElement{
 		return false;
 	}
 
+	
+	//used to implement the garlicPush, by stunning vampires that should be stunned
 	public void resetVampMovedBefore() {
 		stunned = true;
 		movedBefore = false;
 	}
 	
-	//moves if it's its turn to do so, and there is no one on the tile where he should be going
+	
+	//moves if it's its turn to do so and there is no one on the tile where he would be going
 	public void move() {
 		if (game.vampCanMove(col, row)) {
 			if (!movedBefore && !stunned) {
@@ -94,6 +98,7 @@ public class Vampire extends GameElement{
 		}
 	}
 	
+	
 	//returns new y coordinate of vampire if it were able to move
 	public static int moveY(int y) {
 		return y;
@@ -104,7 +109,7 @@ public class Vampire extends GameElement{
 			return x - 1;
 	}
 	
-		
+	
 	//returns distance at which the bullet is from him (the minimum is 1 "tile" away), or returns -1 if he can't get hit by it
 	public int target(int xBullet, int yBullet) {
 		int dist = -1;
@@ -120,6 +125,7 @@ public class Vampire extends GameElement{
 		vampsOnBoard = nr;
 		vampsLeft = vampsLevel - nr;
 	}
+	
 	
 	public boolean receiveSlayerAttack(int harm) {
 		damage(harm);

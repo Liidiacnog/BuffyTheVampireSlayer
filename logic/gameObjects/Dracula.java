@@ -51,13 +51,13 @@ public class Dracula extends Vampire {
 	}
 	
 	
-	public static boolean getAppearedBefore() {
-		return appeared;
-	}
-	
-	
 	//affects all vampires except Dracula
 	public void lightFlash() {}
 	
+	
+	public static boolean getAppearedBefore() {
+		return appeared;
+	}
+
 	
 }
