@@ -145,6 +145,16 @@ public class GameObjectBoard {
 	public IAttack getAttackable(int i, int j) {
 		return gameElements.getAttackable(i, j);
 	}
+
+
+	public void garlicPush() {
+		gameElements.garlicPush();		
+	}
+
+
+	public void lightFlash() {
+		gameElements.lightFlash();		
+	}
 	
 	//Getters:
 
@@ -155,16 +165,6 @@ public class GameObjectBoard {
 
 	public int getBloodBankCoins() {
 		return gameElements.getBloodBankCoins();
-	}
-
-
-	public void garlicPush() {
-		gameElements.garlicPush();		
-	}
-
-
-	public void lightFlash() {
-		gameElements.lightFlash();		
 	}
 
 

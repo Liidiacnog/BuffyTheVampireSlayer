@@ -50,25 +50,13 @@ public class AddVampireCommand extends Command{
 		@Override
 		public Command parse(String[] commandWords) {
 			AddVampireCommand command = null;
-			if (matchCommandName(commandWords[0])) {//TODO falta lo de try
+			if (matchCommandName(commandWords[0])) {
 				if (availableTypes.indexOf(commandWords[1].toUpperCase()) != -1) //it has been found in the ArrayList
 					command = new AddVampireCommand(Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]), commandWords[1]);
-				else 
+				else
 					command = new AddVampireCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), "");
 			}
 			return command;
 		}
 }
 
-
-
-
-/*private boolean matchType(String c) {
-			boolean match = false;
-			int i = 0;
-			while (i < availableTypes.length && c != availableTypes[i])
-				++i;
-			if(c == availableTypes[i])
-				match = true;
-			return match;
-		}*/ //use of indexOf

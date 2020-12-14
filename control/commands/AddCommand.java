@@ -26,7 +26,7 @@ public class AddCommand extends Command {
 	@Override
 	public Command parse(String[] commandWords) {
 		AddCommand command = null;
-		if (matchCommandName(commandWords[0])) {//TODO falta lo de try
+		if (matchCommandName(commandWords[0])) {
 			command = new AddCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]));
 		}
 		

@@ -117,9 +117,11 @@ public class Game implements IPrintable {
 
 	
 	public void addVampires() throws MyException {
+		boolean dracula;
 		addVampire();
+		dracula = addDracula();
 		addExplosiveVampire();
-		if(addDracula())
+		if(dracula)
 			throw new MyException('\n' + DraculaArisenMsg);
 	}
 	

@@ -27,7 +27,7 @@ public class AddBloodBankCommand extends Command {
 	@Override
 	public Command parse(String[] commandWords) {
 		AddBloodBankCommand command = null;
-		if (matchCommandName(commandWords[0])) {//TODO falta lo de try
+		if (matchCommandName(commandWords[0])) {
 			command = new AddBloodBankCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]));
 		}
 		
