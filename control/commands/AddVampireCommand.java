@@ -5,6 +5,8 @@ import logic.Game;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import exceptions.MyException;
+
 /*
  *If no type is indicated, the vampire placed on the board is a normal vampire, 
  *if the type is D, it is Dracula (as long as he is not already on the board), 
@@ -23,7 +25,7 @@ public class AddVampireCommand extends Command{
 				//Dracula, ExplosiveVampire, if no type is specified => normal Vampire
 		
 		public AddVampireCommand() {
-			super("add a vampire", "v", "[v]ampire [<type>] <x> <y>", "add a slayer in position x, y");
+			super("add a vampire", "v", "[v]ampire [<type>] <x> <y>. Type = {\"\"|\"D\"|\"E\"}", "add a vampire in position x, y");
 		}
 		
 		public AddVampireCommand(int xCoord, int yCoord, String type) {
@@ -35,15 +37,24 @@ public class AddVampireCommand extends Command{
 
 		
 		@Override
-		public boolean execute(Game game) {
+		public boolean execute(Game game) throws MyException{
+			boolean exec = false;
+			if(availableTypes.indexOf(type) == 0) {
+				if(game.addDracula(x, y))
+					exec = true;
+			}
+			else if(availableTypes.indexOf(type) == 1) {
+				if(game.addExplosiveVampire(x, y))
+					exec = true;
+			}
+			else {//always called when type matches none of the available ones, so last case is always normal vampire
+				if(game.addVampire(x, y))
+					exec = true;
+			}
+			
 			game.setIncrementCycles(false);
-			if(availableTypes.indexOf(type) == 0)
-				game.addDracula(x, y);
-			else if(availableTypes.indexOf(type) == 1)
-				game.addExplosiveVampire(x, y);
-			else //always called when type matches none of the available ones, so last case is always normal vampire
-				game.addVampire(x, y);
-			return true;
+			
+			return exec;
 		}
 
 		

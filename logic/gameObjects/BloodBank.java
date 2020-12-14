@@ -43,9 +43,6 @@ public class BloodBank extends GameElement {
 	
 	//not affected by lightFlash
 	@Override
-	public void lightFlash() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void lightFlash() {}
 
 }

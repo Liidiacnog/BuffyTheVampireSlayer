@@ -14,8 +14,14 @@ public class LightFlashCommand extends NoParamsCommand{
 	
 	@Override
 	public boolean execute(Game game) throws MyException {
-		game.setIncrementCycles(true);
-		return game.lightFlash(cost);
+		boolean exec = false;
+		if(game.lightFlash(cost)) {
+			game.setIncrementCycles(true);
+			game.setNewGameCycle(true);
+			exec = true;
+		}else
+			game.setIncrementCycles(false);
+		return exec;
 	}
 	
 }

@@ -26,7 +26,7 @@ public class Controller {
    	 	System.out.println(game);
    }
     
-    public void run() {
+    public void run(){
 	    boolean refreshDisplay = true;
 
 	    while (!game.isFinished()){
@@ -40,12 +40,13 @@ public class Controller {
     			  String s = scanner.nextLine();
     			  String[] parameters = s.toLowerCase().trim().split(" ");
     			  System.out.println("[DEBUG] Executing: " + s);
-    		      command = CommandGenerator.parseCommand(parameters, this);
+    		      command = CommandGenerator.parseCommand(parameters);
 	   		      if (command != null) {
 	   		    	  try {
 	   		    		refreshDisplay = command.execute(game);
-		   	    	  	  if(refreshDisplay)
-		   	    	  		game.refreshDisplay();
+		   	    	  	  if(game.getNewGameCycle()) //is set to true by those commands which cause game to continue (attacking, moving, ...) 
+		   	    	  		  game.gameCycle();
+		   	    	  	game.setNewGameCycle(false); //default value, may or may not be modified by the execute() method of each command
 	   		    	  }
 	   		    	  catch (MyException me) {
 	   		    		System.out.println(me);
@@ -57,7 +58,7 @@ public class Controller {
 	   		      }
 	    	  }
     		  catch (NumberFormatException | ArrayIndexOutOfBoundsException exp){
-    			  /*In case someone input a command as "add q w" or "b 0 0"*/
+    			  /*In case someone introduces a command such as "add q w" or "b 0 0"*/
 	    		  System.out.println("[ERROR]: "+ invalidParametersMsg);
 	    		  System.out.println();
 	    	  }

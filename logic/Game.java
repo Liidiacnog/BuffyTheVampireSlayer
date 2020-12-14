@@ -13,7 +13,7 @@ public class Game implements IPrintable {
 	static final int INITIAL_COINS = 50; //initial coins of player
 	static final double PROB_RECEIVING_COINS = 0.5; //player has 50% chances of receiving 10 coins
 	static final String invalidPositionMsg = "Invalid position";//shown when adding a gameElement on an invalid position 
-	
+	static final String noVampsLeft = "No more remaining vampires left";
 	
 	//fields
 	private Level level;
@@ -27,7 +27,7 @@ public class Game implements IPrintable {
 	private String winnerMsg = "Nobody wins..."; //no winner by default
 	private String DraculaArisenMsg = "Dracula has arisen!";
 	private boolean incrementCycles = true;
-	
+	private boolean newGameCycle = false; // true if next command will cause game to call gameCycle() 
 	
 	//constructor
 	public Game(Long seed, Level lvl) {
@@ -59,7 +59,7 @@ public class Game implements IPrintable {
 	
 	//actions on game loop:
 
-	public void refreshDisplay() throws MyException {
+	public void gameCycle() throws MyException {
 		update(); 
 		attack();
 		addVampires();
@@ -144,11 +144,15 @@ public class Game implements IPrintable {
 	}
 	
 	//"artificial" addition of vampires to debug
-	public boolean addVampire(int col, int row) {
+	public boolean addVampire(int col, int row) throws MyException{
 		boolean added = false;
-		if(Vampire.getVampsLeft() > 0)
+		if(Vampire.getVampsLeft() > 0) {
 			added = board.addVampire(col, row, this);	
-		
+			if(!added)
+				throw new MyException("[ERROR]: " +  invalidPositionMsg);
+		}else {
+			throw new MyException("[ERROR]: " +  noVampsLeft);
+		}
 		return added;
 	}
 	
@@ -164,11 +168,17 @@ public class Game implements IPrintable {
 	}
 	
 	//"artificial" addition of vampires to debug
-	public boolean addDracula(int col, int row) {
+	public boolean addDracula(int col, int row) throws MyException {
 		boolean added = false;
-		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0)
+		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0) {
 			added = board.addDracula(col, row, this);	
-		
+			if(!added)
+				throw new MyException("[ERROR]: " +  invalidPositionMsg);
+		}else if (!(Vampire.getVampsLeft() > 0)){
+			throw new MyException("[ERROR]: " +  noVampsLeft);
+		}else { //Dracula.getAppearedBefore() == true
+			throw new MyException("[ERROR]: " + "Dracula already appeared");
+		}
 		return added;
 	}
 	
@@ -185,11 +195,15 @@ public class Game implements IPrintable {
 	
 	
 	//"artificial" addition of vampires to debug
-	public boolean addExplosiveVampire(int col, int row) {
+	public boolean addExplosiveVampire(int col, int row) throws MyException{
 		boolean added = false;
-		if(Vampire.getVampsLeft() > 0) 
+		if(Vampire.getVampsLeft() > 0) {
 			added = board.addExplosiveVampire(col, row, this);	
-		
+			if(!added)
+				throw new MyException("[ERROR]: " +  invalidPositionMsg);
+		}else {
+			throw new MyException("[ERROR]: " +  "no");
+		}
 		return added;
 	}
 	
@@ -318,6 +332,16 @@ public class Game implements IPrintable {
 	public boolean superCoins(int coins) {
 		player.receiveCoins(coins);
 		return true;
+	}
+
+
+	public void setNewGameCycle(boolean b) {
+		newGameCycle = b;
+	}
+	
+	
+	public boolean getNewGameCycle() {
+		return newGameCycle;
 	}
 	
 	

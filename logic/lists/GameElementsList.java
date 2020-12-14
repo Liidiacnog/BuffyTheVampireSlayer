@@ -3,8 +3,6 @@ package logic.lists;
 import java.util.ArrayList;
 import logic.gameObjects.GameElement;
 import logic.gameObjects.IAttack;
-import logic.gameObjects.Slayer;
-import logic.gameObjects.Vampire;
 
 public class GameElementsList {
 

@@ -2,7 +2,7 @@ package logic.gameObjects;
 
 import logic.Game;
 
-public abstract class GameElement implements IAttack{ //TODO abstract?
+public abstract class GameElement implements IAttack{
 
 	protected int col, row; //position coordinates on the board
 	protected int life = 0; //changed on constructor of each subclass whenever an object is instantiated

@@ -1,7 +1,7 @@
 package utils;
 
 import control.commands.*;
-import control.*;
+
 
 //utility class: all its methods are static
 public class CommandGenerator {
@@ -12,16 +12,16 @@ public class CommandGenerator {
 				new ResetCommand(),
 				new ExitCommand(),
 				new UpdateCommand(),
-				new AddBloodBankCommand(),
 				new GarlicPushCommand(),
 				new LightFlashCommand(),
+				new AddBloodBankCommand(),
 				new SuperCoinsCommand(),
 				new AddVampireCommand()
 		};
 		
 		/*passes the minimally processed input text to an object of each of the concrete command classes, 
 		 * in order to see which of them accepts it as valid text for that command*/
-		public static Command parseCommand (String[] input, Controller controller) { //TODO controller needed? this is code they gave us
+		public static Command parseCommand (String[] input){
 			Command obj = null;
 			int i = 0; 
 			while(i < availableCommands.length && availableCommands[i].parse(input) == null) {

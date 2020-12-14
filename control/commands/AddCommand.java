@@ -19,8 +19,15 @@ public class AddCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) throws MyException {
-		game.setIncrementCycles(true);
-		return game.addSlayer(x, y);
+		boolean exec = false;
+		if(game.addSlayer(x, y)) {
+			game.setIncrementCycles(true);
+			game.setNewGameCycle(true);
+			exec = true;
+		}else {
+			game.setIncrementCycles(false);
+		}
+		return exec;
 	}
 
 	@Override

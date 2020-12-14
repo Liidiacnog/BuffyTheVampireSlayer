@@ -20,14 +20,21 @@ public class AddBloodBankCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) throws MyException {
-		game.setIncrementCycles(true);
-		return game.addBloodBank(x, y, cost);
+		boolean exec = false;
+		if(game.addBloodBank(x, y, cost)) {
+			game.setIncrementCycles(true);
+			game.setNewGameCycle(true);
+			exec = true;
+		}else
+			game.setIncrementCycles(false);
+		
+		return exec;
 	}
 
 	@Override
 	public Command parse(String[] commandWords) {
 		AddBloodBankCommand command = null;
-		if (matchCommandName(commandWords[0])) {//TODO falta lo de try
+		if (matchCommandName(commandWords[0])) {
 			command = new AddBloodBankCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]));
 		}
 		
