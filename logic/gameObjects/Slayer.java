@@ -60,19 +60,23 @@ public class Slayer extends GameElement{
 		return true;
 	}
 	
+	//Slayers don't move
+	public void move() {}
+	
 	//Getters
 	
 	public int getLife() {
 		return life;
 	}
-}
 
-//NO SE USA
-//checks if its coordinates are (i, j)
-	/*public boolean isHere(int i, int j) {
-		boolean found = false;
-		if (col == i && row == j)
-			found = true;
-		
-		return found;
-	}*/
+
+	//not affected by garlicPush
+	@Override
+	public void garlicPush() {}
+
+
+	//not affected by lightFlash
+	@Override
+	public void lightFlash() {}
+	
+}

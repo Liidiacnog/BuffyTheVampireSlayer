@@ -137,8 +137,8 @@ public class Game implements IPrintable {
 		if(Vampire.getVampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
 			//nextDouble(): returns the next pseudorandom, double value between 0 and 1.0 from this random number generator's sequence.
 			int col = level.getColumns() - 1; //vampires appear on last column always
-			int row = r.nextInt(level.getRows());
-			added = board.addVampire(col, row, this);	
+			int row = r.nextInt(level.getRows() - 1); // -1 to mimic behaviour of random in test cases
+			added = board.addVampire(col, row + 1, this); //+ 1 because our programme works with columns and rows from 1 to ...
 		}
 		return added;
 	}
@@ -285,6 +285,7 @@ public class Game implements IPrintable {
 		boolean flash = false;
 		if (player.canAfford(cost)) {
 			board.lightFlash();
+			removeDeadObj();
 			player.payCoins(cost);
 			flash = true;
 		} else 

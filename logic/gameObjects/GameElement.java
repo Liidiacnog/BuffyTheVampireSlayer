@@ -20,8 +20,7 @@ public abstract class GameElement implements IAttack{ //TODO abstract?
 		return col == x && row == y;
 	}
 		
-	//to be overwritten by elements that do move
-	public void move() {}
+	public abstract void move();
 	
 	//check if the element has moved past the first column of the board
 	public boolean reachEnd() {
@@ -40,12 +39,15 @@ public abstract class GameElement implements IAttack{ //TODO abstract?
 	public int getBloodBankCoins() {return -1;}
 
 	//effect of garlicPush on GameElements
-	public void garlicPush() {}
+	public abstract void garlicPush();
 
 
+	//effect of lightFlash on GameElements
+	public abstract void lightFlash();
+	
+	
 	public void resetVampMovedBefore() {}
 
 
-	public void lightFlash() {}
 	
 }

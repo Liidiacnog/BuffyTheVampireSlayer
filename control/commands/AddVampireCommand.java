@@ -19,8 +19,8 @@ public class AddVampireCommand extends Command{
 		private int x, y;
 		private String type;
 		//ArrayList of String because commandWords is a String array and we need to compare them
-		private ArrayList<String> availableTypes = new ArrayList<>(Arrays.asList( "D", "E"));
-				//Dracula, ExplosiveVampire, if no type is specified => normal Vampire //TODO ' ' OR ''?, does it work? respuesta: No funciona ninguna
+		private ArrayList<String> availableTypes = new ArrayList<>(Arrays.asList("D", "E"));
+				//Dracula, ExplosiveVampire, if no type is specified => normal Vampire
 		
 		public AddVampireCommand() {
 			super("add a vampire", "v", "[v]ampire [<type>] <x> <y>", "add a slayer in position x, y");
@@ -41,7 +41,7 @@ public class AddVampireCommand extends Command{
 				game.addDracula(x, y);
 			else if(availableTypes.indexOf(type) == 1)
 				game.addExplosiveVampire(x, y);
-			else //always called when type matches to one of the available ones, so last case is always normal vampire
+			else //always called when type matches none of the available ones, so last case is always normal vampire
 				game.addVampire(x, y);
 			return true;
 		}

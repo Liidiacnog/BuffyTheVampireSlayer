@@ -55,13 +55,15 @@ public class GameElementsList {
 	}
 	
 	
-	public void removeDeadObj() {
-		for(int i = 0; i < gameElements.size(); i++) {
-			if(gameElements.get(i).isDead())
-				gameElements.remove(gameElements.get(i));
-		}
-	}
 	
+	public void removeDeadObj() {
+		if(gameElements.size() > 0)
+			for(int i = gameElements.size() - 1; i >= 0; i--) {//we need to remove them starting from the end, to the beginning of the ArrayList
+				if(gameElements.get(i).isDead()) 
+					gameElements.remove(gameElements.get(i));
+			}
+	}
+
 	
 	public void clear() {
 		gameElements.clear();

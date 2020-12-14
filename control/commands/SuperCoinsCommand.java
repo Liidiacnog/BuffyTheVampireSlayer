@@ -14,7 +14,7 @@ public class SuperCoinsCommand extends NoParamsCommand{
 	
 	@Override
 	public boolean execute(Game game) {
-		game.setIncrementCycles(true);
+		game.setIncrementCycles(false);
 		return game.superCoins(SUPER_COINS);
 	}
 

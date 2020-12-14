@@ -23,6 +23,9 @@ public class BloodBank extends GameElement {
 		return representation + "[" + cost + "]";
 	}
 	
+	//BloodBanks don't move
+	public void move() {}
+	
 	@Override
 	public boolean isDead() {
 		return !alive;
@@ -31,6 +34,18 @@ public class BloodBank extends GameElement {
 	@Override
 	public int getBloodBankCoins() {
 		return Math.round(cost * 0.1f);
+	}
+
+	//not affected by garlicPush
+	@Override
+	public void garlicPush() {}
+
+	
+	//not affected by lightFlash
+	@Override
+	public void lightFlash() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

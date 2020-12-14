@@ -31,9 +31,23 @@ public class Dracula extends Vampire {
 		}	
 	}
 	
+	
+	//hides isDead() of Vampire because we need to change 'appeared' so that Dracula can appear again afterwards
+	public boolean isDead() {
+		boolean dead = false;
+		if (life <= 0) {
+			dead = true;
+			vampsOnBoard--;
+			appeared = false; 
+		}
+		return dead;
+	}
+	
+	
 	public static boolean getAppearedBefore() {
 		return appeared;
 	}
+	
 	
 	//affects all vampires except Dracula
 	public void lightFlash() {}
