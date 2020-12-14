@@ -40,6 +40,14 @@ public class ExplosiveVampire extends Vampire{
 		return false;
 	}
 	
+	//reduces its life by "harm". If life <= 0, it explodes
+	@Override
+	public void damage(int harm) {
+		life -= harm;
+		if (life <= 0)
+			explode(harm);
+	}
+	
 	
 	public void garlicPush() {
 		int newX = col + 1, newY = row;

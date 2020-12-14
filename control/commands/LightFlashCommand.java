@@ -19,7 +19,7 @@ public class LightFlashCommand extends NoParamsCommand{
 			game.setIncrementCycles(true);
 			game.setNewGameCycle(true);
 			exec = true;
-		}else
+		} else
 			game.setIncrementCycles(false);
 		return exec;
 	}

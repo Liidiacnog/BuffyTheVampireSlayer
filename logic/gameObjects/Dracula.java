@@ -43,6 +43,13 @@ public class Dracula extends Vampire {
 		return dead;
 	}
 	
+	@Override
+	public void damage(int harm) {
+		life -= harm;
+		if (life <= 0)
+			game.draculaDie();
+	}
+	
 	
 	public static boolean getAppearedBefore() {
 		return appeared;

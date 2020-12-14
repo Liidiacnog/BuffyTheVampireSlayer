@@ -56,7 +56,7 @@ public class GameElementsList {
 	
 	public void removeDeadObj() {
 		if(gameElements.size() > 0)
-			for(int i = gameElements.size() - 1; i >= 0; i--) {//we need to remove them starting from the end, to the beginning of the ArrayList
+			for(int i = gameElements.size() - 1; i >= 0; i--) {//We need to remove them starting from the end, to the beginning of the ArrayList
 				if(gameElements.get(i).isDead()) 
 					gameElements.remove(gameElements.get(i));
 			}
@@ -85,9 +85,11 @@ public class GameElementsList {
 	}
 
 	public void garlicPush() {
-		for (int i = 0; i < gameElements.size(); i++) {
+		for (int i = gameElements.size() - 1; i >= 0; i--) {//The push is done from backwards to fowards in order to leave space for the vamp in front to go back
 			gameElements.get(i).garlicPush();
-			gameElements.get(i).resetVampMovedBefore(); //TODO in charge of calling resetVampMovedBefore or we leave that to game, who is who knows about rules of game?
+			gameElements.get(i).resetVampMovedBefore();
+			//TODO in charge of calling resetVampMovedBefore or we leave that to game, who is who knows about rules of game?
+			//Aunque sea el game quien sabe de las rules es garlicPush el encargado de hacer que no se muevan, y eso es justo lo que hace
 		}		
 	}
 

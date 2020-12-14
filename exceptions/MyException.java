@@ -9,6 +9,6 @@ public class MyException extends Exception {
 	}
 	
 	public String toString() {
-		return errorMsg + '\n';
+		return errorMsg;
 	}
 }

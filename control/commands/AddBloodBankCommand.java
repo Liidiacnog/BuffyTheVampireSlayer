@@ -34,8 +34,10 @@ public class AddBloodBankCommand extends Command {
 	@Override
 	public Command parse(String[] commandWords) {
 		AddBloodBankCommand command = null;
-		if (matchCommandName(commandWords[0])) {
+		if (matchCommandName(commandWords[0]) && commandWords.length <= 4) {
 			command = new AddBloodBankCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]));
+		} else if (matchCommandName(commandWords[0])) {
+			commandWords[commandWords.length] = "";	//When the number of parameters is no okay an exception is forced
 		}
 		
 		return command;

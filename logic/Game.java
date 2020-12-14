@@ -26,6 +26,7 @@ public class Game implements IPrintable {
 	private boolean isFinished = false;
 	private String winnerMsg = "Nobody wins..."; //no winner by default
 	private String DraculaArisenMsg = "Dracula has arisen!";
+	private boolean DraculaOnBoard = false;	//True if (and only if) dracula is on board
 	private boolean incrementCycles = true;
 	private boolean newGameCycle = false; // true if next command will cause game to call gameCycle() 
 	
@@ -60,14 +61,14 @@ public class Game implements IPrintable {
 	//actions on game loop:
 
 	public void gameCycle() throws MyException {
-		update(); 
+		update();
+		receiveCoins();
 		attack();
 		addVampires();
 		removeDeadObj();
 		if(incrementCycles)
-			receiveCoins();
 			incrementCycles();
-		checkEnd(); 
+		checkEnd();
 	}
 	
 	public void update() {
@@ -75,52 +76,26 @@ public class Game implements IPrintable {
 	}
 
 	
+	//checks odds of player of receiving coins, and if he should receive them, calls method in charge
+	public void receiveCoins() {
+		if(r.nextFloat() > PROB_RECEIVING_COINS)
+			player.receiveCoins(COINS_TO_RECEIVE);
+		player.receiveCoins(board.getBloodBankCoins());
+	}
+
+	
 	public void attack() {
 		board.attack();	
-	}
-	
-	
-	public boolean addSlayer(int x, int y) throws MyException {
-		boolean added = false;
-		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
-			if (board.canAfford(player.getCoins()) != -1) {
-				board.addSlayer(x, y, this); 
-				player.payCoins(board.canAfford(player.getCoins()));
-				added = true;
-			} else { 
-				throw new MyException(player.toStringNotEnoughCoins());
-			}
-		}
-		else {
-			throw new MyException("[ERROR]: " +  invalidPositionMsg);
-		}
-		return added;
-	}
-
-
-	public boolean addBloodBank(int x, int y, int cost) throws MyException {
-		boolean added = false;
-		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add blood bank on last column 
-			if (player.canAfford(cost)) {
-				board.addBloodBank(x, y, cost, this); 
-				player.payCoins(cost);
-				added = true;
-			} else { 
-				throw new MyException(player.toStringNotEnoughCoins());
-			}
-		}
-		else {
-			throw new MyException("[ERROR]: " +  invalidPositionMsg);
-		}
-		return added;
 	}
 
 	
 	public void addVampires() throws MyException {
 		addVampire();
+		boolean dracula = addDracula();
 		addExplosiveVampire();
-		if(addDracula())
-			throw new MyException('\n' + DraculaArisenMsg);
+		if(dracula) {
+			DraculaOnBoard = true;
+		}
 	}
 	
 	
@@ -143,19 +118,6 @@ public class Game implements IPrintable {
 		return added;
 	}
 	
-	//"artificial" addition of vampires to debug
-	public boolean addVampire(int col, int row) throws MyException{
-		boolean added = false;
-		if(Vampire.getVampsLeft() > 0) {
-			added = board.addVampire(col, row, this);	
-			if(!added)
-				throw new MyException("[ERROR]: " +  invalidPositionMsg);
-		}else {
-			throw new MyException("[ERROR]: " +  noVampsLeft);
-		}
-		return added;
-	}
-	
 	
 	public boolean addDracula() {
 		boolean added = false;/*same probability of appearing as normal vampires, but only called if Dracula hasn't appeared yet*/
@@ -163,21 +125,6 @@ public class Game implements IPrintable {
 			int col = level.getColumns() - 1; //vampires appear on last column always
 			int row = r.nextInt(level.getRows());
 			added = board.addDracula(col, row, this);	
-		}
-		return added;
-	}
-	
-	//"artificial" addition of vampires to debug
-	public boolean addDracula(int col, int row) throws MyException {
-		boolean added = false;
-		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0) {
-			added = board.addDracula(col, row, this);	
-			if(!added)
-				throw new MyException("[ERROR]: " +  invalidPositionMsg);
-		}else if (!(Vampire.getVampsLeft() > 0)){
-			throw new MyException("[ERROR]: " +  noVampsLeft);
-		}else { //Dracula.getAppearedBefore() == true
-			throw new MyException("[ERROR]: " + "Dracula already appeared");
 		}
 		return added;
 	}
@@ -191,28 +138,6 @@ public class Game implements IPrintable {
 			added = board.addExplosiveVampire(col, row, this);	
 		}
 		return added;
-	}
-	
-	
-	//"artificial" addition of vampires to debug
-	public boolean addExplosiveVampire(int col, int row) throws MyException{
-		boolean added = false;
-		if(Vampire.getVampsLeft() > 0) {
-			added = board.addExplosiveVampire(col, row, this);	
-			if(!added)
-				throw new MyException("[ERROR]: " +  invalidPositionMsg);
-		}else {
-			throw new MyException("[ERROR]: " +  "no");
-		}
-		return added;
-	}
-	
-	
-	
-
-	//true if vampire on (x, y) can move
-	public boolean vampCanMove(int x, int y) {
-		return board.vampCanMove(x, y);
 	}
 	
 	
@@ -232,7 +157,7 @@ public class Game implements IPrintable {
 	
 	//checks if slayers have killed all possible vampires, or vampires have reached end of board
 	//updates winnerMsg string corresponding to who has won, or "" if no one has won yet
-	public boolean checkEnd() {
+	public void checkEnd() {
 		if (board.checkEnd()) {
 			winnerMsg = "Player wins!";
 			isFinished = true;
@@ -240,15 +165,6 @@ public class Game implements IPrintable {
 			winnerMsg = "Vampires win!";
 			isFinished = true;
 		}
-		return isFinished;
-	}
-
-	
-	//checks odds of player of receiving coins, and if he should receive them, calls method in charge
-	public void receiveCoins() {
-		if(r.nextFloat() > PROB_RECEIVING_COINS)
-			player.receiveCoins(COINS_TO_RECEIVE);
-		player.receiveCoins(board.getBloodBankCoins());
 	}
 	
 	
@@ -257,43 +173,88 @@ public class Game implements IPrintable {
 	}
 	
 	
-	public String getWinnerMessage() {
-		return winnerMsg;
+	//Methods to add an element (by user command):
+	
+	public boolean addSlayer(int x, int y) throws MyException {
+		boolean added = false;
+		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
+			if (board.canAfford(player.getCoins()) != -1) {
+				board.addSlayer(x, y, this); 
+				player.payCoins(board.canAfford(player.getCoins()));
+				added = true;
+			} else { 
+				throw new MyException(player.toStringNotEnoughCoins());
+			}
+		}
+		else {
+			throw new MyException("[ERROR]: " +  invalidPositionMsg + '\n');
+		}
+		return added;
 	}
 
-	
-	public int getBoardColumns() {
-		return board.getColumns();
-	}
-	
 
-	public void setIncrementCycles(boolean newValue) {
-		incrementCycles = newValue;
+	public boolean addBloodBank(int x, int y, int cost) throws MyException {
+		boolean added = false;
+		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add blood bank on last column 
+			if (player.canAfford(cost)) {
+				board.addBloodBank(x, y, cost, this); 
+				player.payCoins(cost);
+				added = true;
+			} else { 
+				throw new MyException(player.toStringNotEnoughCoins());
+			}
+		}
+		else {
+			throw new MyException("[ERROR]: " +  invalidPositionMsg + '\n');
+		}
+		return added;
 	}
 	
-	@Override
-	public String getPositionToString(int x, int y) {
-		return board.objToString(x, y);
+	//"artificial" addition of vampires to debug
+	public boolean addVampire(int col, int row) throws MyException{
+		boolean added = false;
+		if(Vampire.getVampsLeft() > 0) {
+			added = board.addVampire(col, row, this);	
+			if(!added)
+				throw new MyException("[ERROR]: " +  invalidPositionMsg + '\n');
+		}else {
+			throw new MyException("[ERROR]: " +  noVampsLeft + '\n');
+		}
+		return added;
 	}
-
-	@Override
-	public String getInfo() {
-		String str;
-		char jumpLine = '\n';
-		str = jumpLine + "Cycle number: " + cycles + jumpLine;
-		str += "Coins: " + player.getCoins() + jumpLine;
-		str += "Remainig vampires: " + Vampire.getVampsLeft() + jumpLine;
-		str += "Vampires on the board: " + Vampire.getVampsOnBoard() + jumpLine;
-		
-		return str;
+	
+	//"artificial" addition of vampires to debug
+	public boolean addDracula(int col, int row) throws MyException {
+		boolean added = false;
+		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0) {
+			added = board.addDracula(col, row, this);	
+			if(!added)
+				throw new MyException("[ERROR]: " +  invalidPositionMsg + '\n');
+		}else if (!(Vampire.getVampsLeft() > 0)){
+			throw new MyException("[ERROR]: " +  noVampsLeft + '\n');
+		}else { //Dracula.getAppearedBefore() == true
+			throw new MyException("[ERROR]: " + "Dracula already appeared" + '\n');
+		}
+		return added;
 	}
-
-	public IAttack getAttackableInPos(int i, int j) {
-		return board.getAttackable(i, j);
-	}
-
 	
 	
+	//"artificial" addition of vampires to debug
+	public boolean addExplosiveVampire(int col, int row) throws MyException{
+		boolean added = false;
+		if(Vampire.getVampsLeft() > 0) {
+			added = board.addExplosiveVampire(col, row, this);	
+			if(!added)
+				throw new MyException("[ERROR]: " +  invalidPositionMsg + '\n');
+		}else {
+			throw new MyException("[ERROR]: " +  "no" + '\n');
+		}
+		return added;
+	}
+	
+	
+	
+	//Other execution of commands
 	
 	public boolean lightFlash(int cost) throws MyException {
 		boolean flash = false;
@@ -333,16 +294,76 @@ public class Game implements IPrintable {
 		player.receiveCoins(coins);
 		return true;
 	}
+	
+	
+	
+	//true if vampire on (x, y) can move
+	public boolean vampCanMove(int x, int y) {
+		return board.vampCanMove(x, y);
+	}
+	
 
+	@Override
+	public String getInfo() {
+		String str;
+		char jumpLine = '\n';
+		str = jumpLine + "Cycle number: " + cycles + jumpLine;
+		str += "Coins: " + player.getCoins() + jumpLine;
+		str += "Remainig vampires: " + Vampire.getVampsLeft() + jumpLine;
+		str += "Vampires on the board: " + Vampire.getVampsOnBoard() + jumpLine;
+		if (DraculaOnBoard)
+			str += DraculaArisenMsg + jumpLine;
+		
+		return str;
+	}
+		
 
-	public void setNewGameCycle(boolean b) {
-		newGameCycle = b;
+	
+	//Getters
+	
+	public String getWinnerMessage() {
+		return winnerMsg;
+	}
+
+	public IAttack getAttackableInPos(int i, int j) {
+		return board.getAttackable(i, j);
 	}
 	
 	
 	public boolean getNewGameCycle() {
 		return newGameCycle;
 	}
+
+	
+	public int getBoardColumns() {
+		return board.getColumns();
+	}
+	
+	
+	@Override
+	public String getPositionToString(int x, int y) {
+		return board.objToString(x, y);
+	}
+	
+	
+	
+	//Setters
+
+	public void draculaDie() {
+		DraculaOnBoard = false;
+	}
+
+	
+	public void setNewGameCycle(boolean b) {
+		newGameCycle = b;
+	}
+	
+
+	public void setIncrementCycles(boolean newValue) {
+		incrementCycles = newValue;
+	}
+	
+	
 	
 	
 }

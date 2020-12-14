@@ -43,8 +43,6 @@ public class Vampire extends GameElement{
 	//reduces its life by "harm"	
 	public void damage(int harm) {
 		life -= harm;
-		if (life <= 0)
-			explode(harm);
 	}
 		
 	//hides isDead() from GameElement to keep count of VampsOnBoard
@@ -75,11 +73,6 @@ public class Vampire extends GameElement{
 	
 	public boolean receiveVampireExplosion(int harm) {
 		damage(harm);
-		return false;
-	}
-	
-	// If vamp is not explosive, method explode() does nothing
-	protected boolean explode(int harm) {
 		return false;
 	}
 
