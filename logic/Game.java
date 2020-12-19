@@ -68,7 +68,7 @@ public class Game implements IPrintable {
 		if(incrementCycles)
 			incrementCycles();
 		checkEnd();
-	}
+	} 
 	
 	
 	public void update() {
