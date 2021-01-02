@@ -1,6 +1,6 @@
 package control.commands;
 
-import exceptions.MyException;
+import exceptions.GameException;
 import logic.Game;
 
 public class AddCommand extends Command {
@@ -18,7 +18,7 @@ public class AddCommand extends Command {
 	}
 
 	@Override
-	public boolean execute(Game game) throws MyException {
+	public boolean execute(Game game) throws GameException {
 		boolean exec = false;
 		if(game.addSlayer(x, y)) {
 			game.setIncrementCycles(true);

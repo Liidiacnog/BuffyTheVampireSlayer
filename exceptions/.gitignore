@@ -1,1 +1,12 @@
 /MyException.class
+/GameException.class
+/CommandParseException.class
+/CommandExecuteException.class
+/InvalidPositionException.class
+/NotEnaughCoinsException.class
+/DraculaHasArisenException.class
+/NoMoreVampiresException.class
+/UnknownCommandException.class
+/InvalidArgumentsException.class
+/DraculaAlreadyOnBoardException.class
+/InvalidVampireTypeException.class

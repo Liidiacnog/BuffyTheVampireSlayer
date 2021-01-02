@@ -1,6 +1,6 @@
 package control.commands;
 
-import exceptions.MyException;
+import exceptions.GameException;
 import logic.Game;
 
 /*the NoParamsCommand class implements the parse method using the matchCommandName method inherited from Command. 
@@ -26,6 +26,6 @@ public abstract class NoParamsCommand extends Command {
 		return obj;
 	}
 	
-	public abstract boolean execute(Game game) throws MyException;
+	public abstract boolean execute(Game game) throws GameException;
 	
 }

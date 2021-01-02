@@ -1,10 +1,10 @@
 package exceptions;
 
-public class MyException extends Exception {
+public class GameException extends Exception {
 	
 	private String errorMsg;
 
-	public MyException(String str) {
+	public GameException(String str) {
 		errorMsg = str;
 	}
 	

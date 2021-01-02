@@ -5,7 +5,7 @@ import logic.Game;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import exceptions.MyException;
+import exceptions.GameException;
 
 /*
  *If no type is indicated, the vampire placed on the board is a normal vampire, 
@@ -37,7 +37,7 @@ public class AddVampireCommand extends Command{
 
 		
 		@Override
-		public boolean execute(Game game) throws MyException{
+		public boolean execute(Game game) throws GameException{
 			boolean exec = false;
 			if(availableTypes.indexOf(type) == 0) {
 				if(game.addDracula(x, y))
