@@ -4,38 +4,39 @@ import logic.Game;
 
 public class BloodBank extends GameElement {
 	
+	private static final int resistance = 1;
 	private int cost;
-	private boolean alive; //TODO int life?
 	private static final String representation = "B-B";
 	
-	public BloodBank(int x, int y, int cost, Game game) { //TODO initialize lives on constructor, and constant for intial nr of lives
+	public BloodBank(int x, int y, int cost, Game game) {
 		super(x, y, game);
 		this.cost = cost;
-		alive = true;
+		life = resistance;
 	}
 	
-	//implements the method defined in IAttack, but since BloodBanks are killed instantly, it doesn't make use of the vampire's damage (harm)   
-	public boolean receiveVampireAttack(int harm) {//TODO change so that they call a method which is BloodBankreceivesAnyAttack()?
-		alive = false; //TODO comment on why it isnt used
+	// He hecho esta función porque estaba en un ToDo, pero no estoy seguro de que así sea mejor (si no te gusta lo quitas quiero decir).
+	public boolean BloodBankreceivesAttack(int harm) {
+		life -= harm;
 		return true;
 	}
 	
-	//implements the method defined in IAttack, but since BloodBanks are killed instantly, it doesn't make use of the vampire's damage (harm)   
+	//implements the method defined in IAttack  
+	public boolean receiveVampireAttack(int harm) {
+		return BloodBankreceivesAttack(harm);
+	}
+	
+	//implements the method defined in IAttack  
 	public boolean receiveDraculaAttack() {
-		alive = false;
-		return true;
+		return BloodBankreceivesAttack(life);
 	}
 	
 	public String toString() {
 		return representation + "[" + cost + "]";
 	}
 	
-	//BloodBanks don't move
-	public void move() {} //TODO add move Interface
-	
 	@Override
 	public boolean isDead() {
-		return !alive;
+		return life <= 0;
 	}
 	
 	@Override

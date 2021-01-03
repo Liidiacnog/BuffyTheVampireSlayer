@@ -60,9 +60,6 @@ public class Slayer extends GameElement{
 		return true;
 	}
 	
-	//Slayers don't move
-	public void move() {}
-	
 	//Getters
 	
 	public int getLife() {

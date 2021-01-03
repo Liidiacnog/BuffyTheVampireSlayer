@@ -2,7 +2,7 @@ package logic.gameObjects;
 
 import logic.Game;
 
-public abstract class GameElement implements IAttack{
+public abstract class GameElement implements IAttack, IMove{
 
 	protected int col, row; //position coordinates on the board
 	protected int life = 0; //changed on constructor of each subclass whenever an object is instantiated
@@ -19,8 +19,6 @@ public abstract class GameElement implements IAttack{
 	public boolean isHere(int x, int y) {
 		return col == x && row == y;
 	}
-		
-	public abstract void move();
 	
 	//check if the element has moved past the first column of the board
 	public boolean reachEnd() {
