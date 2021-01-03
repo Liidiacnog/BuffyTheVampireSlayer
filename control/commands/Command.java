@@ -20,11 +20,15 @@ public abstract class Command {
 	  //return true if no refresh of the display is needed (example: help, reset, exit, addSlayer when it hasn't been added,...)
 	  public abstract boolean execute(Game game) throws GameException;
 	  
-	  public abstract Command parse(String[] commandWords);
+	  public abstract Command parse(String[] commandWords) throws GameException;
 	  
 	  protected boolean matchCommandName(String name) {
 		    return shortcut.equalsIgnoreCase(name) || 
 		        this.name.equalsIgnoreCase(name);
+	  }
+	  
+	  protected String getName() {
+		  return name;
 	  }
 	  
 	  public String helpText(){

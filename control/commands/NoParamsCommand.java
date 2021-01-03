@@ -1,6 +1,7 @@
 package control.commands;
 
 import exceptions.GameException;
+import exceptions.InvalidArgumentsException;
 import logic.Game;
 
 /*the NoParamsCommand class implements the parse method using the matchCommandName method inherited from Command. 
@@ -16,12 +17,12 @@ public abstract class NoParamsCommand extends Command {
 		super(name, shortcut, details, help);
 	}
 
-	public Command parse(String[] input){
+	public Command parse(String[] input) throws InvalidArgumentsException {
 		Command obj = null;
 		if(matchCommandName(input[0]) && input.length == 1)
 			obj = this;
 		else if (matchCommandName(input[0]) && input.length > 1)
-			System.out.println("[ERROR]: " + tooManyArgs);
+			throw new InvalidArgumentsException("[ERROR] Command " + getName() + ": Incorrect number of arguments");
 			
 		return obj;
 	}

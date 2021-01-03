@@ -8,7 +8,7 @@ public class GameException extends Exception {
 		errorMsg = str;
 	}
 	
-	public String toString() {
+	public String getMessage() {
 		return errorMsg;
 	}
 }

@@ -5,7 +5,10 @@ import logic.Game;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import exceptions.CommandParseException;
 import exceptions.GameException;
+import exceptions.InvalidArgumentsException;
+import exceptions.InvalidVampireTypeException;
 
 /*
  *If no type is indicated, the vampire placed on the board is a normal vampire, 
@@ -59,16 +62,26 @@ public class AddVampireCommand extends Command{
 
 		
 		@Override
-		public Command parse(String[] commandWords) {
+		public Command parse(String[] commandWords) throws CommandParseException {
 			AddVampireCommand command = null;
-			if (matchCommandName(commandWords[0]) && commandWords.length <= 4) {
-				if (availableTypes.indexOf(commandWords[1].toUpperCase()) != -1) //it has been found in the ArrayList
-					command = new AddVampireCommand(Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]), commandWords[1]);
-				else 
+			if (matchCommandName(commandWords[0])) {
+				if (commandWords.length == 4) {
+					if (availableTypes.indexOf(commandWords[1].toUpperCase()) != -1) //it has been found in the ArrayList
+						command = new AddVampireCommand(Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]), commandWords[1]);
+					else
+						throw new InvalidVampireTypeException("[ERROR] Invalid type"); //TODO terminar mensaje de error
+				} else if (commandWords.length == 3) {
 					command = new AddVampireCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), "");
-			} else if (matchCommandName(commandWords[0])){
-				System.out.println("[ERROR]: " + incorrectArgsMsg);
+				} else 
+					throw new InvalidArgumentsException("[ERROR]"); //TODO terminar mensaje de error
 			}
 			return command;
 		}
 }
+
+
+/*
+if (availableTypes.indexOf(commandWords[1].toUpperCase()) != -1) //it has been found in the ArrayList
+	command = new AddVampireCommand(Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]), commandWords[1]);
+else 
+	command = new AddVampireCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), "");*/
