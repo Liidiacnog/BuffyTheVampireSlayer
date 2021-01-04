@@ -1,6 +1,7 @@
 package utils;
 
 import control.commands.*;
+import exceptions.CommandParseException;
 import exceptions.GameException;
 import exceptions.UnknownCommandException;
 
@@ -23,7 +24,7 @@ public class CommandGenerator {
 		
 		/*passes the minimally processed input text to an object of each of the concrete command classes, 
 		 * in order to see which of them accepts it as valid text for that command*/
-		public static Command parseCommand (String[] input) throws GameException{
+		public static Command parseCommand (String[] input) throws CommandParseException {
 			Command obj = null;
 			int i = 0; 
 			while(i < availableCommands.length && availableCommands[i].parse(input) == null) {

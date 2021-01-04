@@ -1,5 +1,7 @@
 package control.commands;
 
+import exceptions.CommandExecuteException;
+import exceptions.CommandParseException;
 import exceptions.GameException;
 import logic.Game;
 
@@ -18,9 +20,9 @@ public abstract class Command {
 	  }
 	  
 	  //return true if no refresh of the display is needed (example: help, reset, exit, addSlayer when it hasn't been added,...)
-	  public abstract boolean execute(Game game) throws GameException;
+	  public abstract boolean execute(Game game) throws CommandExecuteException;
 	  
-	  public abstract Command parse(String[] commandWords) throws GameException;
+	  public abstract Command parse(String[] commandWords) throws CommandParseException;
 	  
 	  protected boolean matchCommandName(String name) {
 		    return shortcut.equalsIgnoreCase(name) || 
@@ -29,6 +31,10 @@ public abstract class Command {
 	  
 	  protected String getName() {
 		  return name;
+	  }
+	  
+	  protected String getDetails() {
+		  return details;
 	  }
 	  
 	  public String helpText(){

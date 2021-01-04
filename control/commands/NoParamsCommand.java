@@ -1,5 +1,6 @@
 package control.commands;
 
+import exceptions.CommandExecuteException;
 import exceptions.GameException;
 import exceptions.InvalidArgumentsException;
 import logic.Game;
@@ -27,6 +28,6 @@ public abstract class NoParamsCommand extends Command {
 		return obj;
 	}
 	
-	public abstract boolean execute(Game game) throws GameException;
+	public abstract boolean execute(Game game) throws CommandExecuteException;
 	
 }

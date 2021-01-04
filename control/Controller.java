@@ -42,13 +42,13 @@ public class Controller {
 			 try {
 				 command = CommandGenerator.parseCommand(parameters);
 			     refreshDisplay = command.execute(game);
-		    	 if(game.getNewGameCycle()) //is set to true by those commands which cause game to continue (attacking, moving, ...) 
-		    	  	game.gameCycle();
-		    	 game.setNewGameCycle(false); //default value, may or may not be modified by the execute() method of each command
 			 } catch (GameException ex) {
 				 System.out.format(ex.getMessage() + "%n%n");
 			 }
-		}	    
+	    	 if(game.getNewGameCycle()) //is set to true by those commands which cause game to continue (attacking, moving, ...) 
+		    	  	game.gameCycle();
+		    	 game.setNewGameCycle(false); //default value, may or may not be modified by the execute() method of each command
+		}
     	if (refreshDisplay) printGame();
 		System.out.println ("[Game over] " + game.getWinnerMessage());
 

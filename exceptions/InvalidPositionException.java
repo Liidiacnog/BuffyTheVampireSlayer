@@ -2,9 +2,9 @@ package exceptions;
 
 public class InvalidPositionException extends CommandExecuteException {
 
-	public InvalidPositionException(String str) {
-		super(str);
-		// TODO Auto-generated constructor stub
+	public InvalidPositionException(String element, int x, int y) {
+		super("[DEBUG] Position (" + x + ", " + y + "): Invalid position", element);
 	}
 
 }
+//"[ERROR] failed to add " + element + "%n" + 
