@@ -36,12 +36,6 @@ public class Slayer extends GameElement{
 		}		
 	}
 	
-	
-	//reduces its life by "harm"
-	public void damage(int harm) {
-		life -= harm;
-	}
-	
 	//returns -1 if coins aren't enough to pay for cost, or returns cost otherwise
 	public static int canAfford(int coins) {
 		int sol = -1;

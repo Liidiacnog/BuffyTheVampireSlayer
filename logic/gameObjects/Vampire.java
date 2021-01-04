@@ -38,12 +38,6 @@ public class Vampire extends GameElement{
 		}		
 	}
 		
-	
-	//reduces its life by "harm"	
-	public void damage(int harm) {
-		life -= harm;
-	}
-		
 	//hides isDead() from GameElement to keep count of VampsOnBoard
 	public boolean isDead() {
 		boolean dead = false;

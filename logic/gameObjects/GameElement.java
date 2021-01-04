@@ -42,5 +42,10 @@ public abstract class GameElement implements IAttack, IMove{
 
 	//effect of lightFlash on GameElements
 	public abstract void lightFlash();
+	
+	//reduces its life by "harm"	
+	public void damage(int harm) {
+		life -= harm;
+	}
 
 }
