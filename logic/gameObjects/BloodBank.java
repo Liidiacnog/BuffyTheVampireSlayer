@@ -14,20 +14,16 @@ public class BloodBank extends GameElement {
 		life = resistance;
 	}
 	
-	// He hecho esta función porque estaba en un ToDo, pero no estoy seguro de que así sea mejor (si no te gusta lo quitas quiero decir).
-	public boolean BloodBankreceivesAttack(int harm) {
-		life -= harm;
+	//implements the method defined in IAttack  
+	public boolean receiveVampireAttack(int harm) {
+		damage(harm);
 		return true;
 	}
 	
 	//implements the method defined in IAttack  
-	public boolean receiveVampireAttack(int harm) {
-		return BloodBankreceivesAttack(harm);
-	}
-	
-	//implements the method defined in IAttack  
 	public boolean receiveDraculaAttack() {
-		return BloodBankreceivesAttack(life);
+		damage(life);
+		return true;
 	}
 	
 	public String toString() {

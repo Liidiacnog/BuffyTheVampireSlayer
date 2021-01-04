@@ -7,7 +7,7 @@ import logic.Game;
 public class ExplosiveVampire extends Vampire{
 
 	private static final String representation = "V*V";
-	private static final String damage = ""; 
+	private static final int damage = 1; 
 	private boolean explode; //used to distinguish between being killed by a slayer (true) and being dropped out of the board (false)
 	
 	
@@ -26,7 +26,7 @@ public class ExplosiveVampire extends Vampire{
 	public boolean explode(int harm) {
 		/* On being destroyed (i.e. the moment its lives reach zero) it explodes causing damage to all neighbouring vampires 
 		 * (the same damage as caused by a bullet), including its diagonal neighbours. */
-		if(explode) {
+		if(explode) { //doesn't explode if it has been killed by being eliminated from board by garlic push (then explode will be false)
 			IAttack other = null;
 			for (int i = col - 1; i <= col + 1; i++)
 				for (int j = row - 1; j <= row + 1; j++) {
@@ -45,7 +45,7 @@ public class ExplosiveVampire extends Vampire{
 	public void damage(int harm) {
 		life -= harm;
 		if (life <= 0)
-			explode(harm);
+			explode(damage);
 	}
 	
 	

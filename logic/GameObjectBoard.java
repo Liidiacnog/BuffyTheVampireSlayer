@@ -4,8 +4,7 @@ package logic;
 import logic.gameObjects.*;
 import logic.lists.*;
 
-/*The classes Game and Board only deal with generic elements (i.e. of class GameElement) and so cannot distinguish 
-the concrete class of the objects being manipulated.*/
+
 public class GameObjectBoard {
 	
 	private GameElementsList gameElements;
@@ -93,7 +92,7 @@ public class GameObjectBoard {
 	}
 	
 	
-	//true if the vampire on (x, y) could move	
+	//true if the vampire on (x, y) could move	(if newX, newY contains no other GameElement)
 	public boolean vampCanMove(int x, int y) {
 		int newX = Vampire.moveX(x);
 		int newY = Vampire.moveY(y);

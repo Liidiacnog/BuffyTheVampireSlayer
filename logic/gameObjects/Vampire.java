@@ -37,12 +37,7 @@ public class Vampire extends GameElement{
 			}
 		}		
 	}
-		
-	
-	//reduces its life by "harm"	
-	public void damage(int harm) {
-		life -= harm;
-	}
+
 		
 	//hides isDead() from GameElement to keep count of VampsOnBoard
 	public boolean isDead() {
@@ -85,17 +80,17 @@ public class Vampire extends GameElement{
 	}
 	
 	
-	//moves if it's its turn to do so and there is no one on the tile where he would be going
+	//moves if it's its turn to do so and there is no one on the tile where it would be going
 	public void move() {
 		if (game.vampCanMove(col, row)) {
 			if (!movedBefore && !stunned) {
 				col -= 1;
 				if(col == -1) 
 					Vampire.setReachEnd(true);
-			} else if (movedBefore)
+			} else if (movedBefore && stunned)
 				stunned = false;
-		movedBefore = !movedBefore;
 		}
+		movedBefore = !movedBefore;
 	}
 	
 	

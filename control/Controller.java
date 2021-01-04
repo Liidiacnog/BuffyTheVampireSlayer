@@ -42,7 +42,7 @@ public class Controller {
 			 try {
 				 command = CommandGenerator.parseCommand(parameters);
 			     refreshDisplay = command.execute(game);
-		    	 if(game.getNewGameCycle()) //is set to true by those commands which cause game to continue (attacking, moving, ...) 
+		    	 if(game.getNewGameCycle()) //newGameCycle is set to true by those commands which cause game to continue (attacking, moving, ...) 
 		    	  	game.gameCycle();
 		    	 game.setNewGameCycle(false); //default value, may or may not be modified by the execute() method of each command
 			 } catch (GameException ex) {

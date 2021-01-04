@@ -1,5 +1,6 @@
 package control.commands;
 
+import exceptions.CommandParseException;
 import exceptions.GameException;
 import logic.Game;
 
@@ -34,12 +35,12 @@ public class AddBloodBankCommand extends Command {
 
 
 	@Override
-	public Command parse(String[] commandWords) {
+	public Command parse(String[] commandWords) throws CommandParseException{
 		AddBloodBankCommand command = null;
 		if (matchCommandName(commandWords[0]) && commandWords.length == 4) {
 			command = new AddBloodBankCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]));
 		} else if (matchCommandName(commandWords[0])) {
-			System.out.println("[ERROR]: " + incorrectArgsMsg);
+			throw new CommandParseException ("[ERROR]: " + incorrectArgsMsg);
 		}
 		
 		return command;
