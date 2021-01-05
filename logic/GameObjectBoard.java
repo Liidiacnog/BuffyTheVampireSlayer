@@ -161,6 +161,10 @@ public class GameObjectBoard {
 		gameElements.lightFlash();		
 	}
 
+	public String stringify() {
+		return gameElements.stringify();
+	}
+
 	
 	//Getters:
 

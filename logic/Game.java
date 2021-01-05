@@ -310,6 +310,19 @@ public class Game implements IPrintable {
 	public boolean vampCanMove(int x, int y) {
 		return board.vampCanMove(x, y);
 	}
+
+
+	public String stringify() {
+		String state;
+		state = "Cycles: " + cycles + '\n';
+		state += "Coins: " + player.getCoins() + '\n';
+		state += "Level: " + level.getName().toUpperCase() + '\n';
+		state += "Remaining Vampires: " + Vampire.getVampsLeft() + '\n';
+		state += "Vampires on Board: " + Vampire.getVampsOnBoard() + '\n';
+		state += '\n' + "Game Object List:" + '\n';
+		state += board.stringify();
+		return state;
+	}
 	
 
 	@Override

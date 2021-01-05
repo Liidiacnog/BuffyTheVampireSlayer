@@ -102,6 +102,13 @@ public class GameElementsList {
 		for (int i = 0; i < gameElements.size(); i++)
 			gameElements.get(i).lightFlash();
 	}
+
+	public String stringify() {
+		String str = "";
+		for (int i = 0; i < gameElements.size(); i++)
+			str += gameElements.get(i).stringify() + '\n';
+		return str;
+	}
 	
 	
 	

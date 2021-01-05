@@ -12,6 +12,7 @@ public class BloodBank extends GameElement {
 		super(x, y, game);
 		this.cost = cost;
 		life = resistance;
+		stringifyRep = "B";
 	}
 	
 	//implements the method defined in IAttack  
@@ -28,6 +29,10 @@ public class BloodBank extends GameElement {
 	
 	public String toString() {
 		return representation + "[" + cost + "]";
+	}
+	
+	public String stringify() {
+		return super.stringify() + ";" + cost;
 	}
 	
 	@Override
