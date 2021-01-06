@@ -1,5 +1,6 @@
 package control.commands;
 
+import exceptions.CommandExecuteException;
 import exceptions.GameException;
 import logic.Game;
 
@@ -14,7 +15,7 @@ public class GarlicPushCommand extends NoParamsCommand {
 
 	
 	@Override
-	public boolean execute(Game game) throws GameException {
+	public boolean execute(Game game) throws CommandExecuteException {
 		boolean exec = false;
 		if(game.garlicPush(cost)) {
 			game.setNewGameCycle(true);

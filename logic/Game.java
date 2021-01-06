@@ -3,8 +3,7 @@ import logic.gameObjects.*;
 
 import java.util.Random;
 
-import exceptions.CommandExecuteException;
-import exceptions.GameException;
+import exceptions.*;
 import view.*;
 
 public class Game implements IPrintable {
@@ -14,9 +13,9 @@ public class Game implements IPrintable {
 	private static final int INITIAL_COINS = 50; //initial coins of player
 	private static final double PROB_RECEIVING_COINS = 0.5; //player has 50% chances of receiving 10 coins
 	private static final String invalidPositionMsg = "Invalid position";//shown when adding a gameElement on an invalid position 
-	private static final String noVampsLeftMsg = "No more remaining vampires left";
+	private static final String noVampsLeftMsg = "No more remaining vampires left"; //TODO eliminate this and the one before?
 	private static final String draculaAlreadyMsg = "Dracula has already appeared";
-	
+
 	//fields
 	private Level level;
 	private Long seed; //provide one for predictable behaviour of tests
@@ -36,7 +35,7 @@ public class Game implements IPrintable {
 	public Game(Long seed, Level lvl) {
 		level = lvl;
 		this.seed = seed;
-		r = new Random(seed);
+		r = new Random(this.seed);
 		board = new GameObjectBoard(lvl.getColumns(), lvl.getRows(), lvl.getVampNumber());
 		player = new Player(INITIAL_COINS);
 		gamePrinter = new GamePrinter(this, lvl.getColumns(), lvl.getRows());
@@ -61,7 +60,7 @@ public class Game implements IPrintable {
 	
 	//actions on game loop:
 
-	public void gameCycle(){
+	public void gameCycle() {
 		update();
 		receiveCoins();
 		attack();
@@ -91,7 +90,7 @@ public class Game implements IPrintable {
 	}
 
 	
-	public void addVampires(){
+	public void addVampires() {// throws CommandExecuteException TODO eliminate?
 		addVampire();
 		if(addDracula())
 			DraculaOnBoard = true;
@@ -142,14 +141,15 @@ public class Game implements IPrintable {
 	
 	
 	//"artificial" addition of vampires to debug:
+
 	public boolean addVampire(int col, int row) throws CommandExecuteException{
 		boolean added = false;
 		if(Vampire.getVampsLeft() > 0) {
 			added = board.addVampire(col, row, this);	
-			if(!added)
-				throw new CommandExecuteException("[ERROR]: " +  invalidPositionMsg + '\n');
+			if(!added) 
+				throw new InvalidPositionException("vampire", col, row); //TODO Donde debe estar el mensaje de error?
 		}else {
-			throw new CommandExecuteException("[ERROR]: " +  noVampsLeftMsg + '\n');
+			throw new NoMoreVampiresException();
 		}
 		return added;
 	}
@@ -159,14 +159,14 @@ public class Game implements IPrintable {
 		boolean added = false;
 		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0) {
 			added = board.addDracula(col, row, this);	
-			if(!added)
-				throw new CommandExecuteException("[ERROR]: " +  invalidPositionMsg + '\n');
+			if(!added) 
+				throw new InvalidPositionException("Dracula", col, row);
 			else
 				DraculaOnBoard = true;
 		}else if (!(Vampire.getVampsLeft() > 0)){
-			throw new CommandExecuteException("[ERROR]: " +  noVampsLeftMsg + '\n'); 
+			throw new NoMoreVampiresException();
 		}else { //Dracula.getAppearedBefore() == true
-			throw new CommandExecuteException("[ERROR]: " + draculaAlreadyMsg + '\n');
+			throw new DraculaAlreadyOnBoardException();
 		}
 		return added;
 	}
@@ -178,9 +178,9 @@ public class Game implements IPrintable {
 		if(Vampire.getVampsLeft() > 0) {
 			added = board.addExplosiveVampire(col, row, this);	
 			if(!added)
-				throw new CommandExecuteException("[ERROR]: " +  invalidPositionMsg + '\n');
+				throw new InvalidPositionException("explosive vampire", col, row);
 		}else {
-			throw new CommandExecuteException("[ERROR]: " +  noVampsLeftMsg + '\n');
+			throw new NoMoreVampiresException();
 		}
 		return added;
 	}
@@ -230,10 +230,11 @@ public class Game implements IPrintable {
 				added = true;
 			} else { 
 				throw new CommandExecuteException(player.toStringNotEnoughCoins());
+				throw new NotEnaughCoinsException("Slayer", 50); //TODO el coste del slayer no es accesible desde aquí. Añadir cost en addCommand y como parametro?
 			}
 		}
 		else {
-			throw new CommandExecuteException("[ERROR]: " +  invalidPositionMsg + '\n');
+			throw new InvalidPositionException("slayer", x, y);
 		}
 		return added;
 	}
@@ -248,10 +249,11 @@ public class Game implements IPrintable {
 				added = true;
 			} else { 
 				throw new CommandExecuteException(player.toStringNotEnoughCoins()+ '\n');
+				throw new NotEnaughCoinsException("Bloodbank", cost);
 			}
 		}
 		else {
-			throw new CommandExecuteException("[ERROR]: " +  invalidPositionMsg + '\n');
+			throw new InvalidPositionException("bloodbank", x, y);
 		}
 		return added;
 	}
@@ -269,13 +271,13 @@ public class Game implements IPrintable {
 			flash = true;
 		} else 
 			throw new CommandExecuteException(player.toStringNotEnoughCoins() + '\n');
-		
+			throw new NotEnaughCoinsException("Light flash", cost);
 		return flash;
 	}
 	
 	
 	//checks if player affords garlicPush, and if so, calls method in board in charge of it
-	public boolean garlicPush(int cost) throws CommandExecuteException {
+	public boolean garlicPush(int cost)  throws CommandExecuteException {
 		boolean push = false;
 		if (player.canAfford(cost)) {
 			board.garlicPush();
@@ -283,7 +285,7 @@ public class Game implements IPrintable {
 			push = true;
 		} else 
 			throw new CommandExecuteException(player.toStringNotEnoughCoins()+ '\n');
-		
+			throw new NotEnaughCoinsException("Garlic push", cost);
 		return push;
 	}
 	
@@ -304,6 +306,19 @@ public class Game implements IPrintable {
 	//true if vampire on (x, y) can move
 	public boolean vampCanMove(int x, int y) {
 		return board.vampCanMove(x, y);
+	}
+
+
+	public String stringify() {
+		String state;
+		state = "Cycles: " + cycles + '\n';
+		state += "Coins: " + player.getCoins() + '\n';
+		state += "Level: " + level.getName().toUpperCase() + '\n';
+		state += "Remaining Vampires: " + Vampire.getVampsLeft() + '\n';
+		state += "Vampires on Board: " + Vampire.getVampsOnBoard() + '\n';
+		state += '\n' + "Game Object List:" + '\n';
+		state += board.stringify();
+		return state;
 	}
 	
 

@@ -16,6 +16,7 @@ public class Dracula extends Vampire {
 		super(x, y, game);
 		life = resistance;
 		appeared = true;
+		stringifyRep = "D";
 	}
 	
 	public String toString() {

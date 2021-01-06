@@ -20,11 +20,18 @@ public class Vampire extends GameElement{
 		movedBefore = true;
 		vampsOnBoard++; //new vampire is added to the board on x, y
 		vampsLeft--; //one less vampire can be added to the board
+		stringifyRep = "V";
 	}
 	
 
 	public String toString() {
 		return representation + "[" + life + "]";
+	}
+	
+	public String stringify() {
+		int cyclesToMove = 0;
+		if (movedBefore) cyclesToMove = 1;
+		return super.stringify() + ";" + cyclesToMove;
 	}
 
 	
@@ -38,7 +45,6 @@ public class Vampire extends GameElement{
 		}		
 	}
 
-		
 	//hides isDead() from GameElement to keep count of VampsOnBoard
 	public boolean isDead() {
 		boolean dead = false;

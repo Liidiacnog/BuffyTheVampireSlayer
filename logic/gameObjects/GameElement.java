@@ -6,6 +6,7 @@ public abstract class GameElement implements IAttack, IMove{
 
 	protected int col, row; //position coordinates on the board
 	protected int life = 0; //changed on constructor of each subclass whenever an object is instantiated
+	protected String stringifyRep;
 	protected Game game;
 	
 	public GameElement(int x, int y, Game game) {
@@ -47,5 +48,11 @@ public abstract class GameElement implements IAttack, IMove{
 	public void damage(int harm) {
 		life -= harm;
 	}
+
+	
+	public String stringify() {
+		return stringifyRep + ";" + col + ";" + row + ";" + life;
+	}
+
 
 }

@@ -17,6 +17,7 @@ public class BloodBank extends GameElement {
 	//implements the method defined in IAttack  
 	public boolean receiveVampireAttack(int harm) {
 		damage(harm);
+		stringifyRep = "B";
 		return true;
 	}
 	
@@ -28,6 +29,10 @@ public class BloodBank extends GameElement {
 	
 	public String toString() {
 		return representation + "[" + cost + "]";
+	}
+	
+	public String stringify() {
+		return super.stringify() + ";" + cost;
 	}
 	
 	@Override

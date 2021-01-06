@@ -2,9 +2,8 @@ package exceptions;
 
 public class DraculaAlreadyOnBoardException extends CommandExecuteException {
 
-	public DraculaAlreadyOnBoardException(String str) {
-		super(str);
-		// TODO Auto-generated constructor stub
+	public DraculaAlreadyOnBoardException() {
+		super("[DEBUG] Dracula is already on board", "vampire");
 	}
 
 }

@@ -11,6 +11,7 @@ public class Slayer extends GameElement{
 	public Slayer(int x, int y, Game game) {
 		super(x, y, game);
 		life = resistance; //just initially
+		stringifyRep = "S";
 	}
 	
 	

@@ -1,7 +1,7 @@
 package control.commands;
 
-import exceptions.CommandParseException;
-import exceptions.GameException;
+
+import exceptions.*;
 import logic.Game;
 
 public class AddBloodBankCommand extends Command {
@@ -21,7 +21,7 @@ public class AddBloodBankCommand extends Command {
 	}
 
 	@Override
-	public boolean execute(Game game) throws GameException {
+	public boolean execute(Game game) throws CommandExecuteException {
 		boolean exec = false;
 		if(game.addBloodBank(x, y, cost)) {
 			game.setIncrementCycles(true);
@@ -35,12 +35,17 @@ public class AddBloodBankCommand extends Command {
 
 
 	@Override
-	public Command parse(String[] commandWords) throws CommandParseException{
+	public Command parse(String[] commandWords) throws InvalidArgumentsException {
 		AddBloodBankCommand command = null;
 		if (matchCommandName(commandWords[0]) && commandWords.length == 4) {
-			command = new AddBloodBankCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]));
+			try {
+				command = new AddBloodBankCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]));
+			} catch (NumberFormatException nfe) {
+				throw new InvalidArgumentsException("[ERROR] Invalid arguments for add bloodbank, number expected: " + getDetails());
+			}
+			
 		} else if (matchCommandName(commandWords[0])) {
-			throw new CommandParseException ("[ERROR]: " + incorrectArgsMsg);
+			throw new InvalidArgumentsException("[ERROR] Invalid arguments for add bloodbank, number expected: " + getDetails());
 		}
 		
 		return command;

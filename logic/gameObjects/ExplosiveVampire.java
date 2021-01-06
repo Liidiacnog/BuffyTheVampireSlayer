@@ -15,6 +15,7 @@ public class ExplosiveVampire extends Vampire{
 		super(x, y, game);
 		life = resistance;
 		explode = true;
+		stringifyRep = "EV";
 	}
 	
 	
