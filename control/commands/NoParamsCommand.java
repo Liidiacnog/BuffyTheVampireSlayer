@@ -5,7 +5,7 @@ import exceptions.GameException;
 import exceptions.InvalidArgumentsException;
 import logic.Game;
 
-/*the NoParamsCommand class implements the parse method using the matchCommandName method inherited from Command. 
+/* the NoParamsCommand class implements the parse method using the matchCommandName method inherited from Command. 
  * In this way, the classes deriving from NoParamsCommand only need to implement the execute method.
  * Command subclasses that represent commands with parameters derive directly from the class Command and will
  *  need attributes to store the value of their parameters.*/

@@ -74,7 +74,6 @@ public class AddVampireCommand extends Command{
 							throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + getDetails());
 						}
 					else
-						
 						throw new InvalidVampireTypeException("[ERROR] Invalid type: " + getDetails());
 				} else if (commandWords.length == 3) {
 					try {
@@ -88,10 +87,3 @@ public class AddVampireCommand extends Command{
 			return command;
 		}
 }
-
-
-/*
-if (availableTypes.indexOf(commandWords[1].toUpperCase()) != -1) //it has been found in the ArrayList
-	command = new AddVampireCommand(Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]), commandWords[1]);
-else 
-	command = new AddVampireCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), "");*/

@@ -1,6 +1,7 @@
 package control.commands;
 
 import exceptions.CommandExecuteException;
+import exceptions.CommandParseException;
 import exceptions.GameException;
 import exceptions.InvalidArgumentsException;
 import logic.Game;
@@ -33,7 +34,7 @@ public class AddCommand extends Command {
 	}
 
 	@Override
-	public Command parse(String[] commandWords) throws InvalidArgumentsException {
+	public Command parse(String[] commandWords)  throws CommandParseException {
 		AddCommand command = null;
 		if (matchCommandName(commandWords[0]) && commandWords.length == 3) {
 			try {

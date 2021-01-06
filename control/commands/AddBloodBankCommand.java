@@ -35,7 +35,7 @@ public class AddBloodBankCommand extends Command {
 
 
 	@Override
-	public Command parse(String[] commandWords) throws InvalidArgumentsException {
+	public Command parse(String[] commandWords) throws CommandParseException {
 		AddBloodBankCommand command = null;
 		if (matchCommandName(commandWords[0]) && commandWords.length == 4) {
 			try {
@@ -43,7 +43,6 @@ public class AddBloodBankCommand extends Command {
 			} catch (NumberFormatException nfe) {
 				throw new InvalidArgumentsException("[ERROR] Invalid arguments for add bloodbank, number expected: " + getDetails());
 			}
-			
 		} else if (matchCommandName(commandWords[0])) {
 			throw new InvalidArgumentsException("[ERROR] Invalid arguments for add bloodbank, number expected: " + getDetails());
 		}
