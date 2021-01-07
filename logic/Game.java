@@ -119,7 +119,7 @@ public class Game implements IPrintable {
 	}
 	
 	
-	public boolean addDracula() {
+	public boolean addDracula() { 
 		boolean added = false;/*same probability of appearing as normal vampires, but only called if Dracula hasn't appeared yet*/
 		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
 			int col = level.getColumns() - 1; //vampires appear on last column always
