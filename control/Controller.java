@@ -55,7 +55,7 @@ public class Controller {
     	if (refreshDisplay) printGame();
 		System.out.println ("[Game over] " + game.getWinnerMessage());
 
-    }
+    } 
 
     
     
