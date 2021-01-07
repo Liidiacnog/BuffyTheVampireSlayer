@@ -17,13 +17,16 @@ public class GarlicPushCommand extends NoParamsCommand {
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException {
 		boolean exec = false;
-		if(game.garlicPush(cost)) {
-			game.setNewGameCycle(true);
-			game.setIncrementCycles(true);
-			exec = true;
-		}else
-			game.setIncrementCycles(false);
-		
+		try{
+			if(game.garlicPush(cost)) {
+				game.setNewGameCycle(true);
+				game.setIncrementCycles(true);
+				exec = true;
+			}else
+				game.setIncrementCycles(false);
+		}catch (CommandExecuteException lowLevel){
+			throw new CommandExecuteException("[ERROR] Failed to release garlic push", lowLevel);
+		}
 		return exec;
 	}
 

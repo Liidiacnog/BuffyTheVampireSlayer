@@ -38,12 +38,8 @@ public class Slayer extends GameElement{
 	}
 
 	
-	//returns -1 if coins aren't enough to pay for cost, or returns cost otherwise
-	public static int canAfford(int coins) {
-		int sol = -1;
-		if(coins >= cost)
-			sol = cost;
-		return sol;
+	public static int getCost() {
+		return cost;
 	}
 	
 	public boolean receiveVampireAttack(int harm) {

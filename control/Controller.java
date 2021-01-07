@@ -9,10 +9,10 @@ import logic.Game;
 
 public class Controller {
 	
-	public final String prompt = "Command > ";
-	public static final String unknownCommandMsg ="Unknown command";
-	static final String invalidParametersMsg = "Parameters are not valid";//shown when adding a gameElement on an invalid position
-	static Command command = null;
+	private final String prompt = "Command > ";
+	private static final String unknownCommandMsg ="Unknown command";
+	private static final String invalidParametersMsg = "Parameters are not valid";//shown when adding a gameElement on an invalid position
+	private Command command = null;
 
     private Game game;
     private Scanner scanner;
@@ -46,11 +46,11 @@ public class Controller {
 		    	  	game.gameCycle();
 		    	 game.setNewGameCycle(false); //default value, may or may not be modified by the execute() method of each command
 			 } catch (GameException ex) {
-				 System.out.format(ex.getMessage() + "%n%n");
+				 System.out.format(ex.getMessage() + "%n");
+				 if(ex.getCause() != null)
+					 System.out.format(ex.getCause() + "%n"); //TODO shows extra info : e.g. exceptions.InvalidPositionException: [DEBUG] Position (0, 13): Invalid position
+				 System.out.println();
 			 }
-	    	 if(game.getNewGameCycle()) //is set to true by those commands which cause game to continue (attacking, moving, ...) 
-		    	  	game.gameCycle();
-		    	 game.setNewGameCycle(false); //default value, may or may not be modified by the execute() method of each command
 		}
     	if (refreshDisplay) printGame();
 		System.out.println ("[Game over] " + game.getWinnerMessage());

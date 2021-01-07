@@ -2,12 +2,16 @@ package exceptions;
 
 public class CommandExecuteException extends GameException {
 
-	public CommandExecuteException(String Msg, String el) {
-		super("[ERROR] failed to " + addOrRelease(el) + " " + el + "%n" + Msg);
+	public CommandExecuteException(String str, Throwable cause) {
+		super(str, cause);
 	}
-
-	// Choose between add or release dependign on the element
-	private static String addOrRelease(String el) {
+	
+	public CommandExecuteException(String str) {
+		super(str);
+	}
+	
+	// Choose between add or release depending on the element
+	private static String addOrRelease(String el) { //TODO needed?
 		String str = "add";
 		if (el.equals("garlic push") || el.equals("light flash"))
 			str = "release";

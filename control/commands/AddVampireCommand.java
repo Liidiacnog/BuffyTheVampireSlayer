@@ -43,20 +43,23 @@ public class AddVampireCommand extends Command{
 		@Override
 		public boolean execute(Game game) throws CommandExecuteException {
 			boolean exec = false;
-			if(availableTypes.indexOf(type) == 0) {
-				if(game.addDracula(x, y))
-					exec = true;
+			try{
+				if(availableTypes.indexOf(type) == 0) {
+					if(game.addDracula(x, y))
+						exec = true;
+				}
+				else if(availableTypes.indexOf(type) == 1) {
+					if(game.addExplosiveVampire(x, y))
+						exec = true;
+				}
+				else {//always called when type matches none of the available ones, so last case is always normal vampire
+					if(game.addVampire(x, y))
+						exec = true;
+				}
+				game.setIncrementCycles(false);
+			}catch (CommandExecuteException lowLevel){
+				throw new CommandExecuteException("[ERROR] Failed to add Vampire", lowLevel); //TODO distinguish different types of vampires?
 			}
-			else if(availableTypes.indexOf(type) == 1) {
-				if(game.addExplosiveVampire(x, y))
-					exec = true;
-			}
-			else {//always called when type matches none of the available ones, so last case is always normal vampire
-				if(game.addVampire(x, y))
-					exec = true;
-			}
-			
-			game.setIncrementCycles(false);
 			
 			return exec;
 		}
@@ -71,7 +74,7 @@ public class AddVampireCommand extends Command{
 						try {
 							command = new AddVampireCommand(Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]), commandWords[1]);
 						} catch (NumberFormatException nfe) {
-							throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + getDetails());
+							throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + getDetails()); //TODO we leave it as an InvalidArgumentsException or as a CommandParseException? 
 						}
 					else
 						throw new InvalidVampireTypeException("[ERROR] Invalid type: " + getDetails());

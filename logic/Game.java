@@ -13,7 +13,7 @@ public class Game implements IPrintable {
 	private static final int INITIAL_COINS = 50; //initial coins of player
 	private static final double PROB_RECEIVING_COINS = 0.5; //player has 50% chances of receiving 10 coins
 	private static final String invalidPositionMsg = "Invalid position";//shown when adding a gameElement on an invalid position 
-	private static final String noVampsLeftMsg = "No more remaining vampires left"; //TODO eliminate this and the one before?
+	private static final String noVampsLeftMsg = "No more remaining vampires left";
 	private static final String draculaAlreadyMsg = "Dracula has already appeared";
 
 	//fields
@@ -90,14 +90,15 @@ public class Game implements IPrintable {
 	}
 
 	
-	public void addVampires() {// throws CommandExecuteException TODO eliminate?
+	//"natural" (random) addition of vampires on game cycle:
+	
+	public void addVampires() {
 		addVampire();
 		if(addDracula())
 			DraculaOnBoard = true;
 		addExplosiveVampire();
 	}
 
-	//"natural" (random) addition of vampires on game cycle:
 	
 	public boolean addVampire() {
 		/*
@@ -145,11 +146,11 @@ public class Game implements IPrintable {
 	public boolean addVampire(int col, int row) throws CommandExecuteException{
 		boolean added = false;
 		if(Vampire.getVampsLeft() > 0) {
-			added = board.addVampire(col, row, this);	
+			added = board.addVampire(col, row, this);
 			if(!added) 
-				throw new InvalidPositionException("vampire", col, row); //TODO Donde debe estar el mensaje de error?
+				throw new InvalidPositionException("[DEBUG] Position (" + col + ", " + row + "): " + invalidPositionMsg);
 		}else {
-			throw new NoMoreVampiresException();
+			throw new NoMoreVampiresException("[DEBUG] " + noVampsLeftMsg);
 		}
 		return added;
 	}
@@ -160,13 +161,14 @@ public class Game implements IPrintable {
 		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0) {
 			added = board.addDracula(col, row, this);	
 			if(!added) 
-				throw new InvalidPositionException("Dracula", col, row);
+				throw new InvalidPositionException("[DEBUG] Position (" + col + ", " + row + "): " + invalidPositionMsg);
 			else
 				DraculaOnBoard = true;
 		}else if (!(Vampire.getVampsLeft() > 0)){
-			throw new NoMoreVampiresException();
-		}else { //Dracula.getAppearedBefore() == true
-			throw new DraculaAlreadyOnBoardException();
+			throw new NoMoreVampiresException("[DEBUG] " + noVampsLeftMsg);
+		}
+		else { //Dracula.getAppearedBefore() == true
+			throw new DraculaAlreadyOnBoardException( "[DEBUG] " + draculaAlreadyMsg);
 		}
 		return added;
 	}
@@ -178,9 +180,9 @@ public class Game implements IPrintable {
 		if(Vampire.getVampsLeft() > 0) {
 			added = board.addExplosiveVampire(col, row, this);	
 			if(!added)
-				throw new InvalidPositionException("explosive vampire", col, row);
+				throw new InvalidPositionException("[DEBUG] Position (" + col + ", " + row + "): " + invalidPositionMsg);
 		}else {
-			throw new NoMoreVampiresException();
+			throw new NoMoreVampiresException("[DEBUG] " + noVampsLeftMsg);
 		}
 		return added;
 	}
@@ -223,19 +225,17 @@ public class Game implements IPrintable {
 	
 	public boolean addSlayer(int x, int y) throws CommandExecuteException {
 		boolean added = false;
-		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add slayer on last column 
-			if (board.canAfford(player.getCoins()) != -1) {
+		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //because we cannot add slayer on last column 
+			int cost = Slayer.getCost();
+			if (cost <= player.getCoins()) { //can afford
 				board.addSlayer(x, y, this); 
-				player.payCoins(board.canAfford(player.getCoins()));
+				player.payCoins(cost);
 				added = true;
-			} else { 
-				throw new CommandExecuteException(player.toStringNotEnoughCoins());
-				throw new NotEnaughCoinsException("Slayer", 50); //TODO el coste del slayer no es accesible desde aquí. Añadir cost en addCommand y como parametro?
-			}
-		}
-		else {
-			throw new InvalidPositionException("slayer", x, y);
-		}
+			} else //if cannot afford
+				throw new NotEnoughCoinsException("[DEBUG] Slayer cost is " + cost + " " + player.toStringNotEnoughCoins());
+		}else
+			throw new InvalidPositionException("[DEBUG] Position (" + x + ", " + y + "): " + invalidPositionMsg);
+		
 		return added;
 	}
 
@@ -247,13 +247,12 @@ public class Game implements IPrintable {
 				board.addBloodBank(x, y, cost, this); 
 				player.payCoins(cost);
 				added = true;
-			} else { 
-				throw new CommandExecuteException(player.toStringNotEnoughCoins()+ '\n');
-				throw new NotEnaughCoinsException("Bloodbank", cost);
+			} else { //cannot afford
+				throw new NotEnoughCoinsException("[DEBUG] Bloodbank cost is " + cost + " " + player.toStringNotEnoughCoins());
 			}
 		}
 		else {
-			throw new InvalidPositionException("bloodbank", x, y);
+			throw new InvalidPositionException("[DEBUG] Position (" + x + ", " + y + "): " + invalidPositionMsg);
 		}
 		return added;
 	}
@@ -270,8 +269,8 @@ public class Game implements IPrintable {
 			player.payCoins(cost);
 			flash = true;
 		} else 
-			throw new CommandExecuteException(player.toStringNotEnoughCoins() + '\n');
-			throw new NotEnaughCoinsException("Light flash", cost);
+			throw new NotEnoughCoinsException("[DEBUG] Light Flash cost is " + cost + " " + player.toStringNotEnoughCoins());
+		
 		return flash;
 	}
 	
@@ -284,8 +283,8 @@ public class Game implements IPrintable {
 			player.payCoins(cost);
 			push = true;
 		} else 
-			throw new CommandExecuteException(player.toStringNotEnoughCoins()+ '\n');
-			throw new NotEnaughCoinsException("Garlic push", cost);
+			throw new NotEnoughCoinsException("[DEBUG] Garlic Push cost is " + cost + " " + player.toStringNotEnoughCoins());
+			
 		return push;
 	}
 	

@@ -10,3 +10,4 @@
 /InvalidArgumentsException.class
 /DraculaAlreadyOnBoardException.class
 /InvalidVampireTypeException.class
+/NotEnoughCoinsException.class

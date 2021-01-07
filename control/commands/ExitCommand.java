@@ -1,6 +1,5 @@
 package control.commands;
 
-import exceptions.CommandExecuteException;
 import logic.Game;
 
 public class ExitCommand extends NoParamsCommand {
@@ -10,7 +9,7 @@ public class ExitCommand extends NoParamsCommand {
 	}
 
 	@Override
-	public boolean execute(Game game) throws CommandExecuteException {
+	public boolean execute(Game game)  {
 		game.setIncrementCycles(false);
 		game.exit();
 		return false;

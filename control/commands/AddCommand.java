@@ -23,12 +23,16 @@ public class AddCommand extends Command {
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException {
 		boolean exec = false;
-		if(game.addSlayer(x, y)) {
-			game.setIncrementCycles(true);
-			game.setNewGameCycle(true);
-			exec = true;
-		}else {
-			game.setIncrementCycles(false);
+		try{
+			if(game.addSlayer(x, y)) {
+				game.setIncrementCycles(true);
+				game.setNewGameCycle(true);
+				exec = true;
+			}else {
+				game.setIncrementCycles(false);
+			}
+		}catch (CommandExecuteException lowLevel){
+			throw new CommandExecuteException("[ERROR] Failed to add Vampire", lowLevel);
 		}
 		return exec;
 	}

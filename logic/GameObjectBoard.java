@@ -132,12 +132,6 @@ public class GameObjectBoard {
 	public boolean vampsWin() {
 		return Vampire.getReachEnd();
 	}
-
-	
-	//returns the cost of a slayer if coins are enough to afford it, otherwise returns -1
-	public int canAfford(int coins) {
-		return Slayer.canAfford(coins);
-	}
 	
 	
 	//true if the player has finished the game by eliminating all possible vampires

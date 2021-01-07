@@ -1,8 +1,6 @@
 package control.commands;
 
-import exceptions.CommandExecuteException;
-import exceptions.GameException;
-import exceptions.InvalidArgumentsException;
+import exceptions.*;
 import logic.Game;
 
 /* the NoParamsCommand class implements the parse method using the matchCommandName method inherited from Command. 
@@ -18,7 +16,7 @@ public abstract class NoParamsCommand extends Command {
 		super(name, shortcut, details, help);
 	}
 
-	public Command parse(String[] input) throws InvalidArgumentsException {
+	public Command parse(String[] input) throws CommandParseException {
 		Command obj = null;
 		if(matchCommandName(input[0]) && input.length == 1)
 			obj = this;

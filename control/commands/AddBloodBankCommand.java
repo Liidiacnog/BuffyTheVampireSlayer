@@ -23,13 +23,16 @@ public class AddBloodBankCommand extends Command {
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException {
 		boolean exec = false;
-		if(game.addBloodBank(x, y, cost)) {
-			game.setIncrementCycles(true);
-			game.setNewGameCycle(true);
-			exec = true;
-		}else
-			game.setIncrementCycles(false);
-		
+		try{
+			if(game.addBloodBank(x, y, cost)) {
+				game.setIncrementCycles(true);
+				game.setNewGameCycle(true);
+				exec = true;
+			}else
+				game.setIncrementCycles(false);
+		}catch (CommandExecuteException lowLevel){
+			throw new CommandExecuteException("[ERROR] Failed to add BloodBank", lowLevel);
+		}
 		return exec;
 	}
 

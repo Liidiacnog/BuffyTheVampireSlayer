@@ -16,12 +16,16 @@ public class LightFlashCommand extends NoParamsCommand{
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException {
 		boolean exec = false;
-		if(game.lightFlash(cost)) {
-			game.setIncrementCycles(true);
-			game.setNewGameCycle(true);
-			exec = true;
-		} else
-			game.setIncrementCycles(false);
+		try{
+			if(game.lightFlash(cost)) {
+				game.setIncrementCycles(true);
+				game.setNewGameCycle(true);
+				exec = true;
+			} else
+				game.setIncrementCycles(false);
+		}catch (CommandExecuteException lowLevel){
+			throw new CommandExecuteException("[ERROR] Failed to release light flash", lowLevel);
+		}
 		return exec;
 	}
 	

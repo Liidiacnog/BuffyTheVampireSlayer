@@ -2,13 +2,15 @@ package exceptions;
 
 public class GameException extends Exception {
 	
-	private String errorMsg;
-
-	public GameException(String str) {
-		errorMsg = str;
+	public GameException(String str, Throwable cause) {
+		super(str, cause);
 	}
 	
-	public String getMessage() {
-		return errorMsg;
+	public GameException(String str) {
+		super(str);
 	}
+	
+	//TODO @Overwrite getCause()?
+	
+	
 }
