@@ -48,9 +48,9 @@ public class Controller {
 			 } catch (GameException ex) {
 				 System.out.format(ex.getMessage() + "%n%n");
 			 }
-	    	 if(game.getNewGameCycle()) //is set to true by those commands which cause game to continue (attacking, moving, ...) 
+	    	 if(game.getNewGameCycle()) 
 		    	  	game.gameCycle();
-		    	 game.setNewGameCycle(false); //default value, may or may not be modified by the execute() method of each command
+		    	 game.setNewGameCycle(false); //TODO quitar esto de aquí, repetido?
 		}
     	if (refreshDisplay) printGame();
 		System.out.println ("[Game over] " + game.getWinnerMessage());
