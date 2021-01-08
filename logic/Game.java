@@ -60,7 +60,7 @@ public class Game implements IPrintable {
 	
 	//actions on game loop:
 
-	public void gameCycle() {
+	public void gameCycle() throws CommandExecuteException{
 		update();
 		receiveCoins();
 		attack();
@@ -92,7 +92,7 @@ public class Game implements IPrintable {
 	
 	//"natural" (random) addition of vampires on game cycle:
 	
-	public void addVampires() {
+	public void addVampires() throws CommandExecuteException {
 		addVampire();
 		if(addDracula())
 			DraculaOnBoard = true;
@@ -119,19 +119,22 @@ public class Game implements IPrintable {
 	}
 	
 	
-	public boolean addDracula() { 
+	public boolean addDracula() throws DraculaHasArisenException{ 
 		boolean added = false;/*same probability of appearing as normal vampires, but only called if Dracula hasn't appeared yet*/
 		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
 			int col = level.getColumns() - 1; //vampires appear on last column always
 			int row = r.nextInt(level.getRows());
 			added = board.addDracula(col, row, this);	
 		}
+		else if (Dracula.getAppearedBefore()) {
+			throw new DraculaHasArisenException(); //TODO correct if it doesn't display any message bc in this case it is not needed? :  "[DEBUG] " + draculaAlreadyMsg
+		}
 		return added;
 	}
 	
 	
 	public boolean addExplosiveVampire() {
-		boolean added = false;/*same probability of appearing as normal vampires*/
+		boolean added = false; /*same probability of appearing as normal vampires*/
 		if(Vampire.getVampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
 			int col = level.getColumns() - 1; //vampires appear on last column always
 			int row = r.nextInt(level.getRows());
@@ -168,7 +171,7 @@ public class Game implements IPrintable {
 			throw new NoMoreVampiresException("[DEBUG] " + noVampsLeftMsg);
 		}
 		else { //Dracula.getAppearedBefore() == true
-			throw new DraculaAlreadyOnBoardException( "[DEBUG] " + draculaAlreadyMsg);
+			throw new DraculaHasArisenException( "[DEBUG] " + draculaAlreadyMsg);
 		}
 		return added;
 	}

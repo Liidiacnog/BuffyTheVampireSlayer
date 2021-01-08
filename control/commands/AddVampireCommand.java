@@ -58,7 +58,7 @@ public class AddVampireCommand extends Command{
 				}
 				game.setIncrementCycles(false);
 			}catch (CommandExecuteException lowLevel){
-				throw new CommandExecuteException("[ERROR] Failed to add Vampire", lowLevel); //TODO distinguish different types of vampires?
+				throw new CommandExecuteException("[ERROR] Failed to add Vampire", lowLevel); 
 			}
 			
 			return exec;

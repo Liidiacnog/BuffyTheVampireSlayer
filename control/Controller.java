@@ -48,7 +48,7 @@ public class Controller {
 			 } catch (GameException ex) {
 				 System.out.format(ex.getMessage() + "%n");
 				 if(ex.getCause() != null)
-					 System.out.format(ex.getCause() + "%n"); //TODO shows extra info : e.g. exceptions.InvalidPositionException: [DEBUG] Position (0, 13): Invalid position
+					 System.out.format(ex.getCause().getMessage() + "%n");
 				 System.out.println();
 			 }
 		}

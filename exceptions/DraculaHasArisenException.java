@@ -4,8 +4,23 @@ package exceptions;
 
 public class DraculaHasArisenException extends CommandExecuteException {
 
+	public DraculaHasArisenException() {
+		super();
+	}
+	
 	public DraculaHasArisenException(String str) {
 		super(str);
 	}
-
+	
+	public DraculaHasArisenException(String str, Throwable cause) {
+		super(str, cause);
+	}
+	
+	public DraculaHasArisenException(Throwable cause) {
+		super(cause);
+	}
+	
+	public DraculaHasArisenException(String str, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+		super(str, cause, enableSuppression, writableStackTrace);
+	}
 }
