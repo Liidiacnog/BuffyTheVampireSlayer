@@ -34,7 +34,7 @@ public class AddCommand extends Command {
 				game.setIncrementCycles(false);
 			}
 		}catch (InvalidPositionException | NotEnoughCoinsException lowLevel){
-			throw new CommandExecuteException("[ERROR] Failed to add Vampire", lowLevel);
+			throw new CommandExecuteException("[ERROR] Failed to add slayer", lowLevel);
 		}
 		return exec;
 	}

@@ -36,7 +36,7 @@ public class CommandGenerator {
 					throw new CommandParseException("[ERROR] Unknown command");
 			
 			}catch(InvalidArgumentsException | InvalidVampireTypeException ex) {
-					throw new CommandParseException("[ERROR] Unknown command", ex);
+					throw new CommandParseException(ex.getMessage()); // TODO quitar "[ERROR] Unknown command", );
 			}
 						
 			return obj;

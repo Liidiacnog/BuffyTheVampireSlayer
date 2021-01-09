@@ -61,7 +61,7 @@ public class AddVampireCommand extends Command{
 				}
 				game.setIncrementCycles(false);
 			}catch (InvalidPositionException | NoMoreVampiresException | DraculaHasArisenException lowLevel){ //wrapping of low-level exceptions
-				throw new CommandExecuteException("[ERROR] Failed to add Vampire", lowLevel); 
+				throw new CommandExecuteException("[ERROR] Failed to add vampire", lowLevel); 
 			}
 			
 			return exec;

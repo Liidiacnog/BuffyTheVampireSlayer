@@ -238,7 +238,7 @@ public class Game implements IPrintable {
 				player.payCoins(cost);
 				added = true;
 			} else //if cannot afford
-				throw new NotEnoughCoinsException("[DEBUG] Slayer cost is " + cost + " " + player.toStringNotEnoughCoins());
+				throw new NotEnoughCoinsException("[DEBUG] Slayer cost is " + cost + ". " + player.toStringNotEnoughCoins());
 		}else
 			throw new InvalidPositionException("[DEBUG] Position (" + x + ", " + y + "): " + invalidPositionMsg);
 		
@@ -254,7 +254,7 @@ public class Game implements IPrintable {
 				player.payCoins(cost);
 				added = true;
 			} else { //cannot afford
-				throw new NotEnoughCoinsException("[DEBUG] Bloodbank cost is " + cost + " " + player.toStringNotEnoughCoins());
+				throw new NotEnoughCoinsException("[DEBUG] Bloodbank cost is " + cost + ". " + player.toStringNotEnoughCoins());
 			}
 		}
 		else {
@@ -333,7 +333,7 @@ public class Game implements IPrintable {
 		char jumpLine = '\n';
 		str = jumpLine + "Cycle number: " + cycles + jumpLine;
 		str += "Coins: " + player.getCoins() + jumpLine;
-		str += "Remainig vampires: " + Vampire.getVampsLeft() + jumpLine;
+		str += "Remaining vampires: " + Vampire.getVampsLeft() + jumpLine;
 		str += "Vampires on the board: " + Vampire.getVampsOnBoard() + jumpLine;
 		if (DraculaOnBoard)
 			str += DraculaArisenMsg + jumpLine;
