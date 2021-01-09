@@ -7,9 +7,12 @@ import java.util.Arrays;
 
 import exceptions.CommandExecuteException;
 import exceptions.CommandParseException;
+import exceptions.DraculaHasArisenException;
 import exceptions.GameException;
 import exceptions.InvalidArgumentsException;
+import exceptions.InvalidPositionException;
 import exceptions.InvalidVampireTypeException;
+import exceptions.NoMoreVampiresException;
 
 /*
  *If no type is indicated, the vampire placed on the board is a normal vampire, 
@@ -57,7 +60,7 @@ public class AddVampireCommand extends Command{
 						exec = true;
 				}
 				game.setIncrementCycles(false);
-			}catch (CommandExecuteException lowLevel){
+			}catch (InvalidPositionException | NoMoreVampiresException | DraculaHasArisenException lowLevel){ //wrapping of low-level exceptions
 				throw new CommandExecuteException("[ERROR] Failed to add Vampire", lowLevel); 
 			}
 			
@@ -66,7 +69,7 @@ public class AddVampireCommand extends Command{
 
 		
 		@Override
-		public Command parse(String[] commandWords) throws CommandParseException {
+		public Command parse(String[] commandWords) throws InvalidArgumentsException, InvalidVampireTypeException  {
 			AddVampireCommand command = null;
 			if (matchCommandName(commandWords[0])) {
 				if (commandWords.length == 4) {

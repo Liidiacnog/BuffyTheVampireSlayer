@@ -2,7 +2,7 @@ package exceptions;
 
 /*thrown when an attempt is made to add Dracula to the board in spite of the fact that he is already present.*/
 
-public class DraculaHasArisenException extends CommandExecuteException {
+public class DraculaHasArisenException extends Exception {
 
 	public DraculaHasArisenException() {
 		super();

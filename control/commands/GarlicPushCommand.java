@@ -2,6 +2,8 @@ package control.commands;
 
 import exceptions.CommandExecuteException;
 import exceptions.GameException;
+import exceptions.InvalidPositionException;
+import exceptions.NotEnoughCoinsException;
 import logic.Game;
 
 
@@ -24,7 +26,7 @@ public class GarlicPushCommand extends NoParamsCommand {
 				exec = true;
 			}else
 				game.setIncrementCycles(false);
-		}catch (CommandExecuteException lowLevel){
+		}catch (NotEnoughCoinsException lowLevel){
 			throw new CommandExecuteException("[ERROR] Failed to release garlic push", lowLevel);
 		}
 		return exec;

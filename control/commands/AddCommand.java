@@ -4,6 +4,8 @@ import exceptions.CommandExecuteException;
 import exceptions.CommandParseException;
 import exceptions.GameException;
 import exceptions.InvalidArgumentsException;
+import exceptions.InvalidPositionException;
+import exceptions.NotEnoughCoinsException;
 import logic.Game;
 
 public class AddCommand extends Command {
@@ -31,14 +33,14 @@ public class AddCommand extends Command {
 			}else {
 				game.setIncrementCycles(false);
 			}
-		}catch (CommandExecuteException lowLevel){
+		}catch (InvalidPositionException | NotEnoughCoinsException lowLevel){
 			throw new CommandExecuteException("[ERROR] Failed to add Vampire", lowLevel);
 		}
 		return exec;
 	}
 
 	@Override
-	public Command parse(String[] commandWords)  throws CommandParseException {
+	public Command parse(String[] commandWords)  throws InvalidArgumentsException {
 		AddCommand command = null;
 		if (matchCommandName(commandWords[0]) && commandWords.length == 3) {
 			try {

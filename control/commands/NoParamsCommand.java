@@ -16,7 +16,7 @@ public abstract class NoParamsCommand extends Command {
 		super(name, shortcut, details, help);
 	}
 
-	public Command parse(String[] input) throws CommandParseException {
+	public Command parse(String[] input) throws InvalidArgumentsException {
 		Command obj = null;
 		if(matchCommandName(input[0]) && input.length == 1)
 			obj = this;

@@ -16,7 +16,7 @@ public class UpdateCommand extends NoParamsCommand{
 	}
 
 	@Override
-	public Command parse(String[] commandWords) throws CommandParseException{
+	public Command parse(String[] commandWords){
 		UpdateCommand command = null;
 		if (matchCommandName(commandWords[0]) || commandWords[0].equals("")) {
 			command = new UpdateCommand();

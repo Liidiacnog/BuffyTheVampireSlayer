@@ -3,6 +3,7 @@ package control;
 import java.util.Scanner;
 
 import control.commands.Command;
+import exceptions.DraculaHasArisenException;
 import exceptions.GameException;
 import utils.CommandGenerator;
 import logic.Game;
@@ -10,8 +11,6 @@ import logic.Game;
 public class Controller {
 	
 	private final String prompt = "Command > ";
-	private static final String unknownCommandMsg ="Unknown command";
-	private static final String invalidParametersMsg = "Parameters are not valid";//shown when adding a gameElement on an invalid position
 	private Command command = null;
 
     private Game game;

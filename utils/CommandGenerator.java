@@ -1,9 +1,7 @@
 package utils;
 
 import control.commands.*;
-import exceptions.CommandParseException;
-import exceptions.GameException;
-import exceptions.UnknownCommandException;
+import exceptions.*;
 
 
 //utility class: all its methods are static
@@ -28,14 +26,19 @@ public class CommandGenerator {
 		public static Command parseCommand (String[] input) throws CommandParseException {
 			Command obj = null;
 			int i = 0; 
-			while(i < availableCommands.length && availableCommands[i].parse(input) == null) {
-				++i; 
-			}
-			if (i != availableCommands.length)
-				obj = availableCommands[i].parse(input);
-			else
-				throw new UnknownCommandException("[ERROR] Unknown command");
+			try{
+				while(i < availableCommands.length && availableCommands[i].parse(input) == null) {
+					++i; 
+				}
+				if (i != availableCommands.length)
+					obj = availableCommands[i].parse(input);
+				else
+					throw new CommandParseException("[ERROR] Unknown command");
 			
+			}catch(InvalidArgumentsException | InvalidVampireTypeException ex) {
+					throw new CommandParseException("[ERROR] Unknown command", ex);
+			}
+						
 			return obj;
 		}
 		

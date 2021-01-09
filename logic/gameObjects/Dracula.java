@@ -38,6 +38,7 @@ public class Dracula extends Vampire {
 			dead = true;
 			vampsOnBoard--;
 			appeared = false; 
+			game.draculaDie();
 		}
 		return dead;
 	}

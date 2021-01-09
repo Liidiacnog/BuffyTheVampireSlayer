@@ -2,6 +2,8 @@ package control.commands;
 
 import exceptions.CommandExecuteException;
 import exceptions.GameException;
+import exceptions.InvalidPositionException;
+import exceptions.NotEnoughCoinsException;
 import logic.Game;
 
 
@@ -23,7 +25,7 @@ public class LightFlashCommand extends NoParamsCommand{
 				exec = true;
 			} else
 				game.setIncrementCycles(false);
-		}catch (CommandExecuteException lowLevel){
+		}catch (NotEnoughCoinsException lowLevel){
 			throw new CommandExecuteException("[ERROR] Failed to release light flash", lowLevel);
 		}
 		return exec;

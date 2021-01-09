@@ -30,7 +30,7 @@ public class AddBloodBankCommand extends Command {
 				exec = true;
 			}else
 				game.setIncrementCycles(false);
-		}catch (CommandExecuteException lowLevel){
+		}catch (InvalidPositionException | NotEnoughCoinsException lowLevel){
 			throw new CommandExecuteException("[ERROR] Failed to add BloodBank", lowLevel);
 		}
 		return exec;
@@ -38,7 +38,7 @@ public class AddBloodBankCommand extends Command {
 
 
 	@Override
-	public Command parse(String[] commandWords) throws CommandParseException {
+	public Command parse(String[] commandWords) throws InvalidArgumentsException {
 		AddBloodBankCommand command = null;
 		if (matchCommandName(commandWords[0]) && commandWords.length == 4) {
 			try {
