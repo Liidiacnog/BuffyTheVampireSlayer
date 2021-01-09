@@ -3,7 +3,6 @@ package control;
 import java.util.Scanner;
 
 import control.commands.Command;
-import exceptions.DraculaHasArisenException;
 import exceptions.GameException;
 import utils.CommandGenerator;
 import logic.Game;

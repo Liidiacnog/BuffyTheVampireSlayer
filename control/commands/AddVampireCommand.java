@@ -5,14 +5,7 @@ import logic.Game;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import exceptions.CommandExecuteException;
-import exceptions.CommandParseException;
-import exceptions.DraculaHasArisenException;
-import exceptions.GameException;
-import exceptions.InvalidArgumentsException;
-import exceptions.InvalidPositionException;
-import exceptions.InvalidVampireTypeException;
-import exceptions.NoMoreVampiresException;
+import exceptions.*;
 
 /*
  *If no type is indicated, the vampire placed on the board is a normal vampire, 
@@ -77,7 +70,7 @@ public class AddVampireCommand extends Command{
 						try {
 							command = new AddVampireCommand(Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]), commandWords[1]);
 						} catch (NumberFormatException nfe) {
-							throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + getDetails()); //TODO we leave it as an InvalidArgumentsException or as a CommandParseException? 
+							throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + getDetails()); 
 						}
 					else
 						throw new InvalidVampireTypeException("[ERROR] Invalid type: " + getDetails());

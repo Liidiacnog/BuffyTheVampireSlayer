@@ -1,7 +1,6 @@
 package control.commands;
 
 import logic.Game;
-import exceptions.*;
 
 public class UpdateCommand extends NoParamsCommand{
 

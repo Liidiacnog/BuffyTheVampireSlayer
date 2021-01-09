@@ -22,13 +22,4 @@ public class CommandExecuteException extends GameException {
 		super(str, cause, enableSuppression, writableStackTrace);
 	}
 	
-	
-	// Choose between add or release depending on the element
-	private static String addOrRelease(String el) { //TODO needed?
-		String str = "add";
-		if (el.equals("garlic push") || el.equals("light flash"))
-			str = "release";
-		return str;
-	}
-
 }

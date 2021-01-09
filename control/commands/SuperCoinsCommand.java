@@ -8,7 +8,7 @@ public class SuperCoinsCommand extends NoParamsCommand{
 	private static final int SUPER_COINS = 1000;
 	
 	public SuperCoinsCommand() {
-		super("super coins", "c", "[c]oins", "immediately gives the player 1000 coins");
+		super("coins", "c", "[c]oins", "immediately gives the player 1000 coins");
 	}
 
 	

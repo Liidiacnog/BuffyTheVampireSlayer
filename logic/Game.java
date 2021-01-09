@@ -100,9 +100,9 @@ public class Game implements IPrintable {
 	//"natural" (random) addition of vampires on game cycle:
 	
 	public void addVampires() throws DraculaHasArisenException {
-		addVampire();
 		if(addDracula())
 			DraculaOnBoard = true;
+		addVampire();
 		addExplosiveVampire();
 	}
 
@@ -325,7 +325,7 @@ public class Game implements IPrintable {
 		state += "Level: " + level.getName().toUpperCase() + '\n';
 		state += "Remaining Vampires: " + Vampire.getVampsLeft() + '\n';
 		state += "Vampires on Board: " + Vampire.getVampsOnBoard() + '\n';
-		state += '\n' + "Game Object List:" + '\n';
+		state += '\n' + "GameElement List:" + '\n';
 		state += board.stringify();
 		return state;
 	}

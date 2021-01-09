@@ -18,8 +18,8 @@ public class CommandGenerator {
 				new AddBloodBankCommand(),
 				new SuperCoinsCommand(),
 				new AddVampireCommand(), 
-				new StringifyCommand(), 
-				new SaveCommand()
+				new SaveCommand(),
+				new StringifyCommand() 
 		};
 		
 		/*passes the minimally processed input text to an object of each of the concrete command classes, 
@@ -31,15 +31,17 @@ public class CommandGenerator {
 				while(i < availableCommands.length && availableCommands[i].parse(input) == null) {
 					++i; 
 				}
+				
 				if (i != availableCommands.length)
 					obj = availableCommands[i].parse(input);
 				else
 					throw new CommandParseException("[ERROR] Unknown command");
 			
+				
 			}catch(InvalidArgumentsException | InvalidVampireTypeException ex) {
-					throw new CommandParseException(ex.getMessage()); // TODO quitar "[ERROR] Unknown command", );
+					throw new CommandParseException(ex.getMessage()); 
 			}
-						
+									
 			return obj;
 		}
 		

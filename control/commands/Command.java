@@ -1,10 +1,6 @@
 package control.commands;
 
-import exceptions.CommandExecuteException;
-import exceptions.CommandParseException;
-import exceptions.GameException;
-import exceptions.InvalidArgumentsException;
-import exceptions.InvalidVampireTypeException;
+import exceptions.*;
 import logic.Game;
 
 

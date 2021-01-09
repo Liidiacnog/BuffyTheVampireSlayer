@@ -1,8 +1,6 @@
 package control.commands;
 
 import exceptions.CommandExecuteException;
-import exceptions.GameException;
-import exceptions.InvalidPositionException;
 import exceptions.NotEnoughCoinsException;
 import logic.Game;
 

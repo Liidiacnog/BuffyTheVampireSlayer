@@ -1,11 +1,6 @@
 package control.commands;
 
-import exceptions.CommandExecuteException;
-import exceptions.CommandParseException;
-import exceptions.GameException;
-import exceptions.InvalidArgumentsException;
-import exceptions.InvalidPositionException;
-import exceptions.NotEnoughCoinsException;
+import exceptions.*;
 import logic.Game;
 
 public class AddCommand extends Command {

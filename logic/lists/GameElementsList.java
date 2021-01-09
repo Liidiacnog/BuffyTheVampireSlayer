@@ -3,7 +3,6 @@ package logic.lists;
 import java.util.ArrayList;
 import logic.gameObjects.GameElement;
 import logic.gameObjects.IAttack;
-import logic.gameObjects.IMove;
 
 public class GameElementsList {
 

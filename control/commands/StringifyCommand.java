@@ -5,7 +5,7 @@ import logic.Game;
 public class StringifyCommand extends NoParamsCommand {
 
 	public StringifyCommand() {
-		super("stringify", "t", "S[t]ringify", "convert state of the game into a string");
+		super("stringify", "t", "s[t]ringify", "serialize the state of the game as a text stream");
 	}
 
 	@Override

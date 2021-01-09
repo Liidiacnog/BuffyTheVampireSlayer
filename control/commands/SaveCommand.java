@@ -17,7 +17,7 @@ public class SaveCommand extends Command {
 	}
 	
 	public SaveCommand () {
-		super("save", "s", "[s]ave", "save the game in a file");
+		super("save", "s", "[s]ave <filename>", " . Save the state of the game to a file");
 	}
 
 	@Override
