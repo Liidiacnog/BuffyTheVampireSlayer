@@ -12,12 +12,12 @@ public class BloodBank extends GameElement {
 		super(x, y, game);
 		this.cost = cost;
 		life = resistance;
+		stringifyRep = "B";
 	}
 	
 	//implements the method defined in IAttack  
 	public boolean receiveVampireAttack(int harm) {
 		damage(harm);
-		stringifyRep = "B";
 		return true;
 	}
 	

@@ -18,7 +18,8 @@ public class CommandGenerator {
 				new AddBloodBankCommand(),
 				new SuperCoinsCommand(),
 				new AddVampireCommand(), 
-				new StringifyCommand()
+				new StringifyCommand(), 
+				new SaveCommand()
 		};
 		
 		/*passes the minimally processed input text to an object of each of the concrete command classes, 
