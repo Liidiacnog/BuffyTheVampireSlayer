@@ -345,15 +345,14 @@ public class Game implements IPrintable {
 		return str;
 	}
 	
-	//Saves the state of the game in a fila .dat
+	//Saves the state of the game (using stringify()) in a file .dat 
 	public void saveGame(String fileName) throws IOException {
-		try (BufferedWriter outChar = new BufferedWriter( new FileWriter(fileName + ".dat"))) {
+		try (BufferedWriter outChar = new BufferedWriter(new FileWriter(fileName + ".dat"))) {
 			outChar.write("Buffy the Vampire Slayer v3.0");
 			outChar.newLine();
 			outChar.newLine();
 			outChar.write(stringify());
-		}
-		
+		}	
 	}
 
 	

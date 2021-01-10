@@ -28,6 +28,7 @@ public class Vampire extends GameElement{
 		return representation + "[" + life + "]";
 	}
 	
+	//overwrites stringify on GameElement to include cyclesToMove
 	public String stringify() {
 		int cyclesToMove = 0;
 		if (movedBefore) cyclesToMove = 1;
