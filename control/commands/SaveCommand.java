@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import exceptions.CommandExecuteException;
 import exceptions.InvalidArgumentsException;
-import exceptions.InvalidVampireTypeException;
 import logic.Game;
 
 public class SaveCommand extends Command {
@@ -32,7 +31,7 @@ public class SaveCommand extends Command {
 	}
 
 	@Override
-	public Command parse(String[] commandWords) throws InvalidArgumentsException, InvalidVampireTypeException {
+	public Command parse(String[] commandWords) throws InvalidArgumentsException{
 		SaveCommand command = null;
 		if (matchCommandName(commandWords[0])) {
 			if (commandWords.length == 2) {

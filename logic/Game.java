@@ -352,7 +352,7 @@ public class Game implements IPrintable {
 			outChar.newLine();
 			outChar.newLine();
 			outChar.write(stringify());
-		}	
+		}
 	}
 
 	
