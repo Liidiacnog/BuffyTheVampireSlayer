@@ -1,5 +1,7 @@
 package control.commands;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import exceptions.CommandExecuteException;
@@ -21,9 +23,12 @@ public class SaveCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException {
-		try {
-			game.saveGame(fileName);
-		} catch (IOException ioe) {
+		try (BufferedWriter outChar = new BufferedWriter(new FileWriter(fileName + ".dat"))) {
+			outChar.write("Buffy the Vampire Slayer v3.0");
+			outChar.newLine();
+			outChar.newLine();			
+			outChar.write(game.stringify());
+		}catch (IOException ioe) {
 			throw new CommandExecuteException("[ERROR] Not possible to open file", ioe);
 		}
 		System.out.println("Game succesfully saved in file " + fileName + ".dat");

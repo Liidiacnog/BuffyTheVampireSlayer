@@ -2,9 +2,6 @@ package logic;
 
 import logic.gameObjects.*;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Random;
 import exceptions.*;
 import view.*;
@@ -345,16 +342,6 @@ public class Game implements IPrintable {
 		return str;
 	}
 	
-	//Saves the state of the game (using stringify()) in a file .dat 
-	public void saveGame(String fileName) throws IOException {
-		try (BufferedWriter outChar = new BufferedWriter(new FileWriter(fileName + ".dat"))) {
-			outChar.write("Buffy the Vampire Slayer v3.0");
-			outChar.newLine();
-			outChar.newLine();
-			outChar.write(stringify());
-		}
-	}
-
 	
 	//Getters
 	
