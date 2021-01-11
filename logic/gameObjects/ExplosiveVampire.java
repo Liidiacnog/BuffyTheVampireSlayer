@@ -6,21 +6,15 @@ import logic.Game;
 
 public class ExplosiveVampire extends Vampire{
 
+	private static final String EVampStringifyRep = "EV"; //has a different name so that it doesn't hide the superclass attribute
 	private static final String representation = "V*V";
 	private static final int damage = 1; 
 	private boolean explode; //used to distinguish between being killed by a slayer (true) and being dropped out of the board (false)
 	
 	
 	public ExplosiveVampire(int x, int y, Game game) {
-		super(x, y, game);
-		life = resistance;
+		super(x, y, game, representation, Vampire.resistance, EVampStringifyRep);
 		explode = true;
-		stringifyRep = "EV";
-	}
-	
-	
-	public String toString() {
-		return representation + "[" + life + "]";
 	}
 	
 	
@@ -49,8 +43,8 @@ public class ExplosiveVampire extends Vampire{
 			explode(damage);
 	}
 	
-	
-	public void garlicPush() {
+	@Override
+	public void receiveGarlicPush() {
 		int newX = col + 1, newY = row;
 		if(newX == game.getBoardColumns()) { //if is eliminated from board
 			life = 0;
@@ -61,8 +55,8 @@ public class ExplosiveVampire extends Vampire{
 		resetVampMovedBefore();
 	}
 	
-	
-	public void lightFlash() {
+	@Override
+	public void receiveLightFlash() {
 		life = 0;	
 		explode = false;
 	}

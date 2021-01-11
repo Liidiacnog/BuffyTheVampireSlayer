@@ -21,13 +21,8 @@ public class AddCommand extends Command {
 	public boolean execute(Game game) throws CommandExecuteException {
 		boolean exec = false;
 		try{
-			if(game.addSlayer(x, y)) {
-				game.setIncrementCycles(true);
-				game.setNewGameCycle(true);
+			if(game.addSlayerCommand(x, y)) 
 				exec = true;
-			}else {
-				game.setIncrementCycles(false);
-			}
 		}catch (InvalidPositionException | NotEnoughCoinsException lowLevel){
 			throw new CommandExecuteException("[ERROR] Failed to add slayer", lowLevel);
 		}

@@ -10,8 +10,7 @@ public class ExitCommand extends NoParamsCommand {
 
 	@Override
 	public boolean execute(Game game)  {
-		game.setIncrementCycles(false);
-		game.exit();
+		game.exitCommand();
 		return false;
 	}
 

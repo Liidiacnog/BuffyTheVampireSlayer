@@ -144,14 +144,14 @@ public class GameObjectBoard {
 		return gameElements.getAttackable(i, j);
 	}
 	
-
-	public void garlicPush() {
-		gameElements.garlicPush();		
+	
+	public void receiveGarlicPush() {
+		gameElements.receiveGarlicPush();		
 	}
 
 
-	public void lightFlash() {
-		gameElements.lightFlash();		
+	public void receiveLightFlash() {
+		gameElements.receiveLightFlash();		
 	}
 
 	public String stringify() {
@@ -163,11 +163,6 @@ public class GameObjectBoard {
 
 	public int getColumns() {
 		return columns;
-	}
-
-
-	public int getBloodBankCoins() {
-		return gameElements.getBloodBankCoins();
 	}
 
 }

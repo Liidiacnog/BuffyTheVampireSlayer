@@ -8,7 +8,6 @@ public abstract class Command {
 
 	  private final String name, shortcut, details, help;
 
-	  protected static final String incorrectNumberOfArgsMsg = "Incorrect number of arguments", incorrectArgsMsg = "Incorrect arguments format";
 	  
 	  public Command(String name,  String shortcut, String details, String help){    
 	    this.name = name;
@@ -23,8 +22,7 @@ public abstract class Command {
 	  public abstract Command parse(String[] commandWords) throws InvalidArgumentsException, InvalidVampireTypeException; //throws them because then parseCommand on CommandGenerator wraps them on CommandParseException
 	  
 	  protected boolean matchCommandName(String name) {
-		    return shortcut.equalsIgnoreCase(name) || 
-		        this.name.equalsIgnoreCase(name);
+		    return shortcut.equalsIgnoreCase(name) || this.name.equalsIgnoreCase(name);
 	  }
 	  
 	  protected String getName() {

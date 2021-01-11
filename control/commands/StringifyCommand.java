@@ -10,7 +10,7 @@ public class StringifyCommand extends NoParamsCommand {
 
 	@Override
 	public boolean execute(Game game) {
-		System.out.println(game.stringify());
+		game.stringifyCommand();
 		return false;
 	}
 

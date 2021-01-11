@@ -10,8 +10,6 @@ import logic.Game;
 
 public abstract class NoParamsCommand extends Command {
 	
-	static final String tooManyArgs = "Too many arguments";
-	
 	public NoParamsCommand(String name,  String shortcut, String details, String help){ 
 		super(name, shortcut, details, help);
 	}
@@ -25,7 +23,5 @@ public abstract class NoParamsCommand extends Command {
 			
 		return obj;
 	}
-	
-	public abstract boolean execute(Game game) throws CommandExecuteException;
 	
 }

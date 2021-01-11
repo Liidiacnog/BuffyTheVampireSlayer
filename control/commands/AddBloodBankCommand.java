@@ -24,12 +24,8 @@ public class AddBloodBankCommand extends Command {
 	public boolean execute(Game game) throws CommandExecuteException {
 		boolean exec = false;
 		try{
-			if(game.addBloodBank(x, y, cost)) {
-				game.setIncrementCycles(true);
-				game.setNewGameCycle(true);
+			if(game.addBloodBankCommand(x, y, cost)) 
 				exec = true;
-			}else
-				game.setIncrementCycles(false);
 		}catch (InvalidPositionException | NotEnoughCoinsException lowLevel){
 			throw new CommandExecuteException("[ERROR] Failed to add BloodBank", lowLevel);
 		}

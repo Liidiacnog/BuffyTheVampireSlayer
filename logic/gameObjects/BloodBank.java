@@ -5,14 +5,13 @@ import logic.Game;
 public class BloodBank extends GameElement {
 	
 	private static final int resistance = 1;
+	private static final String stringifyRep = "B";
 	private int cost;
 	private static final String representation = "B-B";
 	
 	public BloodBank(int x, int y, int cost, Game game) {
-		super(x, y, game);
+		super(x, y, game, representation, resistance, stringifyRep);
 		this.cost = cost;
-		life = resistance;
-		stringifyRep = "B";
 	}
 	
 	//implements the method defined in IAttack  
@@ -27,6 +26,18 @@ public class BloodBank extends GameElement {
 		return true;
 	}
 	
+	//doesn't affect it
+	@Override
+	public void receiveLightFlash() {}
+	
+	
+	//bloodbank overwrites update() because it doesn't move, and instead gives coins to player
+	@Override
+	public void update() {
+		game.addCoinsToPlayer(getBloodBankCoins());
+	}
+	
+	@Override
 	public String toString() {
 		return representation + "[" + cost + "]";
 	}
@@ -40,18 +51,8 @@ public class BloodBank extends GameElement {
 		return life <= 0;
 	}
 	
-	@Override
-	public int getBloodBankCoins() {
+	private int getBloodBankCoins() {
 		return Math.round(cost * 0.1f);
 	}
-
-	//not affected by garlicPush
-	@Override
-	public void garlicPush() {}
-
-	
-	//not affected by lightFlash
-	@Override
-	public void lightFlash() {}
 
 }

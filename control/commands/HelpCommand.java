@@ -12,8 +12,7 @@ public class HelpCommand extends NoParamsCommand {
 	
 	@Override
 	public boolean execute(Game game) {
-		game.setIncrementCycles(false);
-		System.out.println(CommandGenerator.commandHelp());
+		game.helpCommand();
 		return false; 
 	}
 

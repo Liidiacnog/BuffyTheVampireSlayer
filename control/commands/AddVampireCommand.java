@@ -25,7 +25,7 @@ public class AddVampireCommand extends Command{
 				//Dracula, ExplosiveVampire, if no type is specified => normal Vampire
 		
 		public AddVampireCommand() {
-			super("add a vampire", "v", "[v]ampire [<type>] <x> <y>. Type = {\"\"|\"D\"|\"E\"}", "add a vampire in position x, y");
+			super("vampire", "v", "[v]ampire [<type>] <x> <y>. Type = {\"\"|\"D\"|\"E\"}", "add a vampire in position x, y");
 		}
 		
 		public AddVampireCommand(int xCoord, int yCoord, String type) {
@@ -41,18 +41,17 @@ public class AddVampireCommand extends Command{
 			boolean exec = false;
 			try{
 				if(availableTypes.indexOf(type) == 0) {
-					if(game.addDracula(x, y))
+					if(game.addDraculaCommand(x, y))
 						exec = true;
 				}
 				else if(availableTypes.indexOf(type) == 1) {
-					if(game.addExplosiveVampire(x, y))
+					if(game.addExplosiveVampireCommand(x, y))
 						exec = true;
 				}
 				else {//always called when type matches none of the available ones, so last case is always normal vampire
-					if(game.addVampire(x, y))
+					if(game.addVampireCommand(x, y))
 						exec = true;
 				}
-				game.setIncrementCycles(false);
 			}catch (InvalidPositionException | NoMoreVampiresException | DraculaHasArisenException lowLevel){ //wrapping of low-level exceptions
 				throw new CommandExecuteException("[ERROR] Failed to add vampire", lowLevel); 
 			}

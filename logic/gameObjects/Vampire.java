@@ -5,8 +5,9 @@ import logic.Game;
 public class Vampire extends GameElement{
 
 	protected static final int resistance = 5, frequency = 1, damage = 1; //protected because subclasses use them
+	private static final String representation = "VˆV"; 
+	private static final String stringifyRep = "V";
 	private boolean movedBefore; //to check whether it is its turn to move or not(they move each 2 cycles)
-	private final String representation = "VˆV";
 	private static boolean reachEnd = false;
 	protected boolean stunned = false;
 	/*how many vampires are on the board,
@@ -15,17 +16,18 @@ public class Vampire extends GameElement{
 	
 	//constructor 
 	public Vampire (int x, int y, Game game) {  
-		super(x, y, game);
-		life = resistance;
+		super(x, y, game, representation, resistance, stringifyRep);
 		movedBefore = true;
 		vampsOnBoard++; //new vampire is added to the board on x, y
 		vampsLeft--; //one less vampire can be added to the board
-		stringifyRep = "V";
 	}
 	
-
-	public String toString() {
-		return representation + "[" + life + "]";
+	//constructor defined for subclasses
+	public Vampire (int x, int y, Game game, String representation, int resistance, String sRep) {  
+		super(x, y, game, representation, resistance, sRep);
+		movedBefore = true;
+		vampsOnBoard++; //new vampire is added to the board on x, y
+		vampsLeft--; //one less vampire can be added to the board
 	}
 	
 	//overwrites stringify on GameElement to include cyclesToMove
@@ -58,7 +60,8 @@ public class Vampire extends GameElement{
 	
 	
 	//effect of garlicPush, overwritten by those who have a special behaviour (Explosive Vampires, for example)
-	public void garlicPush() {
+	@Override
+	public void receiveGarlicPush() {
 		int newX = col + 1, newY = row;
 		if(newX == game.getBoardColumns()) //if is eliminated from board
 			life = 0;
@@ -67,12 +70,6 @@ public class Vampire extends GameElement{
 		resetVampMovedBefore();
 	}
 
-	
-	//differs on Dracula and ExplosiveVampire
-	public void lightFlash() {
-		life = 0;		
-	}
-	
 	
 	public boolean receiveVampireExplosion(int harm) {
 		damage(harm);

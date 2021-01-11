@@ -1,7 +1,11 @@
 package logic;
 
 import logic.gameObjects.*;
+import utils.CommandGenerator;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 import exceptions.*;
 import view.*;
@@ -28,8 +32,9 @@ public class Game implements IPrintable {
 	private String winnerMsg = "Nobody wins..."; //no winner by default
 	private String DraculaArisenMsg = "Dracula has arisen!";
 	private boolean DraculaOnBoard = false;	//True if dracula is on board
-	private boolean incrementCycles = true;
-	private boolean newGameCycle = false; // true if next command will cause game to call gameCycle() 
+	//set to true or false by each execute() method of each command:
+	private boolean incrementCycles = true; //true if next command will cause game to increment the game cycles
+	private boolean evolve = false; //true if next command will cause game to call evolve() : update, attack, recivecoins, ...
 	
 	//constructor
 	public Game(Long seed, Level lvl) {
@@ -48,8 +53,9 @@ public class Game implements IPrintable {
 	}
 	
 	//to execute exit game
-	public void exit() {
+	public void exitCommand() {
 		isFinished = true;
+		setEvolveAndIncrementCyclesTo(false, false);
 	}
 	
 	//checks if game has come to an end
@@ -60,7 +66,7 @@ public class Game implements IPrintable {
 	
 	//actions on game loop:
 
-	public void gameCycle(){
+	public void evolve(){
 		update();
 		receiveCoins();
 		attack();
@@ -84,8 +90,12 @@ public class Game implements IPrintable {
 	//checks odds of player of receiving coins, and if he should receive them, calls method in charge
 	public void receiveCoins() {
 		if(r.nextFloat() > PROB_RECEIVING_COINS)
-			player.receiveCoins(COINS_TO_RECEIVE);
-		player.receiveCoins(board.getBloodBankCoins());
+			addCoinsToPlayer(COINS_TO_RECEIVE);
+	}
+	
+	//gives player an amount c of coins
+	public void addCoinsToPlayer(int c) {
+		player.receiveCoins(c);
 	}
 
 	
@@ -150,7 +160,7 @@ public class Game implements IPrintable {
 	
 	//"artificial" addition of vampires to debug:
 
-	public boolean addVampire(int col, int row) throws InvalidPositionException, NoMoreVampiresException{
+	public boolean addVampireCommand(int col, int row) throws InvalidPositionException, NoMoreVampiresException{
 		boolean added = false;
 		if(Vampire.getVampsLeft() > 0) {
 			added = board.addVampire(col, row, this);
@@ -159,11 +169,14 @@ public class Game implements IPrintable {
 		}else {
 			throw new NoMoreVampiresException("[DEBUG] " + noVampsLeftMsg);
 		}
+		
+		setEvolveAndIncrementCyclesTo(false, false);
+		
 		return added;
 	}
 	
 	//"artificial" addition of vampires to debug
-	public boolean addDracula(int col, int row) throws InvalidPositionException, NoMoreVampiresException, DraculaHasArisenException {
+	public boolean addDraculaCommand(int col, int row) throws InvalidPositionException, NoMoreVampiresException, DraculaHasArisenException {
 		boolean added = false;
 		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0) {
 			added = board.addDracula(col, row, this);	
@@ -177,12 +190,15 @@ public class Game implements IPrintable {
 		else { //Dracula.getAppearedBefore() == true
 			throw new DraculaHasArisenException( "[DEBUG] " + draculaAlreadyMsg);
 		}
+		
+		setEvolveAndIncrementCyclesTo(false, false);
+		
 		return added;
 	}
 	
 	
 	//"artificial" addition of vampires to debug
-	public boolean addExplosiveVampire(int col, int row) throws InvalidPositionException, NoMoreVampiresException{
+	public boolean addExplosiveVampireCommand(int col, int row) throws InvalidPositionException, NoMoreVampiresException{
 		boolean added = false;
 		if(Vampire.getVampsLeft() > 0) {
 			added = board.addExplosiveVampire(col, row, this);	
@@ -191,9 +207,26 @@ public class Game implements IPrintable {
 		}else {
 			throw new NoMoreVampiresException("[DEBUG] " + noVampsLeftMsg);
 		}
+		
+		setEvolveAndIncrementCyclesTo(false, false);
+		
 		return added;
 	}
 	
+	//implements save Command, given an open output stream (outChar)
+	public void saveCommand(BufferedWriter outChar) throws IOException{
+		outChar.write("Buffy the Vampire Slayer v3.0");
+		outChar.newLine();
+		outChar.newLine();			
+		outChar.write(stringify());
+		setEvolveAndIncrementCyclesTo(false, false);
+	}
+	
+	
+	public void stringifyCommand(){ //TODO Change name?
+		System.out.println(stringify());
+		setEvolveAndIncrementCyclesTo(false, false);
+	}
 	
 	//removes references, in lists, to objects that are dead
 	public void removeDeadObj() {
@@ -202,11 +235,12 @@ public class Game implements IPrintable {
 	
 	
 	//resets game
-	public void reset() {
+	public void resetCommand() {
 		player.setCoins(INITIAL_COINS);
 		cycles = 0;
 		board.reset(level.getVampNumber());
 		DraculaOnBoard = false;
+		setEvolveAndIncrementCyclesTo(false, false);
 	}
 	
 	
@@ -230,7 +264,7 @@ public class Game implements IPrintable {
 	
 	//Methods to add an element (by user command):
 	
-	public boolean addSlayer(int x, int y) throws InvalidPositionException, NotEnoughCoinsException {
+	public boolean addSlayerCommand(int x, int y) throws InvalidPositionException, NotEnoughCoinsException {
 		boolean added = false;
 		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //because we cannot add slayer on last column 
 			int cost = Slayer.getCost();
@@ -243,24 +277,34 @@ public class Game implements IPrintable {
 		}else
 			throw new InvalidPositionException("[DEBUG] Position (" + x + ", " + y + "): " + invalidPositionMsg);
 		
+		if(added)
+			setEvolveAndIncrementCyclesTo(true, true);
+		else 
+			setEvolveAndIncrementCyclesTo(false, false);
+		
 		return added;
 	}
 
 
-	public boolean addBloodBank(int x, int y, int cost) throws InvalidPositionException, NotEnoughCoinsException {
+	public boolean addBloodBankCommand(int x, int y, int cost) throws InvalidPositionException, NotEnoughCoinsException {
 		boolean added = false;
 		if (x != level.getColumns() - 1 && board.isFree(x, y)) { //cannot add blood bank on last column 
 			if (player.canAfford(cost)) {
 				board.addBloodBank(x, y, cost, this); 
 				player.payCoins(cost);
 				added = true;
-			} else { //cannot afford
+			} else //cannot afford
 				throw new NotEnoughCoinsException("[DEBUG] Bloodbank cost is " + cost + ". " + player.toStringNotEnoughCoins());
-			}
 		}
 		else {
 			throw new InvalidPositionException("[DEBUG] Position (" + x + ", " + y + "): " + invalidPositionMsg);
 		}
+		
+		if(added)
+			setEvolveAndIncrementCyclesTo(true, true);
+		else 
+			setEvolveAndIncrementCyclesTo(false, false);
+		
 		return added;
 	}
 	
@@ -268,30 +312,41 @@ public class Game implements IPrintable {
 	//Other execution of commands
 	
 	//checks if player affords lightFlash, and if so, calls method in board in charge of it
-	public boolean lightFlash(int cost) throws NotEnoughCoinsException {
+	public boolean lightFlashCommand(int cost) throws NotEnoughCoinsException {
 		boolean flash = false;
 		if (player.canAfford(cost)) {
-			board.lightFlash();
+			board.receiveLightFlash();
 			removeDeadObj();
 			player.payCoins(cost);
 			flash = true;
-		} else 
+		}else 
 			throw new NotEnoughCoinsException("[DEBUG] Light Flash cost is " + cost + " " + player.toStringNotEnoughCoins());
+		
+		if(flash)
+			setEvolveAndIncrementCyclesTo(true, true);
+		else 
+			setEvolveAndIncrementCyclesTo(false, false);
 		
 		return flash;
 	}
 	
 	
 	//checks if player affords garlicPush, and if so, calls method in board in charge of it
-	public boolean garlicPush(int cost)  throws NotEnoughCoinsException {
+	public boolean garlicPushCommand(int cost)  throws NotEnoughCoinsException {
 		boolean push = false;
 		if (player.canAfford(cost)) {
-			board.garlicPush();
+			board.receiveGarlicPush();
 			player.payCoins(cost);
 			push = true;
-		} else 
+		} else {
 			throw new NotEnoughCoinsException("[DEBUG] Garlic Push cost is " + cost + " " + player.toStringNotEnoughCoins());
-			
+		}
+		
+		if(push)
+			setEvolveAndIncrementCyclesTo(true, true);
+		else 
+			setEvolveAndIncrementCyclesTo(false, false);
+		
 		return push;
 	}
 	
@@ -303,11 +358,21 @@ public class Game implements IPrintable {
 
 	
 	//implements superCoins
-	public boolean superCoins(int coins) {
-		player.receiveCoins(coins);
+	public boolean superCoinsCommand(int coins) {
+		addCoinsToPlayer(coins);
+		setEvolveAndIncrementCyclesTo(false, false);
 		return true;
 	}
 	
+	//implements help command
+	public void helpCommand() {
+		setEvolveAndIncrementCyclesTo(false, false);
+		System.out.println(CommandGenerator.commandHelp());
+	}
+	
+	public void updateCommand() {
+		setEvolveAndIncrementCyclesTo(true, true); //TODO is incrementCycles necessary? in which case?
+	}
 	
 	//true if vampire on (x, y) can move
 	public boolean vampCanMove(int x, int y) {
@@ -354,8 +419,8 @@ public class Game implements IPrintable {
 	}
 	
 	
-	public boolean getNewGameCycle() {
-		return newGameCycle;
+	public boolean getEvolve() {
+		return evolve;
 	}
 
 	
@@ -370,24 +435,16 @@ public class Game implements IPrintable {
 	}
 	
 	
-	
 	//Setters
 
 	public void draculaDie() {
 		DraculaOnBoard = false;
 	}
 
-	
-	public void setNewGameCycle(boolean b) {
-		newGameCycle = b;
+	private void setEvolveAndIncrementCyclesTo(boolean a, boolean b) {
+		evolve = a;
+		incrementCycles = b;
 	}
-	
 
-	public void setIncrementCycles(boolean newValue) {
-		incrementCycles = newValue;
-	}
-	
-	
-	
 	
 }

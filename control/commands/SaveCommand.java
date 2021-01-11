@@ -12,22 +12,19 @@ public class SaveCommand extends Command {
 	
 	private String fileName;
 	
+	public SaveCommand () {
+		super("save", "s", "[s]ave <filename>", " . Save the state of the game to a file");
+	}
+	
 	public SaveCommand(String str) {
 		this();
 		fileName = str;
-	}
-	
-	public SaveCommand () {
-		super("save", "s", "[s]ave <filename>", " . Save the state of the game to a file");
 	}
 
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException {
 		try (BufferedWriter outChar = new BufferedWriter(new FileWriter(fileName + ".dat"))) {
-			outChar.write("Buffy the Vampire Slayer v3.0");
-			outChar.newLine();
-			outChar.newLine();			
-			outChar.write(game.stringify());
+			game.saveCommand(outChar);
 		}catch (IOException ioe) {
 			throw new CommandExecuteException("[ERROR] Not possible to open file", ioe);
 		}

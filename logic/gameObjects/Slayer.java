@@ -6,17 +6,11 @@ public class Slayer extends GameElement{
 	
 	private static final int cost = 50, resistance = 3, frequency = 1, damage = 1;
 	private static final String representation =  "<->";
+	private static final String stringifyRep = "S";
 	
 	//constructor 
 	public Slayer(int x, int y, Game game) {
-		super(x, y, game);
-		life = resistance; //just initially
-		stringifyRep = "S";
-	}
-	
-	
-	public String toString() {
-		return representation + "[" + life + "]";
+		super(x, y, game, representation, resistance, stringifyRep);
 	}
 	
 	
@@ -51,6 +45,11 @@ public class Slayer extends GameElement{
 		damage(life);
 		return true;
 	}
+
+	//doesn't affect it
+	@Override
+	public void receiveLightFlash() {}
+	
 	
 	//Getters
 	
@@ -58,14 +57,4 @@ public class Slayer extends GameElement{
 		return life;
 	}
 
-
-	//not affected by garlicPush
-	@Override
-	public void garlicPush() {}
-
-
-	//not affected by lightFlash
-	@Override
-	public void lightFlash() {}
-	
 }
