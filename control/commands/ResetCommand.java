@@ -4,8 +4,14 @@ import logic.Game;
 
 public class ResetCommand extends NoParamsCommand {
 
+	private static final String name = "reset";
+	private static final String shortcut = "r";
+	private static final String details = "[r]eset";
+	private static final String help = "reset game";
+
+	
 	public ResetCommand() {
-		super("reset", "r", "[r]eset", "reset game");
+		super(name, shortcut, details, help);
 	}
 
 	@Override

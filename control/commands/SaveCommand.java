@@ -11,11 +11,16 @@ import logic.Game;
 public class SaveCommand extends Command {
 	
 	private String fileName;
+	private static final String name = "save";
+	private static final String shortcut = "s";
+	private static final String details = "[s]ave <filename> .";
+	private static final String help = " Save the state of the game to a file";
+
 	
-	public SaveCommand () {
-		super("save", "s", "[s]ave <filename>", " . Save the state of the game to a file");
+	public SaveCommand() {
+		super(name, shortcut, details, help);
 	}
-	
+
 	public SaveCommand(String str) {
 		this();
 		fileName = str;

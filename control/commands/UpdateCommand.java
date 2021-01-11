@@ -4,9 +4,17 @@ import logic.Game;
 
 public class UpdateCommand extends NoParamsCommand{
 
+	
+	private static final String name = "none";
+	private static final String shortcut = "n";
+	private static final String details = "[n]one  | []";
+	private static final String help = "update";
+
+	
 	public UpdateCommand() {
-		super("none", "n", "[n]one | []" ,"update");
+		super(name, shortcut, details, help);
 	}
+
 	
 	public boolean execute(Game game) {
 		game.updateCommand();

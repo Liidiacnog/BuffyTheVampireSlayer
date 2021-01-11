@@ -8,10 +8,16 @@ public class AddBloodBankCommand extends Command {
 	
 	private int x, y, cost;
 	
+	private static final String name = "bank";
+	private static final String shortcut = "b";
+	private static final String details = "[b]ank <x> <y> <z>";
+	private static final String help = "add a bloodbank in x, y with cost z";
+
 	
 	public AddBloodBankCommand() {
-		super("bank", "b", "[b]ank <x> <y> <z>", "add a bloodbank in x, y with cost z");
+		super(name, shortcut, details, help);
 	}
+
 	
 	public AddBloodBankCommand(int x, int y, int z) {
 		this();

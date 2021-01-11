@@ -4,7 +4,6 @@ import logic.gameObjects.*;
 import utils.CommandGenerator;
 
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 import exceptions.*;

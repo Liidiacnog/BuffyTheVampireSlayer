@@ -24,8 +24,13 @@ public class AddVampireCommand extends Command{
 		private ArrayList<String> availableTypes = new ArrayList<>(Arrays.asList("D", "E"));
 				//Dracula, ExplosiveVampire, if no type is specified => normal Vampire
 		
+		private static final String name = "vampire";
+		private static final String shortcut = "v";
+		private static final String details = "[v]ampire [<type>] <x> <y>. Type = {\"\"|\"D\"|\"E\"}";
+		private static final String help = "add a vampire in position x, y";
+				
 		public AddVampireCommand() {
-			super("vampire", "v", "[v]ampire [<type>] <x> <y>. Type = {\"\"|\"D\"|\"E\"}", "add a vampire in position x, y");
+			super(name, shortcut, details, help);
 		}
 		
 		public AddVampireCommand(int xCoord, int yCoord, String type) {

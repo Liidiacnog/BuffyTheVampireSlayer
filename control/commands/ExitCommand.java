@@ -4,8 +4,15 @@ import logic.Game;
 
 public class ExitCommand extends NoParamsCommand {
 
+	
+	private static final String name = "exit";
+	private static final String shortcut = "e";
+	private static final String details = "[e]xit";
+	private static final String help = "exit game";
+
+	
 	public ExitCommand() {
-		super("exit", "e", "[e]xit", "exit game");
+		super(name, shortcut, details, help);
 	}
 
 	@Override

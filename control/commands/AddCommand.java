@@ -7,8 +7,14 @@ public class AddCommand extends Command {
 	
 	private int x, y;
 	
+	private static final String name = "add";
+	private static final String shortcut = "a";
+	private static final String details = "[a]dd <x> <y>";
+	private static final String help = "add a slayer in position x, y";
+
+	
 	public AddCommand() {
-		super("add", "a", "[a]dd <x> <y>", "add a slayer in position x, y");
+		super(name, shortcut, details, help);
 	}
 	
 	public AddCommand(int xCoord, int yCoord) {
