@@ -32,7 +32,6 @@ public class Game implements IPrintable {
 	private String DraculaArisenMsg = "Dracula has arisen!";
 	private boolean DraculaOnBoard = false;	//True if dracula is on board
 	//set to true or false by each execute() method of each command:
-	private boolean incrementCycles = true; //true if next command will cause game to increment the game cycles
 	private boolean evolve = false; //true if next command will cause game to call evolve() : update, attack, recivecoins, ...
 	
 	//constructor
@@ -70,14 +69,9 @@ public class Game implements IPrintable {
 			update();
 			receiveCoins();
 			attack();
-			try{
-				addVampires();
-			} catch(DraculaHasArisenException ex) {
-				//currently do nothing, just useful for programmer
-			}
+			addVampires();
 			removeDeadObj();
-			if(incrementCycles)
-				incrementCycles();
+			incrementCycles();
 			checkEnd();
 		}
 	} 
@@ -107,10 +101,13 @@ public class Game implements IPrintable {
 	
 	//"natural" (random) addition of vampires on game cycle:
 	
-	public void addVampires() throws DraculaHasArisenException {
-		if(addDracula())
-			DraculaOnBoard = true;
+	public void addVampires() {
 		addVampire();
+		try {
+			DraculaOnBoard = addDracula();
+		} catch (DraculaHasArisenException dhae) {
+			//currently do nothing, just useful for programmer
+		}
 		addExplosiveVampire();
 	}
 
@@ -136,12 +133,12 @@ public class Game implements IPrintable {
 	
 	public boolean addDracula() throws DraculaHasArisenException { 
 		boolean added = false;/*same probability of appearing as normal vampires, but only called if Dracula hasn't appeared yet*/
-		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
+		if(!DraculaOnBoard && Vampire.getVampsLeft() > 0 && r.nextDouble() < level.getVampireFrequency()) { 
 			int col = level.getColumns() - 1; //vampires appear on last column always
 			int row = r.nextInt(level.getRows());
 			added = board.addDracula(col, row, this);	
 		}
-		else if (Dracula.getAppearedBefore()) {
+		else if (DraculaOnBoard) {
 			throw new DraculaHasArisenException("[DEBUG] " + draculaAlreadyMsg);   
 		}
 		return added;
@@ -179,7 +176,7 @@ public class Game implements IPrintable {
 	//"artificial" addition of vampires to debug
 	public boolean addDraculaCommand(int col, int row) throws InvalidPositionException, NoMoreVampiresException, DraculaHasArisenException {
 		boolean added = false;
-		if(!Dracula.getAppearedBefore() && Vampire.getVampsLeft() > 0) {
+		if(!DraculaOnBoard && Vampire.getVampsLeft() > 0) {
 			added = board.addDracula(col, row, this);	
 			if(!added) 
 				throw new InvalidPositionException("[DEBUG] Position (" + col + ", " + row + "): " + invalidPositionMsg);
