@@ -40,8 +40,8 @@ public class Controller {
 			 try {
 				 command = CommandGenerator.parseCommand(parameters);
 			     refreshDisplay = command.execute(game);
-		    	 if(game.getEvolve()) //evolve is set to true by those commands which cause game to continue (attacking, moving, ...) 
-		    	  	game.evolve();
+		    	 //if(game.getEvolve()) //evolve is set to true by those commands which cause game to continue (attacking, moving, ...) 
+		    	 game.evolve();
 			 } catch (GameException ex) {
 				 System.out.format(ex.getMessage() + "%n");
 				 if(ex.getCause() != null)

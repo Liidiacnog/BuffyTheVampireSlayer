@@ -54,7 +54,7 @@ public class Game implements IPrintable {
 	//to execute exit game
 	public void exitCommand() {
 		isFinished = true;
-		setEvolveAndIncrementCyclesTo(false, false);
+		setEvolve(false);
 	}
 	
 	//checks if game has come to an end
@@ -66,18 +66,20 @@ public class Game implements IPrintable {
 	//actions on game loop:
 
 	public void evolve(){
-		update();
-		receiveCoins();
-		attack();
-		try{
-			addVampires();
-		} catch(DraculaHasArisenException ex) {
-			//currently do nothing, just useful for programmer
+		if (evolve) {
+			update();
+			receiveCoins();
+			attack();
+			try{
+				addVampires();
+			} catch(DraculaHasArisenException ex) {
+				//currently do nothing, just useful for programmer
+			}
+			removeDeadObj();
+			if(incrementCycles)
+				incrementCycles();
+			checkEnd();
 		}
-		removeDeadObj();
-		if(incrementCycles)
-			incrementCycles();
-		checkEnd();
 	} 
 	
 	
@@ -169,7 +171,7 @@ public class Game implements IPrintable {
 			throw new NoMoreVampiresException("[DEBUG] " + noVampsLeftMsg);
 		}
 		
-		setEvolveAndIncrementCyclesTo(false, false);
+		setEvolve(false);
 		
 		return added;
 	}
@@ -190,7 +192,7 @@ public class Game implements IPrintable {
 			throw new DraculaHasArisenException( "[DEBUG] " + draculaAlreadyMsg);
 		}
 		
-		setEvolveAndIncrementCyclesTo(false, false);
+		setEvolve(false);
 		
 		return added;
 	}
@@ -207,7 +209,7 @@ public class Game implements IPrintable {
 			throw new NoMoreVampiresException("[DEBUG] " + noVampsLeftMsg);
 		}
 		
-		setEvolveAndIncrementCyclesTo(false, false);
+		setEvolve(false);
 		
 		return added;
 	}
@@ -218,13 +220,13 @@ public class Game implements IPrintable {
 		outChar.newLine();
 		outChar.newLine();			
 		outChar.write(stringify());
-		setEvolveAndIncrementCyclesTo(false, false);
+		setEvolve(false);
 	}
 	
 	
 	public void stringifyCommand(){ //TODO Change name?
 		System.out.println(stringify());
-		setEvolveAndIncrementCyclesTo(false, false);
+		setEvolve(false);
 	}
 	
 	//removes references, in lists, to objects that are dead
@@ -239,7 +241,7 @@ public class Game implements IPrintable {
 		cycles = 0;
 		board.reset(level.getVampNumber());
 		DraculaOnBoard = false;
-		setEvolveAndIncrementCyclesTo(false, false);
+		setEvolve(false);
 	}
 	
 	
@@ -277,9 +279,9 @@ public class Game implements IPrintable {
 			throw new InvalidPositionException("[DEBUG] Position (" + x + ", " + y + "): " + invalidPositionMsg);
 		
 		if(added)
-			setEvolveAndIncrementCyclesTo(true, true);
+			setEvolve(true);
 		else 
-			setEvolveAndIncrementCyclesTo(false, false);
+			setEvolve(false);
 		
 		return added;
 	}
@@ -300,9 +302,9 @@ public class Game implements IPrintable {
 		}
 		
 		if(added)
-			setEvolveAndIncrementCyclesTo(true, true);
+			setEvolve(true);
 		else 
-			setEvolveAndIncrementCyclesTo(false, false);
+			setEvolve(false);
 		
 		return added;
 	}
@@ -322,9 +324,9 @@ public class Game implements IPrintable {
 			throw new NotEnoughCoinsException("[DEBUG] Light Flash cost is " + cost + " " + player.toStringNotEnoughCoins());
 		
 		if(flash)
-			setEvolveAndIncrementCyclesTo(true, true);
+			setEvolve(true);
 		else 
-			setEvolveAndIncrementCyclesTo(false, false);
+			setEvolve(false);
 		
 		return flash;
 	}
@@ -342,9 +344,9 @@ public class Game implements IPrintable {
 		}
 		
 		if(push)
-			setEvolveAndIncrementCyclesTo(true, true);
+			setEvolve(true);
 		else 
-			setEvolveAndIncrementCyclesTo(false, false);
+			setEvolve(false);
 		
 		return push;
 	}
@@ -359,18 +361,18 @@ public class Game implements IPrintable {
 	//implements superCoins
 	public boolean superCoinsCommand(int coins) {
 		addCoinsToPlayer(coins);
-		setEvolveAndIncrementCyclesTo(false, false);
+		setEvolve(false);
 		return true;
 	}
 	
 	//implements help command
 	public void helpCommand() {
-		setEvolveAndIncrementCyclesTo(false, false);
+		setEvolve(false);
 		System.out.println(CommandGenerator.commandHelp());
 	}
 	
 	public void updateCommand() {
-		setEvolveAndIncrementCyclesTo(true, true); //TODO is incrementCycles necessary? in which case?
+		setEvolve(true); //TODO is incrementCycles necessary? in which case?
 	}
 	
 	//true if vampire on (x, y) can move
@@ -417,12 +419,6 @@ public class Game implements IPrintable {
 		return board.getAttackable(i, j);
 	}
 	
-	
-	public boolean getEvolve() {
-		return evolve;
-	}
-
-	
 	public int getBoardColumns() {
 		return board.getColumns();
 	}
@@ -440,9 +436,8 @@ public class Game implements IPrintable {
 		DraculaOnBoard = false;
 	}
 
-	private void setEvolveAndIncrementCyclesTo(boolean a, boolean b) {
+	private void setEvolve(boolean a) {
 		evolve = a;
-		incrementCycles = b;
 	}
 
 	
