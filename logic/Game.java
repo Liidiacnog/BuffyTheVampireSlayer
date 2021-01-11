@@ -2,9 +2,6 @@ package logic;
 
 import logic.gameObjects.*;
 import utils.CommandGenerator;
-
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.util.Random;
 import exceptions.*;
 import view.*;
@@ -100,7 +97,6 @@ public class Game implements IPrintable {
 
 	
 	//"natural" (random) addition of vampires on game cycle:
-	
 	public void addVampires() {
 		addVampire();
 		try {
@@ -211,12 +207,8 @@ public class Game implements IPrintable {
 		return added;
 	}
 	
-	//implements save Command, given an open output stream (outChar)
-	public void saveCommand(BufferedWriter outChar) throws IOException{
-		outChar.write("Buffy the Vampire Slayer v3.0");
-		outChar.newLine();
-		outChar.newLine();			
-		outChar.write(stringify());
+	//in charge of setting "evolve" to the value corresponding to the save command
+	public void saveCommand(){
 		setEvolve(false);
 	}
 	

@@ -37,11 +37,12 @@ public class Controller {
 			 String s = scanner.nextLine();
 			 String[] parameters = s.toLowerCase().trim().split("\\s+");
 			 System.out.println("[DEBUG] Executing: " + s);
+			 
 			 try {
 				 command = CommandGenerator.parseCommand(parameters);
 			     refreshDisplay = command.execute(game);
-		    	 //if(game.getEvolve()) //evolve is set to true by those commands which cause game to continue (attacking, moving, ...) 
-		    	 game.evolve();
+		    	 game.evolve();//evolve is set to true by those commands which cause game to continue (attacking, moving, ...) 
+		    	 
 			 } catch (GameException ex) {
 				 System.out.format(ex.getMessage() + "%n");
 				 if(ex.getCause() != null)

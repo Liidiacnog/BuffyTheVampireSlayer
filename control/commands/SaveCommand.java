@@ -29,10 +29,14 @@ public class SaveCommand extends Command {
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException {
 		try (BufferedWriter outChar = new BufferedWriter(new FileWriter(fileName + ".dat"))) {
-			game.saveCommand(outChar);
+			outChar.write("Buffy the Vampire Slayer v3.0");
+			outChar.newLine();
+			outChar.newLine();			
+			outChar.write(game.stringify());
 		}catch (IOException ioe) {
 			throw new CommandExecuteException("[ERROR] Not possible to open file", ioe);
 		}
+		game.saveCommand();
 		System.out.println("Game succesfully saved in file " + fileName + ".dat");
 		return false;
 	}
