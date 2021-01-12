@@ -11,14 +11,14 @@ import logic.Game;
 public class SaveCommand extends Command {
 	
 	private String fileName;
-	private static final String name = "save";
-	private static final String shortcut = "s";
-	private static final String details = "[s]ave <filename> .";
-	private static final String help = " Save the state of the game to a file";
+	private static final String ResetCommandName = "save";
+	private static final String ResetCommandShortcut = "s";
+	private static final String ResetCommandDetails = "[s]ave <filename> .";
+	private static final String ResetCommandHelp = " Save the state of the game to a file";
 
 	
 	public SaveCommand() {
-		super(name, shortcut, details, help);
+		super(ResetCommandName, ResetCommandShortcut, ResetCommandDetails, ResetCommandHelp);
 	}
 
 	public SaveCommand(String str) {
@@ -48,7 +48,7 @@ public class SaveCommand extends Command {
 			if (commandWords.length == 2) {
 				command = new SaveCommand(commandWords[1]);
 			} else {
-				throw new InvalidArgumentsException("[ERROR] Invalid arguments for saving game, number expected: " + getDetails());
+				throw new InvalidArgumentsException("[ERROR] Invalid arguments for saving game, number expected: " + details);
 			}
 		}
 		return command;

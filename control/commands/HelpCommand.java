@@ -4,14 +4,14 @@ import logic.Game;
 
 public class HelpCommand extends NoParamsCommand {
 
-	private static final String name = "help";
-	private static final String shortcut = "h";
-	private static final String details = "[h]elp";
-	private static final String help = "show this help";
+	private static final String HelpCommandName = "help";
+	private static final String HelpCommandShortcut = "h";
+	private static final String HelpCommandDetails = "[h]elp";
+	private static final String HelpCommandHelp = "show this help";
 
 	
 	public HelpCommand() {
-		super(name, shortcut, details, help);
+		super(HelpCommandName, HelpCommandShortcut, HelpCommandDetails, HelpCommandHelp);
 	}
 
 	

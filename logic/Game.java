@@ -15,7 +15,8 @@ public class Game implements IPrintable {
 	private static final String invalidPositionMsg = "Invalid position";//shown when adding a gameElement on an invalid position 
 	private static final String noVampsLeftMsg = "No more remaining vampires left";
 	private static final String draculaAlreadyMsg = "Dracula has already appeared";
-
+	private static final String DraculaArisenMsg = "Dracula has arisen!";
+	
 	//fields
 	private Level level;
 	private Long seed; //provide one for predictable behaviour of tests
@@ -26,7 +27,6 @@ public class Game implements IPrintable {
 	private int cycles = 0;
 	private boolean isFinished = false;
 	private String winnerMsg = "Nobody wins..."; //no winner by default
-	private String DraculaArisenMsg = "Dracula has arisen!";
 	private boolean DraculaOnBoard = false;	//True if dracula is on board
 	//set to true or false by each execute() method of each command:
 	private boolean evolve = false; //true if next command will cause game to call evolve() : update, attack, recivecoins, ...
@@ -45,17 +45,6 @@ public class Game implements IPrintable {
 	
 	public String toString() {
 		return gamePrinter.toString();
-	}
-	
-	//to execute exit game
-	public void exitCommand() {
-		isFinished = true;
-		setEvolve(false);
-	}
-	
-	//checks if game has come to an end
-	public boolean isFinished() {
-		return this.isFinished;
 	}
 	
 	
@@ -152,8 +141,7 @@ public class Game implements IPrintable {
 	}
 	
 	
-	//"artificial" addition of vampires to debug:
-
+	//"artificial" addition of vampires to debug
 	public boolean addVampireCommand(int col, int row) throws InvalidPositionException, NoMoreVampiresException{
 		boolean added = false;
 		if(Vampire.getVampsLeft() > 0) {
@@ -164,12 +152,12 @@ public class Game implements IPrintable {
 			throw new NoMoreVampiresException("[DEBUG] " + noVampsLeftMsg);
 		}
 		
-		setEvolve(false);
+		evolve = false;
 		
 		return added;
 	}
 	
-	//"artificial" addition of vampires to debug
+	//"artificial" addition of dracula to debug
 	public boolean addDraculaCommand(int col, int row) throws InvalidPositionException, NoMoreVampiresException, DraculaHasArisenException {
 		boolean added = false;
 		if(!DraculaOnBoard && Vampire.getVampsLeft() > 0) {
@@ -185,13 +173,12 @@ public class Game implements IPrintable {
 			throw new DraculaHasArisenException( "[DEBUG] " + draculaAlreadyMsg);
 		}
 		
-		setEvolve(false);
+		evolve = false;
 		
 		return added;
 	}
 	
-	
-	//"artificial" addition of vampires to debug
+	//"artificial" addition of explosive vampires to debug
 	public boolean addExplosiveVampireCommand(int col, int row) throws InvalidPositionException, NoMoreVampiresException{
 		boolean added = false;
 		if(Vampire.getVampsLeft() > 0) {
@@ -202,25 +189,36 @@ public class Game implements IPrintable {
 			throw new NoMoreVampiresException("[DEBUG] " + noVampsLeftMsg);
 		}
 		
-		setEvolve(false);
+		evolve = false;
 		
 		return added;
 	}
 	
-	//in charge of setting "evolve" to the value corresponding to the save command
-	public void saveCommand(){
-		setEvolve(false);
-	}
-	
-	
-	public void stringifyCommand(){ //TODO Change name?
-		System.out.println(stringify());
-		setEvolve(false);
-	}
 	
 	//removes references, in lists, to objects that are dead
 	public void removeDeadObj() {
 		board.removeDeadObj();
+	}
+	
+	
+	
+	//Comand execution methods:
+	
+	//in charge of setting "evolve" to the value corresponding to the save command
+	public void saveCommand(){
+		evolve = false;
+	}
+	
+	//to execute exit game
+	public void exitCommand() {
+		isFinished = true;
+		evolve = false;
+	}
+
+	
+	//in charge of setting "evolve" to the value corresponding to the stringify command
+	public void stringifyCommand(){
+		evolve = false;
 	}
 	
 	
@@ -230,25 +228,70 @@ public class Game implements IPrintable {
 		cycles = 0;
 		board.reset(level.getVampNumber());
 		DraculaOnBoard = false;
-		setEvolve(false);
+		evolve = false;
+	}
+	
+	//checks if player affords lightFlash, and if so, calls method in board in charge of it
+	public boolean lightFlashCommand(int cost) throws NotEnoughCoinsException {
+		boolean flash = false;
+		if (player.canAfford(cost)) {
+			board.receiveLightFlash();
+			removeDeadObj();
+			player.payCoins(cost);
+			flash = true;
+		}else 
+			throw new NotEnoughCoinsException("[DEBUG] Light Flash cost is " + cost + " " + player.toStringNotEnoughCoins());
+		
+		if(flash)
+			evolve = true;
+		else 
+			evolve = false;
+		
+		return flash;
 	}
 	
 	
-	//checks if slayers have killed all possible vampires, or vampires have reached end of board
-	//updates winnerMsg string corresponding to who has won, or "" if no one has won yet
-	public void checkEnd() {
-		if (board.checkEnd()) {
-			winnerMsg = "Player wins!";
-			isFinished = true;
-		} else if (board.vampsWin()) {
-			winnerMsg = "Vampires win!";
-			isFinished = true;
+	//checks if player affords garlicPush, and if so, calls method in board in charge of it
+	public boolean garlicPushCommand(int cost)  throws NotEnoughCoinsException {
+		boolean push = false;
+		if (player.canAfford(cost)) {
+			board.receiveGarlicPush();
+			player.payCoins(cost);
+			push = true;
+		} else {
+			throw new NotEnoughCoinsException("[DEBUG] Garlic Push cost is " + cost + " " + player.toStringNotEnoughCoins());
 		}
+		
+		if(push)
+			evolve = true;
+		else 
+			evolve = false;
+		
+		return push;
 	}
 	
 	
-	public void incrementCycles() {
-		cycles++;
+	//true if the element that is going to move to position newX, newY can move backwards due to garlicPush
+	public boolean garlicPushEffect(int newX, int newY) {
+		return board.isFree(newX, newY);
+	}
+
+	
+	//implements superCoins
+	public boolean superCoinsCommand(int coins) {
+		addCoinsToPlayer(coins);
+		evolve = false;
+		return true;
+	}
+	
+	//implements help command
+	public void helpCommand() {
+		evolve = false;
+		System.out.println(CommandGenerator.commandHelp());//TODO move
+	}
+	
+	public void updateCommand() {
+		evolve = true;
 	}
 	
 	
@@ -268,9 +311,9 @@ public class Game implements IPrintable {
 			throw new InvalidPositionException("[DEBUG] Position (" + x + ", " + y + "): " + invalidPositionMsg);
 		
 		if(added)
-			setEvolve(true);
+			evolve = true;
 		else 
-			setEvolve(false);
+			evolve = false;
 		
 		return added;
 	}
@@ -291,78 +334,43 @@ public class Game implements IPrintable {
 		}
 		
 		if(added)
-			setEvolve(true);
+			evolve = true;
 		else 
-			setEvolve(false);
+			evolve = false;
 		
 		return added;
 	}
 	
+
 	
-	//Other execution of commands
-	
-	//checks if player affords lightFlash, and if so, calls method in board in charge of it
-	public boolean lightFlashCommand(int cost) throws NotEnoughCoinsException {
-		boolean flash = false;
-		if (player.canAfford(cost)) {
-			board.receiveLightFlash();
-			removeDeadObj();
-			player.payCoins(cost);
-			flash = true;
-		}else 
-			throw new NotEnoughCoinsException("[DEBUG] Light Flash cost is " + cost + " " + player.toStringNotEnoughCoins());
-		
-		if(flash)
-			setEvolve(true);
-		else 
-			setEvolve(false);
-		
-		return flash;
-	}
-	
-	
-	//checks if player affords garlicPush, and if so, calls method in board in charge of it
-	public boolean garlicPushCommand(int cost)  throws NotEnoughCoinsException {
-		boolean push = false;
-		if (player.canAfford(cost)) {
-			board.receiveGarlicPush();
-			player.payCoins(cost);
-			push = true;
-		} else {
-			throw new NotEnoughCoinsException("[DEBUG] Garlic Push cost is " + cost + " " + player.toStringNotEnoughCoins());
-		}
-		
-		if(push)
-			setEvolve(true);
-		else 
-			setEvolve(false);
-		
-		return push;
-	}
-	
-	
-	//true if the element that is going to move to position newX, newY can move backwards due to garlicPush
-	public boolean garlicPushEffect(int newX, int newY) {
-		return board.isFree(newX, newY);
+	//returns IAttack object on (i, j) if there is one
+	public IAttack getAttackableInPos(int i, int j) {
+		return board.getAttackable(i, j);
 	}
 
 	
-	//implements superCoins
-	public boolean superCoinsCommand(int coins) {
-		addCoinsToPlayer(coins);
-		setEvolve(false);
-		return true;
+	public void incrementCycles() {
+		cycles++;
 	}
 	
-	//implements help command
-	public void helpCommand() {
-		setEvolve(false);
-		System.out.println(CommandGenerator.commandHelp());
+	//takes actions necessary if slayers have killed all possible vampires, or vampires have reached end of board
+	//updates winnerMsg string corresponding to who has won, or "" if no one has won yet, and updates isFinished boolean
+	public void checkEnd() {
+		if (board.playerWins()) {
+			winnerMsg = "Player wins!";
+			isFinished = true;
+		} else if (board.vampsWin()) {
+			winnerMsg = "Vampires win!";
+			isFinished = true;
+		}
 	}
 	
-	public void updateCommand() {
-		setEvolve(true); //TODO is incrementCycles necessary? in which case?
+
+	//true if game has come to an end
+	public boolean isFinished() {
+		return this.isFinished;
 	}
+	
 	
 	//true if vampire on (x, y) can move
 	public boolean vampCanMove(int x, int y) {
@@ -403,15 +411,10 @@ public class Game implements IPrintable {
 	public String getWinnerMessage() {
 		return winnerMsg;
 	}
-
-	public IAttack getAttackableInPos(int i, int j) {
-		return board.getAttackable(i, j);
-	}
 	
 	public int getBoardColumns() {
 		return board.getColumns();
 	}
-	
 	
 	@Override
 	public String getPositionToString(int x, int y) {
@@ -425,9 +428,4 @@ public class Game implements IPrintable {
 		DraculaOnBoard = false;
 	}
 
-	private void setEvolve(boolean a) {
-		evolve = a;
-	}
-
-	
 }

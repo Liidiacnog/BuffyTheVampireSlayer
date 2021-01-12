@@ -135,7 +135,7 @@ public class GameObjectBoard {
 	
 	
 	//true if the player has finished the game by eliminating all possible vampires
-	public boolean checkEnd() {
+	public boolean playerWins() {
 		return Vampire.getVampsLeft() == 0 && Vampire.getVampsOnBoard() == 0;
 	}
 

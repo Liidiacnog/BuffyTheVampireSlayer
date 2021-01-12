@@ -8,14 +8,14 @@ public class AddBloodBankCommand extends Command {
 	
 	private int x, y, cost;
 	
-	private static final String name = "bank";
-	private static final String shortcut = "b";
-	private static final String details = "[b]ank <x> <y> <z>";
-	private static final String help = "add a bloodbank in x, y with cost z";
+	private static final String AddBloodBankCommandName = "bank";
+	private static final String AddBloodBankCommandShortcut = "b";
+	private static final String AddBloodBankCommandDetails = "[b]ank <x> <y> <z>";
+	private static final String AddBloodBankCommandHelp = "add a bloodbank in x, y with cost z";
 
 	
 	public AddBloodBankCommand() {
-		super(name, shortcut, details, help);
+		super(AddBloodBankCommandName, AddBloodBankCommandShortcut, AddBloodBankCommandDetails, AddBloodBankCommandHelp);
 	}
 
 	
@@ -46,10 +46,10 @@ public class AddBloodBankCommand extends Command {
 			try {
 				command = new AddBloodBankCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]));
 			} catch (NumberFormatException nfe) {
-				throw new InvalidArgumentsException("[ERROR] Invalid arguments for add bloodbank, number expected: " + getDetails());
+				throw new InvalidArgumentsException("[ERROR] Invalid arguments for add bloodbank, number expected: " + details);
 			}
 		} else if (matchCommandName(commandWords[0])) {
-			throw new InvalidArgumentsException("[ERROR] Invalid arguments for add bloodbank, number expected: " + getDetails());
+			throw new InvalidArgumentsException("[ERROR] Invalid arguments for add bloodbank, number expected: " + details);
 		}
 		
 		return command;

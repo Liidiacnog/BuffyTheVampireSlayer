@@ -7,14 +7,14 @@ public class AddCommand extends Command {
 	
 	private int x, y;
 	
-	private static final String name = "add";
-	private static final String shortcut = "a";
-	private static final String details = "[a]dd <x> <y>";
-	private static final String help = "add a slayer in position x, y";
+	private static final String AddCommandName = "add";
+	private static final String AddCommandShortcut = "a";
+	private static final String AddCommandDetails = "[a]dd <x> <y>";
+	private static final String AddCommandHelp = "add a slayer in position x, y";
 
 	
 	public AddCommand() {
-		super(name, shortcut, details, help);
+		super(AddCommandName, AddCommandShortcut, AddCommandDetails, AddCommandHelp);
 	}
 	
 	public AddCommand(int xCoord, int yCoord) {
@@ -42,10 +42,10 @@ public class AddCommand extends Command {
 			try {
 				command = new AddCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]));
 			} catch (NumberFormatException nfe) {
-				throw new InvalidArgumentsException("[ERROR] Invalid arguments for add slayer, number expected: " + getDetails());
+				throw new InvalidArgumentsException("[ERROR] Invalid arguments for add slayer, number expected: " + details);
 			}
 		} else if (matchCommandName(commandWords[0])) {
-			throw new InvalidArgumentsException("[ERROR] Invalid arguments for add slayer, number expected: " + getDetails());
+			throw new InvalidArgumentsException("[ERROR] Invalid arguments for add slayer, number expected: " + details);
 		}
 		
 		return command;

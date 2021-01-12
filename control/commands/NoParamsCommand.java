@@ -19,7 +19,7 @@ public abstract class NoParamsCommand extends Command {
 		if(matchCommandName(input[0]) && input.length == 1)
 			obj = this;
 		else if (matchCommandName(input[0]) && input.length > 1)
-			throw new InvalidArgumentsException("[ERROR] Command " + getName() + ": Incorrect number of arguments");
+			throw new InvalidArgumentsException("[ERROR] Command " + name + ": Incorrect number of arguments");
 			
 		return obj;
 	}

@@ -55,10 +55,10 @@ public class GameElementsList {
 	}
 	
 	
-	
 	public void removeDeadObj() {
 		if(gameElements.size() > 0)
-			for(int i = gameElements.size() - 1; i >= 0; i--) {//We need to remove them starting from the end, to the beginning of the ArrayList
+			for(int i = gameElements.size() - 1; i >= 0; i--) {
+				//We need to remove them starting from the end, to the beginning of the ArrayList, to avoid index errors
 				if(gameElements.get(i).isDead()) 
 					gameElements.remove(gameElements.get(i));
 			}
@@ -77,6 +77,7 @@ public class GameElementsList {
 		return objective;
 	}
 	
+	
 	public void receiveGarlicPush() {
 		for (int i = 0; i < gameElements.size(); i++) {
 			gameElements.get(i).receiveGarlicPush();
@@ -89,6 +90,8 @@ public class GameElementsList {
 			gameElements.get(i).receiveLightFlash();
 	}
 
+	
+	//returns stringify data of each GameElement in a single String, by calling stringify() on each GameElement
 	public String stringify() {
 		String str = "";
 		for (int i = 0; i < gameElements.size(); i++)

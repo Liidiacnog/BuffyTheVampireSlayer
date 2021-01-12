@@ -11,7 +11,6 @@ public class Controller {
 	
 	private final String prompt = "Command > ";
 	private Command command = null;
-
     private Game game;
     private Scanner scanner;
     
@@ -32,7 +31,6 @@ public class Controller {
     		 if (refreshDisplay) printGame();
     		 refreshDisplay = false;
     		 
-    		 
     		 System.out.print(prompt);
 			 String s = scanner.nextLine();
 			 String[] parameters = s.toLowerCase().trim().split("\\s+");
@@ -50,11 +48,10 @@ public class Controller {
 				 System.out.println();
 			 }
 		}
-    	if (refreshDisplay) printGame();
+    	
+	    if (refreshDisplay) printGame();
 		System.out.println ("[Game over] " + game.getWinnerMessage());
-
     } 
 
-    
     
 }

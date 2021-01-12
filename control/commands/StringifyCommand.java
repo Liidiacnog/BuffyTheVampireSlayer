@@ -4,18 +4,19 @@ import logic.Game;
 
 public class StringifyCommand extends NoParamsCommand {
 
-	private static final String name = "stringify";
-	private static final String shortcut = "t";
-	private static final String details = "s[t]ringify";
-	private static final String help = "serialize the state of the game as a text stream";
+	private static final String StringifyCommandName = "stringify";
+	private static final String StringifyCommandShortcut = "t";
+	private static final String StringifyCommandDetails = "s[t]ringify";
+	private static final String StringifyCommandHelp = "serialize the state of the game as a text stream";
 
 	
 	public StringifyCommand() {
-		super(name, shortcut, details, help);
+		super(StringifyCommandName, StringifyCommandShortcut, StringifyCommandDetails, StringifyCommandHelp);
 	}
 
 	@Override
 	public boolean execute(Game game) {
+		System.out.println(game.stringify());
 		game.stringifyCommand();
 		return false;
 	}

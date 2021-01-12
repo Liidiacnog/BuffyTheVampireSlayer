@@ -24,13 +24,13 @@ public class AddVampireCommand extends Command{
 		private ArrayList<String> availableTypes = new ArrayList<>(Arrays.asList("D", "E"));
 				//Dracula, ExplosiveVampire, if no type is specified => normal Vampire
 		
-		private static final String name = "vampire";
-		private static final String shortcut = "v";
-		private static final String details = "[v]ampire [<type>] <x> <y>. Type = {\"\"|\"D\"|\"E\"}";
-		private static final String help = "add a vampire in position x, y";
+		private static final String AddVampireCommandName = "vampire";
+		private static final String AddVampireCommandShortcut = "v";
+		private static final String AddVampireCommandDetails = "[v]ampire [<type>] <x> <y>. Type = {\"\"|\"D\"|\"E\"}";
+		private static final String AddVampireCommandHelp = "add a vampire in position x, y";
 				
 		public AddVampireCommand() {
-			super(name, shortcut, details, help);
+			super(AddVampireCommandName, AddVampireCommandShortcut, AddVampireCommandDetails, AddVampireCommandHelp);
 		}
 		
 		public AddVampireCommand(int xCoord, int yCoord, String type) {
@@ -74,18 +74,18 @@ public class AddVampireCommand extends Command{
 						try {
 							command = new AddVampireCommand(Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]), commandWords[1]);
 						} catch (NumberFormatException nfe) {
-							throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + getDetails()); 
+							throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + details); 
 						}
 					else
-						throw new InvalidVampireTypeException("[ERROR] Invalid type: " + getDetails());
+						throw new InvalidVampireTypeException("[ERROR] Invalid type: " + details);
 				} else if (commandWords.length == 3) {
 					try {
 						command = new AddVampireCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), "");
 					} catch (NumberFormatException nfe) {
-						throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + getDetails());
+						throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + details);
 					}
 				} else 
-					throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + getDetails());
+					throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + details);
 			}
 			return command;
 		}

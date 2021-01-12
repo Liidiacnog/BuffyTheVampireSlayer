@@ -6,14 +6,14 @@ import logic.Game;
 public class SuperCoinsCommand extends NoParamsCommand{
 
 	private static final int SUPER_COINS = 1000;
-	private static final String name = "coins";
-	private static final String shortcut = "c";
-	private static final String details = "[c]oins";
-	private static final String help = "immediately gives the player 1000 coins";
+	private static final String SuperCoinsCommandName = "coins";
+	private static final String SuperCoinsCommandShortcut = "c";
+	private static final String SuperCoinsCommandDetails = "[c]oins";
+	private static final String SuperCoinsCommandHelp = "immediately gives the player 1000 coins";
 
 	
 	public SuperCoinsCommand() {
-		super(name, shortcut, details, help);
+		super(SuperCoinsCommandName, SuperCoinsCommandShortcut, SuperCoinsCommandDetails, SuperCoinsCommandHelp);
 	}
 
 	

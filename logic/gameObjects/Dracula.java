@@ -5,12 +5,12 @@ import logic.Game;
 
 public class Dracula extends Vampire {
 	
-	private static final String representation = "V-V"; 
+	private static final String DraculaRepresentation = "V-V"; 
 	private static final String DraculaStringifyRep = "D"; //has a different name so that it doesn't hide the superclass attribute
 	private static final int damage = Integer.MAX_VALUE; //Dracula always kills with one blow
 	
 	public Dracula(int x, int y, Game game) {
-		super(x, y, game, representation, Vampire.resistance, DraculaStringifyRep);
+		super(x, y, game, DraculaRepresentation, Vampire.resistance, DraculaStringifyRep);
 	}
 	
 	
@@ -24,7 +24,8 @@ public class Dracula extends Vampire {
 	}
 	
 	
-	//hides isDead() of Vampire because we need to change 'appeared' so that Dracula can appear again afterwards
+	//overwrites isDead() of Vampire because we need to change 'appeared' so that Dracula can appear again afterwards
+	@Override
 	public boolean isDead() {
 		boolean dead = false;
 		if (life <= 0) {

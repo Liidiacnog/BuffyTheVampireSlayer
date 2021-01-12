@@ -6,7 +6,7 @@ import logic.Game;
 
 public abstract class Command {
 
-	  private final String name, shortcut, details, help;
+	  protected final String name, shortcut, details, help;
 
 	  
 	  public Command(String name,  String shortcut, String details, String help){    
@@ -23,14 +23,6 @@ public abstract class Command {
 	  
 	  protected boolean matchCommandName(String name) {
 		    return shortcut.equalsIgnoreCase(name) || this.name.equalsIgnoreCase(name);
-	  }
-	  
-	  protected String getName() {
-		  return name;
-	  }
-	  
-	  protected String getDetails() {
-		  return details;
 	  }
 	  
 	  public String helpText(){

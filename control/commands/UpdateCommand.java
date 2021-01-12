@@ -5,14 +5,14 @@ import logic.Game;
 public class UpdateCommand extends NoParamsCommand{
 
 	
-	private static final String name = "none";
-	private static final String shortcut = "n";
-	private static final String details = "[n]one  | []";
-	private static final String help = "update";
+	private static final String UpdateCommandName = "none";
+	private static final String UpdateCommandShortcut = "n";
+	private static final String UpdateCommandDetails = "[n]one  | []";
+	private static final String UpdateCommandHelp = "update";
 
 	
 	public UpdateCommand() {
-		super(name, shortcut, details, help);
+		super(UpdateCommandName, UpdateCommandShortcut, UpdateCommandDetails, UpdateCommandHelp);
 	}
 
 	

@@ -5,8 +5,8 @@ import logic.Game;
 public class Vampire extends GameElement{
 
 	protected static final int resistance = 5, frequency = 1, damage = 1; //protected because subclasses use them
-	private static final String representation = "VˆV"; 
-	private static final String stringifyRep = "V";
+	private static final String VampireRepresentation = "VˆV"; 
+	private static final String VampireStringifyRep = "V";
 	private boolean movedBefore; //to check whether it is its turn to move or not(they move each 2 cycles)
 	private static boolean reachEnd = false;
 	protected boolean stunned = false;
@@ -16,7 +16,7 @@ public class Vampire extends GameElement{
 	
 	//constructor 
 	public Vampire (int x, int y, Game game) {  
-		super(x, y, game, representation, resistance, stringifyRep);
+		super(x, y, game, VampireRepresentation, resistance, VampireStringifyRep);
 		movedBefore = true;
 		vampsOnBoard++; //new vampire is added to the board on x, y
 		vampsLeft--; //one less vampire can be added to the board
@@ -65,9 +65,10 @@ public class Vampire extends GameElement{
 		int newX = col + 1, newY = row;
 		if(newX == game.getBoardColumns()) //if is eliminated from board
 			life = 0;
-		else if (game.garlicPushEffect(newX, newY)) //if newX, newY is empty
+		else if (game.garlicPushEffect(newX, newY)) { //if newX, newY is empty
 			col = newX;
-		resetVampMovedBefore();
+			resetVampMovedBefore();
+		}//if the tile to its right is not empty, garlic push doesn't affect it
 	}
 
 	
@@ -90,8 +91,8 @@ public class Vampire extends GameElement{
 			if (!movedBefore && !stunned) {
 				col -= 1;
 				if(col == -1) 
-					Vampire.setReachEnd(true);
-			} else if (movedBefore && stunned)
+					reachEnd = true;
+			} else if (movedBefore && stunned)//movedBefore is set to false when it is stunned, so a cycle needs to have gone by before "unstunning him"
 				stunned = false;
 		}
 		movedBefore = !movedBefore;
@@ -142,15 +143,8 @@ public class Vampire extends GameElement{
 		return vampsOnBoard;
 	}
 	
-	public int getLife() {
-		return life;
-	}
-	
 	public static boolean getReachEnd() {
 		return reachEnd;
 	}
 	
-	public static void setReachEnd(boolean b) {
-		reachEnd = b;
-	}
 }
