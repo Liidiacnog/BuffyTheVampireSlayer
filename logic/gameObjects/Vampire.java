@@ -87,17 +87,18 @@ public class Vampire extends GameElement{
 	//moves if it's its turn to do so and there is no one on the tile where it would be going
 	public void move() {
 		if(!stunned) {
-			if (!movedBefore && game.vampCanMove(col, row)) {
-				col -= 1;
-				if(col == -1) 
-					reachEnd = true;
-			}else //vampires move only once every 2 cycles, so if they can't move when they were supposed to, they "lose" that chance
-				movedBefore = !movedBefore;
+			if (!movedBefore) {
+				if(game.vampCanMove(col, row)) {
+					col -= 1;
+					if(col == -1) 
+						reachEnd = true;
+				}
+			}
+			movedBefore = !movedBefore;
 		}else { //stunned == true currently, so in the next turn it has to move again
 			stunned = false;
 			movedBefore = false;
 		}
-		
 	}
 	
 	
