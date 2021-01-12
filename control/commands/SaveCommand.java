@@ -11,14 +11,14 @@ import logic.Game;
 public class SaveCommand extends Command {
 	
 	private String fileName;
-	private static final String ResetCommandName = "save";
-	private static final String ResetCommandShortcut = "s";
-	private static final String ResetCommandDetails = "[s]ave <filename> .";
-	private static final String ResetCommandHelp = " Save the state of the game to a file";
+	private static final String SaveCommandName = "save";
+	private static final String SaveCommandShortcut = "s";
+	private static final String SaveCommandDetails = "[s]ave <filename> .";
+	private static final String SaveCommandHelp = " Save the state of the game to a file";
 
 	
 	public SaveCommand() {
-		super(ResetCommandName, ResetCommandShortcut, ResetCommandDetails, ResetCommandHelp);
+		super(SaveCommandName, SaveCommandShortcut, SaveCommandDetails, SaveCommandHelp);
 	}
 
 	public SaveCommand(String str) {
