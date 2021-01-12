@@ -343,7 +343,7 @@ public class Game implements IPrintable {
 	
 
 	
-	//returns IAttack object on (i, j) if there is one
+	//returns IAttack object on (i, j) if there is one (and it is alive)
 	public IAttack getAttackableInPos(int i, int j) {
 		return board.getAttackable(i, j);
 	}

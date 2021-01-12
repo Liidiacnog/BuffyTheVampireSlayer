@@ -23,9 +23,9 @@ public abstract class GameElement implements IAttack, IMove{
 		return representation + "[" + life + "]";
 	} 
 	
-	//returns true if the gameElement has coordinates (x, y)
+	//returns true if the gameElement has coordinates (x, y), and is alive
 	public boolean isHere(int x, int y) {
-		return col == x && row == y;
+		return col == x && row == y && life > 0;
 	}
 	
 	public boolean isDead() {
