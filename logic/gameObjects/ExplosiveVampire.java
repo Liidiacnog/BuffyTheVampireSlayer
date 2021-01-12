@@ -53,7 +53,7 @@ public class ExplosiveVampire extends Vampire{
 		}
 		else if (game.garlicPushEffect(newX, newY)) { //if newX, newY is empty
 			col = newX;
-			resetVampMovedBefore();
+			stun();
 		}//if the tile to its right is not empty, garlic push doesn't affect it
 	}
 	

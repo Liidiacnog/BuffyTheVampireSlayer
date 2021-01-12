@@ -33,7 +33,7 @@ public class Vampire extends GameElement{
 	//overwrites stringify on GameElement to include cyclesToMove
 	public String stringify() {
 		int cyclesToMove = 0;
-		if (movedBefore) cyclesToMove = 1;
+		if (stunned || movedBefore) cyclesToMove = 1;
 		return super.stringify() + ";" + cyclesToMove;
 	}
 
@@ -67,7 +67,7 @@ public class Vampire extends GameElement{
 			life = 0;
 		else if (game.garlicPushEffect(newX, newY)) { //if newX, newY is empty
 			col = newX;
-			resetVampMovedBefore();
+			stun();
 		}//if the tile to its right is not empty, garlic push doesn't affect it
 	}
 
@@ -79,23 +79,25 @@ public class Vampire extends GameElement{
 
 	
 	//used to implement the garlicPush, by stunning vampires that should be stunned
-	public void resetVampMovedBefore() {
+	public void stun() {
 		stunned = true;
-		movedBefore = false;
 	}
 	
 	
 	//moves if it's its turn to do so and there is no one on the tile where it would be going
 	public void move() {
-		if (game.vampCanMove(col, row)) {
-			if (!movedBefore && !stunned) {
+		if(!stunned) {
+			if (!movedBefore && game.vampCanMove(col, row)) {
 				col -= 1;
 				if(col == -1) 
 					reachEnd = true;
-			} else if (movedBefore && stunned)//movedBefore is set to false when it is stunned, so a cycle needs to have gone by before "unstunning him"
-				stunned = false;
+			}else //vampires move only once every 2 cycles, so if they can't move when they were supposed to, they "lose" that chance
+				movedBefore = !movedBefore;
+		}else { //stunned == true currently, so in the next turn it has to move again
+			stunned = false;
+			movedBefore = false;
 		}
-		movedBefore = !movedBefore;
+		
 	}
 	
 	
