@@ -13,7 +13,7 @@ public class SaveCommand extends Command {
 	private String fileName;
 	private static final String SaveCommandName = "save";
 	private static final String SaveCommandShortcut = "s";
-	private static final String SaveCommandDetails = "[s]ave <filename> .";
+	private static final String SaveCommandDetails = "[s]ave <filename>";
 	private static final String SaveCommandHelp = " Save the state of the game to a file";
 
 	
