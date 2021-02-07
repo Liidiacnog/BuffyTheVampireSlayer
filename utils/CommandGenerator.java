@@ -27,21 +27,15 @@ public class CommandGenerator {
 		public static Command parseCommand (String[] input) throws CommandParseException {
 			Command obj = null;
 			int i = 0; 
-			try{
-				while(i < availableCommands.length && availableCommands[i].parse(input) == null) {
-					++i; 
-				}
-				
-				if (i != availableCommands.length)
-					obj = availableCommands[i].parse(input);
-				else
-					throw new CommandParseException("[ERROR] Unknown command");
+			while(i < availableCommands.length && availableCommands[i].parse(input) == null)
+				++i; 
 			
 				
-			}catch(InvalidArgumentsException | InvalidVampireTypeException ex) {
-					throw new CommandParseException(ex.getMessage()); 
-			}
-									
+			if (i != availableCommands.length)
+				obj = availableCommands[i].parse(input);
+			else
+				throw new CommandParseException("[ERROR] Unknown command");
+					
 			return obj;
 		}
 		

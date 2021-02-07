@@ -30,22 +30,22 @@ public class AddCommand extends Command {
 			if(game.addSlayerCommand(x, y)) 
 				exec = true;
 		}catch (InvalidPositionException | NotEnoughCoinsException lowLevel){
-			throw new CommandExecuteException("[ERROR] Failed to add slayer", lowLevel);
+			throw new CommandExecuteException("Failed to add slayer", lowLevel);
 		}
 		return exec;
 	}
 
 	@Override
-	public Command parse(String[] commandWords)  throws InvalidArgumentsException {
+	public Command parse(String[] commandWords)  throws CommandParseException {
 		AddCommand command = null;
 		if (matchCommandName(commandWords[0]) && commandWords.length == 3) {
 			try {
 				command = new AddCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]));
 			} catch (NumberFormatException nfe) {
-				throw new InvalidArgumentsException("[ERROR] Invalid arguments for add slayer, number expected: " + details);
+				throw new InvalidArgumentsException("Invalid arguments for add slayer, number expected: " + details);
 			}
 		} else if (matchCommandName(commandWords[0])) {
-			throw new InvalidArgumentsException("[ERROR] Invalid arguments for add slayer, number expected: " + details);
+			throw new InvalidArgumentsException("Invalid arguments for add slayer, number expected: " + details);
 		}
 		
 		return command;

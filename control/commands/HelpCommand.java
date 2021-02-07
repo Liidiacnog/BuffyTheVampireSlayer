@@ -1,6 +1,7 @@
 package control.commands;
 
 import logic.Game;
+import utils.CommandGenerator;
 
 public class HelpCommand extends NoParamsCommand {
 
@@ -18,6 +19,7 @@ public class HelpCommand extends NoParamsCommand {
 	@Override
 	public boolean execute(Game game) {
 		game.helpCommand();
+		System.out.println(CommandGenerator.commandHelp());
 		return false; 
 	}
 

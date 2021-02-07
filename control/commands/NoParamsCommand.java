@@ -14,12 +14,12 @@ public abstract class NoParamsCommand extends Command {
 		super(name, shortcut, details, help);
 	}
 
-	public Command parse(String[] input) throws InvalidArgumentsException {
+	public Command parse(String[] input) throws CommandParseException {
 		Command obj = null;
 		if(matchCommandName(input[0]) && input.length == 1)
 			obj = this;
 		else if (matchCommandName(input[0]) && input.length > 1)
-			throw new InvalidArgumentsException("[ERROR] Command " + name + ": Incorrect number of arguments");
+			throw new InvalidArgumentsException("Command " + name + ": Incorrect number of arguments");
 			
 		return obj;
 	}

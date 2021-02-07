@@ -2,7 +2,7 @@ package logic.gameObjects;
 
 import logic.Game;
 
-public abstract class GameElement implements IAttack, IMove{
+public class GameElement implements IAttack, IMove{
 
 	protected int col, row; //position coordinates on the board
 	protected int life;

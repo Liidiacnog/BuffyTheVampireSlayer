@@ -27,7 +27,7 @@ public class GarlicPushCommand extends NoParamsCommand {
 			if(game.garlicPushCommand(cost))
 				exec = true;
 		}catch (NotEnoughCoinsException lowLevel){
-			throw new CommandExecuteException("[ERROR] Failed to release garlic push", lowLevel);
+			throw new CommandExecuteException("Failed to release garlic push", lowLevel);
 		}
 		return exec;
 	}

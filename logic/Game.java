@@ -1,7 +1,6 @@
 package logic;
 
 import logic.gameObjects.*;
-import utils.CommandGenerator;
 import java.util.Random;
 import exceptions.*;
 import view.*;
@@ -124,7 +123,7 @@ public class Game implements IPrintable {
 			added = board.addDracula(col, row, this);	
 		}
 		else if (DraculaOnBoard) {
-			throw new DraculaHasArisenException("[DEBUG] " + draculaAlreadyMsg);   
+			throw new DraculaHasArisenException(" " + draculaAlreadyMsg);   
 		}
 		return added;
 	}
@@ -147,9 +146,9 @@ public class Game implements IPrintable {
 		if(Vampire.getVampsLeft() > 0) {
 			added = board.addVampire(col, row, this);
 			if(!added) 
-				throw new InvalidPositionException("[DEBUG] Position (" + col + ", " + row + "): " + invalidPositionMsg);
+				throw new InvalidPositionException(" Position (" + col + ", " + row + "): " + invalidPositionMsg);
 		}else {
-			throw new NoMoreVampiresException("[DEBUG] " + noVampsLeftMsg);
+			throw new NoMoreVampiresException(" " + noVampsLeftMsg);
 		}
 		
 		evolve = false;
@@ -163,14 +162,14 @@ public class Game implements IPrintable {
 		if(!DraculaOnBoard && Vampire.getVampsLeft() > 0) {
 			added = board.addDracula(col, row, this);	
 			if(!added) 
-				throw new InvalidPositionException("[DEBUG] Position (" + col + ", " + row + "): " + invalidPositionMsg);
+				throw new InvalidPositionException(" Position (" + col + ", " + row + "): " + invalidPositionMsg);
 			else
 				DraculaOnBoard = true;
 		}else if (!(Vampire.getVampsLeft() > 0)){
-			throw new NoMoreVampiresException("[DEBUG] " + noVampsLeftMsg);
+			throw new NoMoreVampiresException(noVampsLeftMsg);
 		}
 		else { //Dracula.getAppearedBefore() == true
-			throw new DraculaHasArisenException( "[DEBUG] " + draculaAlreadyMsg);
+			throw new DraculaHasArisenException(draculaAlreadyMsg);
 		}
 		
 		evolve = false;
@@ -184,9 +183,9 @@ public class Game implements IPrintable {
 		if(Vampire.getVampsLeft() > 0) {
 			added = board.addExplosiveVampire(col, row, this);	
 			if(!added)
-				throw new InvalidPositionException("[DEBUG] Position (" + col + ", " + row + "): " + invalidPositionMsg);
+				throw new InvalidPositionException("Position (" + col + ", " + row + "): " + invalidPositionMsg);
 		}else {
-			throw new NoMoreVampiresException("[DEBUG] " + noVampsLeftMsg);
+			throw new NoMoreVampiresException(noVampsLeftMsg);
 		}
 		
 		evolve = false;
@@ -240,7 +239,7 @@ public class Game implements IPrintable {
 			player.payCoins(cost);
 			flash = true;
 		}else 
-			throw new NotEnoughCoinsException("[DEBUG] Light Flash cost is " + cost + " " + player.toStringNotEnoughCoins());
+			throw new NotEnoughCoinsException("Light Flash cost is " + cost + " " + player.toStringNotEnoughCoins());
 		
 		if(flash)
 			evolve = true;
@@ -259,7 +258,7 @@ public class Game implements IPrintable {
 			player.payCoins(cost);
 			push = true;
 		} else {
-			throw new NotEnoughCoinsException("[DEBUG] Garlic Push cost is " + cost + " " + player.toStringNotEnoughCoins());
+			throw new NotEnoughCoinsException("Garlic Push cost is " + cost + " " + player.toStringNotEnoughCoins());
 		}
 		
 		if(push)
@@ -287,7 +286,6 @@ public class Game implements IPrintable {
 	//implements help command
 	public void helpCommand() {
 		evolve = false;
-		System.out.println(CommandGenerator.commandHelp());//TODO move
 	}
 	
 	public void updateCommand() {
@@ -306,9 +304,9 @@ public class Game implements IPrintable {
 				player.payCoins(cost);
 				added = true;
 			} else //if cannot afford
-				throw new NotEnoughCoinsException("[DEBUG] Slayer cost is " + cost + ". " + player.toStringNotEnoughCoins());
+				throw new NotEnoughCoinsException("Slayer cost is " + cost + ". " + player.toStringNotEnoughCoins());
 		}else
-			throw new InvalidPositionException("[DEBUG] Position (" + x + ", " + y + "): " + invalidPositionMsg);
+			throw new InvalidPositionException("Position (" + x + ", " + y + "): " + invalidPositionMsg);
 		
 		if(added)
 			evolve = true;
@@ -327,10 +325,10 @@ public class Game implements IPrintable {
 				player.payCoins(cost);
 				added = true;
 			} else //cannot afford
-				throw new NotEnoughCoinsException("[DEBUG] Bloodbank cost is " + cost + ". " + player.toStringNotEnoughCoins());
+				throw new NotEnoughCoinsException("Bloodbank cost is " + cost + ". " + player.toStringNotEnoughCoins());
 		}
 		else {
-			throw new InvalidPositionException("[DEBUG] Position (" + x + ", " + y + "): " + invalidPositionMsg);
+			throw new InvalidPositionException("Position (" + x + ", " + y + "): " + invalidPositionMsg);
 		}
 		
 		if(added)

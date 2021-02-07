@@ -1,6 +1,6 @@
 package exceptions;
 
-public class InvalidArgumentsException extends Exception {
+public class InvalidArgumentsException extends CommandParseException {
 
 	public InvalidArgumentsException() {
 		super();

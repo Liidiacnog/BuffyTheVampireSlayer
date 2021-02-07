@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import exceptions.CommandExecuteException;
+import exceptions.CommandParseException;
 import exceptions.InvalidArgumentsException;
 import logic.Game;
 
@@ -34,7 +35,7 @@ public class SaveCommand extends Command {
 			outChar.newLine();			
 			outChar.write(game.stringify());
 		}catch (IOException ioe) {
-			throw new CommandExecuteException("[ERROR] Not possible to open file", ioe);
+			throw new CommandExecuteException("IOException caught ", ioe); //TODO correct?
 		}
 		game.saveCommand();
 		System.out.println("Game succesfully saved in file " + fileName + ".dat");
@@ -42,13 +43,13 @@ public class SaveCommand extends Command {
 	}
 
 	@Override
-	public Command parse(String[] commandWords) throws InvalidArgumentsException{
+	public Command parse(String[] commandWords) throws CommandParseException{
 		SaveCommand command = null;
 		if (matchCommandName(commandWords[0])) {
 			if (commandWords.length == 2) {
 				command = new SaveCommand(commandWords[1]);
 			} else {
-				throw new InvalidArgumentsException("[ERROR] Invalid arguments for saving game, number expected: " + details);
+				throw new InvalidArgumentsException("Invalid arguments for saving game, number expected: " + details);
 			}
 		}
 		return command;

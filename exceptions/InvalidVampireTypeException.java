@@ -1,6 +1,6 @@
 package exceptions;
 
-public class InvalidVampireTypeException extends Exception {
+public class InvalidVampireTypeException extends CommandParseException {
 
 	public InvalidVampireTypeException() {
 		super();

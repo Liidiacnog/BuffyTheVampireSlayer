@@ -58,7 +58,7 @@ public class AddVampireCommand extends Command{
 						exec = true;
 				}
 			}catch (InvalidPositionException | NoMoreVampiresException | DraculaHasArisenException lowLevel){ //wrapping of low-level exceptions
-				throw new CommandExecuteException("[ERROR] Failed to add vampire", lowLevel); 
+				throw new CommandExecuteException("Failed to add vampire", lowLevel); 
 			}
 			
 			return exec;
@@ -66,7 +66,7 @@ public class AddVampireCommand extends Command{
 
 		
 		@Override
-		public Command parse(String[] commandWords) throws InvalidArgumentsException, InvalidVampireTypeException  {
+		public Command parse(String[] commandWords) throws CommandParseException {
 			AddVampireCommand command = null;
 			if (matchCommandName(commandWords[0])) {
 				if (commandWords.length == 4) {
@@ -74,18 +74,18 @@ public class AddVampireCommand extends Command{
 						try {
 							command = new AddVampireCommand(Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]), commandWords[1]);
 						} catch (NumberFormatException nfe) {
-							throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + details); 
+							throw new InvalidArgumentsException("Invalid arguments for add vampire, number expected: " + details); 
 						}
 					else
-						throw new InvalidVampireTypeException("[ERROR] Invalid type: " + details);
+						throw new InvalidVampireTypeException("Invalid type: " + details);
 				} else if (commandWords.length == 3) {
 					try {
 						command = new AddVampireCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), "");
 					} catch (NumberFormatException nfe) {
-						throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + details);
+						throw new InvalidArgumentsException("Invalid arguments for add vampire, number expected: " + details);
 					}
 				} else 
-					throw new InvalidArgumentsException("[ERROR] Invalid arguments for add vampire, number expected: " + details);
+					throw new InvalidArgumentsException("Invalid arguments for add vampire, number expected: " + details);
 			}
 			return command;
 		}

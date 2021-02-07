@@ -26,7 +26,7 @@ public class LightFlashCommand extends NoParamsCommand{
 			if(game.lightFlashCommand(cost))
 				exec = true;
 		}catch (NotEnoughCoinsException lowLevel){
-			throw new CommandExecuteException("[ERROR] Failed to release light flash", lowLevel);
+			throw new CommandExecuteException("Failed to release light flash", lowLevel);
 		}
 		return exec;
 	}

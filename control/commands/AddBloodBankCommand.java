@@ -33,23 +33,23 @@ public class AddBloodBankCommand extends Command {
 			if(game.addBloodBankCommand(x, y, cost)) 
 				exec = true;
 		}catch (InvalidPositionException | NotEnoughCoinsException lowLevel){
-			throw new CommandExecuteException("[ERROR] Failed to add BloodBank", lowLevel);
+			throw new CommandExecuteException("Failed to add BloodBank", lowLevel);
 		}
 		return exec;
 	}
 
 
 	@Override
-	public Command parse(String[] commandWords) throws InvalidArgumentsException {
+	public Command parse(String[] commandWords) throws CommandParseException {
 		AddBloodBankCommand command = null;
 		if (matchCommandName(commandWords[0]) && commandWords.length == 4) {
 			try {
 				command = new AddBloodBankCommand(Integer.parseInt(commandWords[1]), Integer.parseInt(commandWords[2]), Integer.parseInt(commandWords[3]));
 			} catch (NumberFormatException nfe) {
-				throw new InvalidArgumentsException("[ERROR] Invalid arguments for add bloodbank, number expected: " + details);
+				throw new InvalidArgumentsException("Invalid arguments for add bloodbank, number expected: " + details);
 			}
 		} else if (matchCommandName(commandWords[0])) {
-			throw new InvalidArgumentsException("[ERROR] Invalid arguments for add bloodbank, number expected: " + details);
+			throw new InvalidArgumentsException("Invalid arguments for add bloodbank, number expected: " + details);
 		}
 		
 		return command;
